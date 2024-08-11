@@ -4,9 +4,15 @@ use super::state_data_e::StateDataE;
 use super::typestate::Typestate;
 
 #[derive(Debug, Default, PartialEq)]
-pub struct StateDataC {}
+pub struct StateDataC {
+  value: usize,
+}
 
 impl StateDataC {
+  pub fn some_mutator_method_unique_to_state_c(&mut self) {
+    self.value *= 2;
+  }
+
   pub fn transit(
     self,
     event: &Event,
