@@ -1,6 +1,8 @@
 #[derive(Debug)]
 pub enum Event {
-  Event0,
-  Event1,
-  Event2,
+  EventToA,
+  EventToB,
+  EventToC,
+  EventToD,
+  EventToE,
 }

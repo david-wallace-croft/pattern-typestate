@@ -1,7 +1,7 @@
 use super::event::Event;
 use super::type_state::TypeState;
 
-#[derive(Debug, PartialEq)]
+#[derive(Debug, Default, PartialEq)]
 pub struct StateDataE {}
 
 impl StateDataE {

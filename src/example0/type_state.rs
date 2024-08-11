@@ -7,11 +7,11 @@ use super::state_data_e::StateDataE;
 
 #[derive(Debug, PartialEq)]
 pub enum TypeState {
-  StateA(StateDataA),
-  StateB(StateDataB),
-  StateC(StateDataC),
-  StateD(StateDataD),
-  StateE(StateDataE),
+  StateA(StateDataA), // example: uninitialized state
+  StateB(StateDataB), // example: initialized state
+  StateC(StateDataC), // example: running state
+  StateD(StateDataD), // example: suspended state
+  StateE(StateDataE), // example: destroyed state
 }
 
 impl TypeState {
