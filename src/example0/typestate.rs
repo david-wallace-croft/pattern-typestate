@@ -6,7 +6,7 @@ use super::state_data_d::StateDataD;
 use super::state_data_e::StateDataE;
 
 #[derive(Debug, PartialEq)]
-pub enum TypeState {
+pub enum Typestate {
   StateA(StateDataA), // example: uninitialized state
   StateB(StateDataB), // example: initialized state
   StateC(StateDataC), // example: running state
@@ -14,23 +14,23 @@ pub enum TypeState {
   StateE(StateDataE), // example: destroyed state
 }
 
-impl TypeState {
+impl Typestate {
   pub fn transit(
     self,
     event: &Event,
   ) -> Self {
     match self {
-      TypeState::StateA(state_data) => state_data.transit(event),
-      TypeState::StateB(state_data) => state_data.transit(event),
-      TypeState::StateC(state_data) => state_data.transit(event),
-      TypeState::StateD(state_data) => state_data.transit(event),
-      TypeState::StateE(state_data) => state_data.transit(event),
+      Typestate::StateA(state_data) => state_data.transit(event),
+      Typestate::StateB(state_data) => state_data.transit(event),
+      Typestate::StateC(state_data) => state_data.transit(event),
+      Typestate::StateD(state_data) => state_data.transit(event),
+      Typestate::StateE(state_data) => state_data.transit(event),
     }
   }
 }
 
-impl Default for TypeState {
+impl Default for Typestate {
   fn default() -> Self {
-    TypeState::StateA(StateDataA {})
+    Typestate::StateA(StateDataA {})
   }
 }

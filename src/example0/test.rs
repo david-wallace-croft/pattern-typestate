@@ -4,71 +4,71 @@ use super::state_data_b::StateDataB;
 use super::state_data_c::StateDataC;
 use super::state_data_d::StateDataD;
 use super::state_data_e::StateDataE;
-use super::type_state::TypeState;
+use super::typestate::Typestate;
 
 #[test]
 pub fn test0() {
   let input_output_pairs: Vec<(
     Event,
-    TypeState,
+    Typestate,
   )> = vec![
     (
       EventToC,
       // Cannot go from A to C
-      TypeState::StateA(StateDataA::default()),
+      Typestate::StateA(StateDataA::default()),
     ),
     (
       EventToB,
       // Can go from A to B
-      TypeState::StateB(StateDataB::default()),
+      Typestate::StateB(StateDataB::default()),
     ),
     (
       EventToA,
       // Cannot go from B to A
-      TypeState::StateB(StateDataB::default()),
+      Typestate::StateB(StateDataB::default()),
     ),
     (
       EventToB,
       // Can go from B to B
-      TypeState::StateB(StateDataB::default()),
+      Typestate::StateB(StateDataB::default()),
     ),
     (
       EventToC,
       // Can go from B to C
-      TypeState::StateC(StateDataC::default()),
+      Typestate::StateC(StateDataC::default()),
     ),
     (
       EventToD,
       // Can go from C to D
-      TypeState::StateD(StateDataD::default()),
+      Typestate::StateD(StateDataD::default()),
     ),
     (
       EventToC,
       // Can go from D to C
-      TypeState::StateC(StateDataC::default()),
+      Typestate::StateC(StateDataC::default()),
     ),
     (
       EventToE,
       // Can go from C to E
-      TypeState::StateE(StateDataE::default()),
+      Typestate::StateE(StateDataE::default()),
     ),
     (
       EventToC,
       // Cannot go from E to C
-      TypeState::StateE(StateDataE::default()),
+      Typestate::StateE(StateDataE::default()),
     ),
     (
       EventToD,
       // Cannot go from E to D
-      TypeState::StateE(StateDataE::default()),
+      Typestate::StateE(StateDataE::default()),
     ),
   ];
 
-  let mut type_state = TypeState::default();
+  let mut type_state = Typestate::default();
 
   assert_eq!(
     type_state,
-    TypeState::StateA(StateDataA {})
+    Typestate::StateA(StateDataA {})
   );
 
   for (event, expected_type_state) in input_output_pairs {
