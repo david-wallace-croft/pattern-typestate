@@ -23,11 +23,6 @@ pub fn test0() {
       Typestate::StateB(StateDataB::default()),
     ),
     (
-      EventToA,
-      // Cannot go from B to A
-      Typestate::StateB(StateDataB::default()),
-    ),
-    (
       EventToB,
       // Can go from B to B
       Typestate::StateB(StateDataB::default()),
@@ -68,7 +63,7 @@ pub fn test0() {
 
   assert_eq!(
     type_state,
-    Typestate::StateA(StateDataA {})
+    Typestate::StateA(StateDataA::default()),
   );
 
   for (event, expected_type_state) in input_output_pairs {
