@@ -8,7 +8,7 @@ pub struct StateDataB {
 }
 
 impl StateDataB {
-  pub fn some_function_unique_to_state_b(&mut self) {
+  pub fn some_method_unique_to_state_b(&mut self) {
     self.count += 1;
   }
 

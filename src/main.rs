@@ -11,7 +11,7 @@ fn main() {
   // original_type_state.transit(&Event0);
 
   if let TypeState::StateB(mut state_data_b) = new_type_state {
-    state_data_b.some_function_unique_to_state_b();
+    state_data_b.some_method_unique_to_state_b();
   }
 
   // new_type_state.transit(&Event0);
