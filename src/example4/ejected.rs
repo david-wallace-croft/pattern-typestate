@@ -1,20 +1,25 @@
 use super::request::Request;
+use super::state_operator::StateOperator;
+use super::state_trait::StateTrait;
 use super::typestate::Typestate;
-use crate::example4::state_trait::StateTrait;
 
 #[derive(Debug, PartialEq)]
 pub struct EjectedState {
   position: usize,
 }
 
-impl EjectedState {
-  pub fn get_position(&self) -> usize {
+impl StateTrait for EjectedState {
+  fn get_position(&self) -> usize {
     self.position
   }
+}
 
+impl StateOperator<EjectedState> {
   pub fn new(position: usize) -> Self {
-    Self {
-      position,
+    StateOperator {
+      state: EjectedState {
+        position,
+      },
     }
   }
 
@@ -23,11 +28,5 @@ impl EjectedState {
     _request: &Request,
   ) -> Typestate {
     Typestate::Ejected(self)
-  }
-}
-
-impl StateTrait for EjectedState {
-  fn get_position(&self) -> usize {
-    self.position
   }
 }

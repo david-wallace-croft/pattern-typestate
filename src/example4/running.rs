@@ -1,17 +1,26 @@
 use super::request::Request;
+use super::state_operator::StateOperator;
+use super::state_trait::StateTrait;
 use super::stopped::StoppedState;
 use super::typestate::Typestate;
-use crate::example4::state_trait::StateTrait;
 
 #[derive(Debug, PartialEq)]
 pub struct RunningState {
   position: usize,
 }
 
-impl RunningState {
+impl StateTrait for RunningState {
+  fn get_position(&self) -> usize {
+    self.position
+  }
+}
+
+impl StateOperator<RunningState> {
   pub fn new(position: usize) -> Self {
-    Self {
-      position,
+    StateOperator {
+      state: RunningState {
+        position,
+      },
     }
   }
 
@@ -19,13 +28,20 @@ impl RunningState {
     &mut self,
     delta: isize,
   ) {
-    self.position = self
+    self
+      .state
+      .position = self
+      .state
       .position
       .saturating_add_signed(delta);
   }
 
-  pub fn stop(self) -> StoppedState {
-    StoppedState::new(self.position)
+  pub fn stop(self) -> StateOperator<StoppedState> {
+    StateOperator::<StoppedState>::new(
+      self
+        .state
+        .position,
+    )
   }
 
   pub fn transit(
@@ -43,11 +59,5 @@ impl RunningState {
       },
       Request::Stop => Typestate::Stopped(self.stop()),
     }
-  }
-}
-
-impl StateTrait for RunningState {
-  fn get_position(&self) -> usize {
-    self.position
   }
 }
