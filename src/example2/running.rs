@@ -1,13 +1,13 @@
 use super::request::Request;
-use super::stopped::StoppedData;
+use super::stopped::StoppedState;
 use super::typestate::Typestate;
 
 #[derive(Debug, PartialEq)]
-pub struct RunningData {
+pub struct RunningState {
   position: usize,
 }
 
-impl RunningData {
+impl RunningState {
   pub fn get_position(&self) -> usize {
     self.position
   }
@@ -27,8 +27,8 @@ impl RunningData {
       .saturating_add_signed(delta);
   }
 
-  pub fn stop(self) -> StoppedData {
-    StoppedData::new(self.position)
+  pub fn stop(self) -> StoppedState {
+    StoppedState::new(self.position)
   }
 
   pub fn transit(

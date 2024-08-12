@@ -1,20 +1,20 @@
-use super::ejected::EjectedData;
+use super::ejected::EjectedState;
 use super::request::Request;
-use super::running::RunningData;
+use super::running::RunningState;
 use super::typestate::Typestate;
 
 #[derive(Debug, PartialEq)]
-pub struct StoppedData {
+pub struct StoppedState {
   pub position: usize,
 }
 
-impl StoppedData {
+impl StoppedState {
   pub fn get_position(&self) -> usize {
     self.position
   }
 
-  pub fn eject(self) -> EjectedData {
-    EjectedData::new(self.position)
+  pub fn eject(self) -> EjectedState {
+    EjectedState::new(self.position)
   }
 
   pub fn new(position: usize) -> Self {
@@ -27,8 +27,8 @@ impl StoppedData {
     self.position = 0;
   }
 
-  pub fn run(self) -> RunningData {
-    RunningData::new(self.position)
+  pub fn run(self) -> RunningState {
+    RunningState::new(self.position)
   }
 
   pub fn transit(

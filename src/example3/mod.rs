@@ -11,9 +11,6 @@ pub fn example3() {
   //   d: Some(4),
   // };
 
-  // Will not compile; no default() function
-  // let widget = Widget::default();
-
   // Will not compile; no build() function until all required inputs provided
   // let widget: Widget = Widget::builder().build();
 

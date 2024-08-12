@@ -2,11 +2,11 @@ use super::request::Request;
 use super::typestate::Typestate;
 
 #[derive(Debug, PartialEq)]
-pub struct EjectedData {
+pub struct EjectedState {
   position: usize,
 }
 
-impl EjectedData {
+impl EjectedState {
   pub fn get_position(&self) -> usize {
     self.position
   }

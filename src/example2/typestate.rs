@@ -1,13 +1,13 @@
-use super::ejected::EjectedData;
+use super::ejected::EjectedState;
 use super::request::Request;
-use super::running::RunningData;
-use super::stopped::StoppedData;
+use super::running::RunningState;
+use super::stopped::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub enum Typestate {
-  Ejected(EjectedData),
-  Running(RunningData),
-  Stopped(StoppedData),
+  Ejected(EjectedState),
+  Running(RunningState),
+  Stopped(StoppedState),
 }
 
 impl Typestate {
@@ -16,15 +16,15 @@ impl Typestate {
     event: &Request,
   ) -> Self {
     match self {
-      Typestate::Ejected(state_data) => state_data.transit(event),
-      Typestate::Running(state_data) => state_data.transit(event),
-      Typestate::Stopped(state_data) => state_data.transit(event),
+      Typestate::Ejected(ejected_state) => ejected_state.transit(event),
+      Typestate::Running(running_state) => running_state.transit(event),
+      Typestate::Stopped(stopped_state) => stopped_state.transit(event),
     }
   }
 }
 
 impl Default for Typestate {
   fn default() -> Self {
-    Typestate::Stopped(StoppedData::new(0))
+    Typestate::Stopped(StoppedState::new(0))
   }
 }

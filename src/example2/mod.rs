@@ -1,6 +1,6 @@
-use self::ejected::EjectedData;
-use self::running::RunningData;
-use self::stopped::StoppedData;
+use self::ejected::EjectedState;
+use self::running::RunningState;
+use self::stopped::StoppedState;
 
 pub mod ejected;
 pub mod request;
@@ -12,14 +12,14 @@ pub mod typestate;
 mod test;
 
 pub fn example2() {
-  let stopped = StoppedData::new(0);
+  let stopped = StoppedState::new(0);
 
   let position: usize = stopped.get_position();
 
   assert_eq!(position, 0);
 
   // method takes ownership of self
-  let mut running: RunningData = stopped.run();
+  let mut running: RunningState = stopped.run();
 
   // Will not compile; value used after being moved
   // let mut running: RunningData = stopped.run();
@@ -36,7 +36,7 @@ pub fn example2() {
 
   assert_eq!(position, 1);
 
-  let mut stopped: StoppedData = running.stop();
+  let mut stopped: StoppedState = running.stop();
 
   let position: usize = stopped.get_position();
 
@@ -48,12 +48,12 @@ pub fn example2() {
 
   assert_eq!(position, 0);
 
-  let running: RunningData = stopped.run();
+  let running: RunningState = stopped.run();
 
   // Will not compile; method not found
   // let ejected = running.eject();
 
-  let stopped: StoppedData = running.stop();
+  let stopped: StoppedState = running.stop();
 
-  let _ejected: EjectedData = stopped.eject();
+  let _ejected: EjectedState = stopped.eject();
 }
