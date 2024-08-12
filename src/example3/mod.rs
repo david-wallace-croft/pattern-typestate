@@ -57,4 +57,7 @@ pub fn example3() {
 
   // Will not compile; value used after being moved
   // let widget_builder_b = widget_builder_a.a(1);
+
+  // TODO: Example where the value chosen for an early argument restricts which
+  //   arguments can be provided later, i.e., multiple build paths
 }
