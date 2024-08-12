@@ -2,56 +2,56 @@
 mod test;
 
 #[derive(Debug, PartialEq)]
-pub struct Widget {
+pub struct Product {
   a: usize,
   b: usize,
   c: Option<usize>,
   d: Option<usize>,
 }
 
-impl Widget {
-  pub fn builder() -> WidgetBuilderA {
-    WidgetBuilderA
+impl Product {
+  pub fn builder() -> StrictBuilderA {
+    StrictBuilderA
   }
 }
 
-pub struct WidgetBuilderA;
+pub struct StrictBuilderA;
 
-impl WidgetBuilderA {
+impl StrictBuilderA {
   pub fn a(
     self,
     a: usize,
-  ) -> WidgetBuilderB {
-    WidgetBuilderB {
+  ) -> StrictBuilderB {
+    StrictBuilderB {
       a,
     }
   }
 }
 
-pub struct WidgetBuilderB {
+pub struct StrictBuilderB {
   a: usize,
 }
 
-impl WidgetBuilderB {
+impl StrictBuilderB {
   pub fn b(
     self,
     b: usize,
-  ) -> WidgetBuilderC {
-    WidgetBuilderC {
+  ) -> StrictBuilderC {
+    StrictBuilderC {
       a: self.a,
       b,
     }
   }
 }
 
-pub struct WidgetBuilderC {
+pub struct StrictBuilderC {
   a: usize,
   b: usize,
 }
 
-impl WidgetBuilderC {
-  pub fn build(self) -> Widget {
-    Widget {
+impl StrictBuilderC {
+  pub fn build(self) -> Product {
+    Product {
       a: self.a,
       b: self.b,
       c: None,
@@ -62,8 +62,8 @@ impl WidgetBuilderC {
   pub fn c(
     self,
     c: usize,
-  ) -> WidgetBuilderD {
-    WidgetBuilderD {
+  ) -> StrictBuilderD {
+    StrictBuilderD {
       a: self.a,
       b: self.b,
       c: Some(c),
@@ -73,8 +73,8 @@ impl WidgetBuilderC {
   pub fn d(
     self,
     d: usize,
-  ) -> Widget {
-    Widget {
+  ) -> Product {
+    Product {
       a: self.a,
       b: self.b,
       c: None,
@@ -83,15 +83,15 @@ impl WidgetBuilderC {
   }
 }
 
-pub struct WidgetBuilderD {
+pub struct StrictBuilderD {
   a: usize,
   b: usize,
   c: Option<usize>,
 }
 
-impl WidgetBuilderD {
-  pub fn build(self) -> Widget {
-    Widget {
+impl StrictBuilderD {
+  pub fn build(self) -> Product {
+    Product {
       a: self.a,
       b: self.b,
       c: self.c,
@@ -102,8 +102,8 @@ impl WidgetBuilderD {
   pub fn d(
     self,
     d: usize,
-  ) -> Widget {
-    Widget {
+  ) -> Product {
+    Product {
       a: self.a,
       b: self.b,
       c: self.c,

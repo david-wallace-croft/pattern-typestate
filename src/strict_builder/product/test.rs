@@ -2,14 +2,14 @@ use super::*;
 
 #[test]
 pub fn test0() {
-  let expected = Widget {
+  let expected = Product {
     a: 1,
     b: 2,
     c: Some(3),
     d: Some(4),
   };
 
-  let actual: Widget = Widget::builder()
+  let actual: Product = Product::builder()
     .a(1)
     .b(2)
     .c(3)

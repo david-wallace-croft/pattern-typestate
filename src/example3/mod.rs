@@ -1,63 +1,62 @@
-use crate::example3::widget::{Widget, WidgetBuilderA, WidgetBuilderB};
+use self::ejected::EjectedState;
+use self::running::RunningState;
+use self::state_operator::StateOperator;
+use self::stopped::StoppedState;
 
-pub mod widget;
+pub mod ejected;
+pub mod request;
+pub mod running;
+pub mod state_operator;
+pub mod state_trait;
+pub mod stopped;
+pub mod typestate;
+
+#[cfg(test)]
+mod test;
 
 pub fn example3() {
-  // Will not compile; the fields are private
-  // let widget = Widget {
-  //   a: 1,
-  //   b: 2,
-  //   c: Some(3),
-  //   d: Some(4),
-  // };
+  let stopped = StateOperator::<StoppedState>::new(0);
 
-  // Will not compile; no build() function until all required inputs provided
-  // let widget: Widget = Widget::builder().build();
+  let position: usize = stopped.get_position();
 
-  // Will not compile; no build() function until all required inputs provided
-  // let widget: Widget = Widget::builder()
-  //   .a(1)
-  //   .build();
+  assert_eq!(position, 0);
 
-  // Will not compile; cannot set the values out of order
-  // let _widget: Widget = Widget::builder()
-  //   .b(2)
-  //   .a(1)
-  //   .build();
-
-  let _widget: Widget = Widget::builder()
-    .a(1)
-    .b(2)
-    .build();
-
-  let _widget: Widget = Widget::builder()
-    .a(1)
-    .b(2)
-    .c(3)
-    .build();
-
-  // No need to call build() for the last one
-  // TODO: Example where you do have to call build for the last one because
-  //   a method can be called more than once.
-  let _widget: Widget = Widget::builder()
-    .a(1)
-    .b(2)
-    .c(3)
-    .d(4);
-
-  // Optional fields can be skipped
-  let _widget: Widget = Widget::builder()
-    .a(1)
-    .b(2)
-    .d(4);
-
-  let widget_builder_a: WidgetBuilderA = Widget::builder();
-
-  let _widget_builder_b: WidgetBuilderB = widget_builder_a.a(1);
+  // method takes ownership of self
+  let mut running: StateOperator<RunningState> = stopped.run();
 
   // Will not compile; value used after being moved
-  // let widget_builder_b = widget_builder_a.a(1);
+  // let mut running: StateOperator<RunningState> = stopped.run();
 
-  // TODO: Example where the value chosen for an early argument restricts which
-  //   arguments can be provided later, i.e., multiple build paths
+  // Will not compile; value used after being moved
+  // let position: usize = stopped.get_position();
+
+  // Will not compile; no method found
+  // let _ = running.run();
+
+  running.skip(1);
+
+  let position: usize = running.get_position();
+
+  assert_eq!(position, 1);
+
+  let mut stopped: StateOperator<StoppedState> = running.stop();
+
+  let position: usize = stopped.get_position();
+
+  assert_eq!(position, 1);
+
+  stopped.reset();
+
+  let position: usize = stopped.get_position();
+
+  assert_eq!(position, 0);
+
+  let running: StateOperator<RunningState> = stopped.run();
+
+  // Will not compile; method not found
+  // let ejected = running.eject();
+
+  let stopped: StateOperator<StoppedState> = running.stop();
+
+  let _ejected: StateOperator<EjectedState> = stopped.eject();
 }
