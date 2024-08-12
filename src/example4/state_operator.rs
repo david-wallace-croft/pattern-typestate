@@ -5,8 +5,8 @@ pub struct StateOperator<S: StateTrait> {
   pub state: S,
 }
 
-impl<S: StateTrait> StateTrait for StateOperator<S> {
-  fn get_position(&self) -> usize {
+impl<S: StateTrait> StateOperator<S> {
+  pub fn get_position(&self) -> usize {
     self
       .state
       .get_position()

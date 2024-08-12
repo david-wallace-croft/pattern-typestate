@@ -1,7 +1,6 @@
 use self::ejected::EjectedState;
 use self::running::RunningState;
 use self::state_operator::StateOperator;
-use self::state_trait::StateTrait;
 use self::stopped::StoppedState;
 
 pub mod ejected;
