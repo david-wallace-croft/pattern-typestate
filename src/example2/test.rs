@@ -33,8 +33,8 @@ pub fn test0() {
 
   assert_eq!(type_state, Typestate::Stopped(StoppedState::new(0)));
 
-  for (event, expected_type_state) in input_output_pairs {
-    type_state = type_state.transit(&event);
+  for (request, expected_type_state) in input_output_pairs {
+    type_state = type_state.transit(&request);
 
     assert_eq!(type_state, expected_type_state);
   }

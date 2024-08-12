@@ -13,12 +13,12 @@ pub enum Typestate {
 impl Typestate {
   pub fn transit(
     self,
-    event: &Request,
+    request: &Request,
   ) -> Self {
     match self {
-      Typestate::Ejected(ejected_state) => ejected_state.transit(event),
-      Typestate::Running(running_state) => running_state.transit(event),
-      Typestate::Stopped(stopped_state) => stopped_state.transit(event),
+      Typestate::Ejected(ejected_state) => ejected_state.transit(request),
+      Typestate::Running(running_state) => running_state.transit(request),
+      Typestate::Stopped(stopped_state) => stopped_state.transit(request),
     }
   }
 }
