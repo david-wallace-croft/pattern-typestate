@@ -25,7 +25,7 @@ pub fn example4() {
   let mut running: StateOperator<RunningState> = stopped.run();
 
   // Will not compile; value used after being moved
-  // let mut running: RunningData = stopped.run();
+  // let mut running: StateOperator<RunningState> = stopped.run();
 
   // Will not compile; value used after being moved
   // let position: usize = stopped.get_position();
