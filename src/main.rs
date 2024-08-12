@@ -1,4 +1,4 @@
-use pattern_typestate::{example0, example1, example2};
+use pattern_typestate::{example0, example1, example2, example3};
 
 fn main() {
   example0::example0();
@@ -6,4 +6,6 @@ fn main() {
   example1::example1();
 
   example2::example2();
+
+  example3::example3();
 }
