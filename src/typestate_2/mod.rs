@@ -11,7 +11,7 @@ pub mod typestate;
 #[cfg(test)]
 mod test;
 
-pub fn example2() {
+pub fn example() {
   let stopped = StoppedState::new(0);
 
   let position: usize = stopped.get_position();
