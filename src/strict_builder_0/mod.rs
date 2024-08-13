@@ -1,8 +1,10 @@
-use crate::strict_builder::product::{Product, StrictBuilderA, StrictBuilderB};
+use crate::strict_builder_0::product::{
+  Product, StrictBuilderA, StrictBuilderB,
+};
 
 pub mod product;
 
-pub fn example_strict_builder() {
+pub fn strict_builder_0() {
   // Will not compile; the fields are private
   // let product = Product {
   //   a: 1,
