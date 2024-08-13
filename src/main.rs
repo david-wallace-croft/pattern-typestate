@@ -1,11 +1,11 @@
 use pattern_typestate::{
-  example1, example2, example3, strict_builder_0, typestate_0,
+  example2, example3, strict_builder_0, typestate_0, typestate_1,
 };
 
 fn main() {
   typestate_0::example();
 
-  example1::example1();
+  typestate_1::example();
 
   example2::example2();
 
