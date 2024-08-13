@@ -1,5 +1,6 @@
 use pattern_typestate::{
   strict_builder_0, typestate_0, typestate_1, typestate_2, typestate_3,
+  typestate_4,
 };
 
 fn main() {
@@ -12,4 +13,6 @@ fn main() {
   typestate_2::example();
 
   typestate_3::example();
+
+  typestate_4::example();
 }
