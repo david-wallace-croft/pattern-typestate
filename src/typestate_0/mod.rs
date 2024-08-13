@@ -12,7 +12,7 @@ pub mod typestate;
 #[cfg(test)]
 mod test;
 
-pub fn example0() {
+pub fn example() {
   let typestate_0 = Typestate::default();
 
   // The transit() method takes ownership of self

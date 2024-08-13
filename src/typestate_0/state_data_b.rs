@@ -1,6 +1,6 @@
 use super::event::Event;
 use super::typestate::Typestate;
-use crate::example0::state_data_c::StateDataC;
+use crate::typestate_0::state_data_c::StateDataC;
 
 #[derive(Debug, Default, PartialEq)]
 pub struct StateDataB {
