@@ -4,7 +4,7 @@ use crate::strict_builder_0::product::{
 
 pub mod product;
 
-pub fn strict_builder_0() {
+pub fn example() {
   // Will not compile; the fields are private
   // let product = Product {
   //   a: 1,
