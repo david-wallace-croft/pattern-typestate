@@ -22,6 +22,7 @@ pub enum Spell {
   Sleep,
 }
 
+// TODO: Change this to HeavyWeapon
 #[derive(Debug, PartialEq)]
 pub enum WarriorWeapon {
   Dagger,
@@ -31,6 +32,9 @@ pub enum WarriorWeapon {
   Staff,
 }
 
+// TODO: Maybe add cleric to show restriction to blunt weapons
+
+// TODO: Change this to LightWeapon
 #[derive(Debug, PartialEq)]
 pub enum WizardWeapon {
   Dagger,
