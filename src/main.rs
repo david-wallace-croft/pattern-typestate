@@ -1,10 +1,12 @@
 use pattern_typestate::{
-  strict_builder_0, typestate_0, typestate_1, typestate_2, typestate_3,
-  typestate_4,
+  strict_builder_0, strict_builder_1, typestate_0, typestate_1, typestate_2,
+  typestate_3, typestate_4,
 };
 
 fn main() {
   strict_builder_0::example();
+
+  strict_builder_1::example();
 
   typestate_0::example();
 
