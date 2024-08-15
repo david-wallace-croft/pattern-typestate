@@ -27,9 +27,9 @@ pub fn example() {
   // Does not compile; the character class must be chosen first
   //
   // let _player_character: PlayerCharacter = PlayerCharacter::builder()
-  //   .weapon(WarriorWeapon::LongSword)
-  //   .warrior()
-  //   .armor(Armor::Chainmail);
+  //   .weapon(Weapon::LongSword)
+  //   .wizard()
+  //   .spell(Spell::Invisibility);
 
   // Does not compile; warriors are not restricted to the wizard weapon subset
   //
