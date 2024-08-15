@@ -48,25 +48,41 @@ pub struct PlayerCharacter {
 }
 
 impl PlayerCharacter {
-  fn new(character_class: CharacterClass) -> Self {
+  fn private_default() -> Self {
     Self {
       armor: Armor::None,
-      character_class,
+      character_class: CharacterClass::None,
       spell: Spell::None,
       warrior_weapon: WarriorWeapon::None,
       wizard_weapon: WizardWeapon::None,
     }
   }
 
+  // TODO: clippy
+  // TODO: Show how initial weapon choice can constrain later choices
+  // pub fn builder() -> StrictBuilderPlayerCharacter {
+  //   StrictBuilderPlayerCharacter {
+  //     player_character: PlayerCharacter::private_default(),
+  //   }
+  // }
+
   pub fn warrior_builder() -> StrictBuilderArmor {
+    let mut player_character = PlayerCharacter::private_default();
+
+    player_character.character_class = CharacterClass::Warrior;
+
     StrictBuilderArmor {
-      player_character: PlayerCharacter::new(CharacterClass::Warrior),
+      player_character,
     }
   }
 
   pub fn wizard_builder() -> StrictBuilderSpell {
+    let mut player_character = PlayerCharacter::private_default();
+
+    player_character.character_class = CharacterClass::Wizard;
+
     StrictBuilderSpell {
-      player_character: PlayerCharacter::new(CharacterClass::Wizard),
+      player_character,
     }
   }
 }
