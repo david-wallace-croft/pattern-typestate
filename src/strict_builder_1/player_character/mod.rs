@@ -66,6 +66,8 @@ impl PlayerCharacter {
   //   }
   // }
 
+  // TODO: make a builder() which returns StrictBuilderPlayerCharacter
+
   pub fn warrior_builder() -> StrictBuilderArmor {
     let mut player_character = PlayerCharacter::private_default();
 
