@@ -1,37 +1,52 @@
 use crate::strict_builder_1::player_character::{
-  Armor, PlayerCharacter, Spell, WarriorWeapon, WizardWeapon,
+  Armor, PlayerCharacter, Spell, Weapon, WizardWeapon,
 };
 
 pub mod player_character;
 
-// TODO: clippy
-
 pub fn example() {
-  let _player_character: PlayerCharacter = PlayerCharacter::warrior_builder()
-    .armor(Armor::Chainmail)
-    .warrior_weapon(WarriorWeapon::LongSword);
+  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+    .warrior()
+    .weapon(Weapon::LongSword)
+    .armor(Armor::Chainmail);
 
-  let _player_character: PlayerCharacter = PlayerCharacter::wizard_builder()
-    .spell(Spell::Invisibility)
-    .wizard_weapon(WizardWeapon::Staff);
+  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+    .wizard()
+    .weapon(WizardWeapon::Staff)
+    .spell(Spell::Invisibility);
 
-  // Will not compile; warriors cannot use spells
-  // let _player_character: PlayerCharacter = PlayerCharacter::warrior_builder()
-  //   .spell(Spell::Invisibility)
-  //   .warrior_weapon(WarriorWeapon::LongSword);
+  // Does not compile; the character class must be chosen first
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  //   .weapon(WarriorWeapon::LongSword)
+  //   .warrior()
+  //   .armor(Armor::Chainmail);
 
-  // Will not compile; warriors are not restricted to the wizard weapon subset
-  // let _player_character: PlayerCharacter = PlayerCharacter::warrior_builder()
-  //   .armor(Armor::Chainmail)
-  //   .wizard_weapon(WizardWeapon::Staff);
+  // Does not compile; warriors are not restricted to the wizard weapon subset
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  //   .warrior()
+  //   .weapon(WizardWeapon::Staff)
+  //   .armor(Armor::Chainmail);
 
-  // Will not compile; wizards cannot wear armor
-  // let _player_character: PlayerCharacter = PlayerCharacter::wizard_builder()
-  //   .armor(Armor::Chainmail)
-  //   .wizard_weapon(WizardWeapon::Staff);
+  // Does not compile; wizards are restricted to the wizard weapon subset
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  //   .wizard()
+  //   .weapon(Weapon::LongSword)
+  //   .spell(Spell::Invisibility);
 
-  // Will not compile; wizards cannot use warrior weapons
-  // let _player_character: PlayerCharacter = PlayerCharacter::wizard_builder()
-  //   .spell(Spell::Invisibility)
-  //   .warrior_weapon(WarriorWeapon::LongSword);
+  // Does not compile; warriors cannot cast a spell
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  //   .warrior()
+  //   .weapon(Weapon::LongSword)
+  //   .spell(Spell::Invisibility);
+
+  // Does not compile; wizards cannot wear armor
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  //   .wizard()
+  //   .weapon(WizardWeapon::Staff)
+  //   .armor(Armor::Chainmail);
 }

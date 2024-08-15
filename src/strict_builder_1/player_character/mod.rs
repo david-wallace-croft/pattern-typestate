@@ -22,19 +22,6 @@ pub enum Spell {
   Sleep,
 }
 
-// TODO: Change this to HeavyWeapon
-#[derive(Debug, PartialEq)]
-pub enum WarriorWeapon {
-  Dagger,
-  Mace,
-  None,
-  LongSword,
-  Staff,
-}
-
-// TODO: Maybe add cleric to show restriction to blunt weapons
-
-// TODO: Change this to LightWeapon
 #[derive(Debug, PartialEq)]
 pub enum WizardWeapon {
   Dagger,
@@ -43,52 +30,76 @@ pub enum WizardWeapon {
 }
 
 #[derive(Debug, PartialEq)]
+pub enum Weapon {
+  Dagger,
+  Mace,
+  None,
+  LongSword,
+  Staff,
+}
+
+#[derive(Debug, PartialEq)]
 pub struct PlayerCharacter {
   armor: Armor,
   character_class: CharacterClass,
   spell: Spell,
-  warrior_weapon: WarriorWeapon,
-  wizard_weapon: WizardWeapon,
+  weapon: Weapon,
 }
 
 impl PlayerCharacter {
-  fn private_default() -> Self {
-    Self {
-      armor: Armor::None,
-      character_class: CharacterClass::None,
-      spell: Spell::None,
-      warrior_weapon: WarriorWeapon::None,
-      wizard_weapon: WizardWeapon::None,
+  pub fn builder() -> StrictBuilderPlayerCharacter {
+    StrictBuilderPlayerCharacter {
+      player_character: PlayerCharacter {
+        armor: Armor::None,
+        character_class: CharacterClass::None,
+        spell: Spell::None,
+        weapon: Weapon::None,
+      },
+    }
+  }
+}
+
+pub struct StrictBuilderPlayerCharacter {
+  player_character: PlayerCharacter,
+}
+
+impl StrictBuilderPlayerCharacter {
+  pub fn warrior(mut self) -> StrictBuilderWarriorWeapon {
+    self
+      .player_character
+      .character_class = CharacterClass::Warrior;
+
+    StrictBuilderWarriorWeapon {
+      player_character,
     }
   }
 
-  // TODO: clippy
-  // TODO: Show how initial weapon choice can constrain later choices
-  // pub fn builder() -> StrictBuilderPlayerCharacter {
-  //   StrictBuilderPlayerCharacter {
-  //     player_character: PlayerCharacter::private_default(),
-  //   }
-  // }
+  pub fn wizard(mut self) -> StrictBuilderWizardWeapon {
+    self
+      .player_character
+      .character_class = CharacterClass::Wizard;
 
-  // TODO: make a builder() which returns StrictBuilderPlayerCharacter
+    StrictBuilderWizardWeapon {
+      player_character,
+    }
+  }
+}
 
-  pub fn warrior_builder() -> StrictBuilderArmor {
-    let mut player_character = PlayerCharacter::private_default();
+pub struct StrictBuilderWarriorWeapon {
+  player_character: PlayerCharacter,
+}
 
-    player_character.character_class = CharacterClass::Warrior;
+impl StrictBuilderWarriorWeapon {
+  pub fn weapon(
+    mut self,
+    weapon: Weapon,
+  ) -> StrictBuilderArmor {
+    self
+      .player_character
+      .weapon = weapon;
 
     StrictBuilderArmor {
-      player_character,
-    }
-  }
-
-  pub fn wizard_builder() -> StrictBuilderSpell {
-    let mut player_character = PlayerCharacter::private_default();
-
-    player_character.character_class = CharacterClass::Wizard;
-
-    StrictBuilderSpell {
-      player_character,
+      player_character: self.player_character,
     }
   }
 }
@@ -101,31 +112,37 @@ impl StrictBuilderArmor {
   pub fn armor(
     mut self,
     armor: Armor,
-  ) -> StrictBuilderWarriorWeapon {
+  ) -> PlayerCharacter {
     self
       .player_character
       .armor = armor;
 
-    StrictBuilderWarriorWeapon {
-      player_character: self.player_character,
-    }
+    self.player_character
   }
 }
 
-pub struct StrictBuilderWarriorWeapon {
+pub struct StrictBuilderWizardWeapon {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderWarriorWeapon {
-  pub fn warrior_weapon(
+impl StrictBuilderWizardWeapon {
+  pub fn weapon(
     mut self,
-    warrior_weapon: WarriorWeapon,
-  ) -> PlayerCharacter {
+    wizard_weapon: WizardWeapon,
+  ) -> StrictBuilderSpell {
+    let weapon: Weapon = match wizard_weapon {
+      WizardWeapon::Dagger => Weapon::Dagger,
+      WizardWeapon::None => Weapon::None,
+      WizardWeapon::Staff => Weapon::Staff,
+    };
+
     self
       .player_character
-      .warrior_weapon = warrior_weapon;
+      .weapon = weapon;
 
-    self.player_character
+    StrictBuilderSpell {
+      player_character: self.player_character,
+    }
   }
 }
 
@@ -137,29 +154,10 @@ impl StrictBuilderSpell {
   pub fn spell(
     mut self,
     spell: Spell,
-  ) -> StrictBuilderWizardWeapon {
-    self
-      .player_character
-      .spell = spell;
-
-    StrictBuilderWizardWeapon {
-      player_character: self.player_character,
-    }
-  }
-}
-
-pub struct StrictBuilderWizardWeapon {
-  player_character: PlayerCharacter,
-}
-
-impl StrictBuilderWizardWeapon {
-  pub fn wizard_weapon(
-    mut self,
-    wizard_weapon: WizardWeapon,
   ) -> PlayerCharacter {
     self
       .player_character
-      .wizard_weapon = wizard_weapon;
+      .spell = spell;
 
     self.player_character
   }
