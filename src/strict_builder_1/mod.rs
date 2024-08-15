@@ -15,6 +15,15 @@ pub fn example() {
     .weapon(WizardWeapon::Staff)
     .spell(Spell::Invisibility);
 
+  // Does not compile; cannot use a structure literal because fields are private
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter {
+  //   armor: Armor::Chainmail,
+  //   character_class: CharacterClass::Wizard,
+  //   spell: Spell::None,
+  //   weapon: Weapon::LongSword,
+  // };
+
   // Does not compile; the character class must be chosen first
   //
   // let _player_character: PlayerCharacter = PlayerCharacter::builder()
