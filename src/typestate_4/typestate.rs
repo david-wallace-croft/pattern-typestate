@@ -13,7 +13,7 @@ pub enum Typestate {
 
 impl Default for Typestate {
   fn default() -> Self {
-    Typestate::Stopped(StateOperator::<StoppedState>::new())
+    Typestate::Stopped(StateOperator::<StoppedState>::default())
   }
 }
 

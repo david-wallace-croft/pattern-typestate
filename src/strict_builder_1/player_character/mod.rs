@@ -70,7 +70,7 @@ impl StrictBuilderPlayerCharacter {
       .character_class = CharacterClass::Warrior;
 
     StrictBuilderWarriorWeapon {
-      player_character,
+      player_character: self.player_character,
     }
   }
 
@@ -80,7 +80,7 @@ impl StrictBuilderPlayerCharacter {
       .character_class = CharacterClass::Wizard;
 
     StrictBuilderWizardWeapon {
-      player_character,
+      player_character: self.player_character,
     }
   }
 }

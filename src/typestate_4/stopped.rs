@@ -18,19 +18,13 @@ impl StateOperator<StoppedState> {
     StateOperator::<EjectedState>::new()
   }
 
-  pub fn new() -> Self {
-    StateOperator {
-      state: PhantomData,
-    }
-  }
-
   fn reset(
     &self,
     data: &mut Data,
   ) -> StateOperator<StoppedState> {
     data.position = 0;
 
-    StateOperator::<StoppedState>::new()
+    StateOperator::<StoppedState>::default()
   }
 
   fn run(&self) -> StateOperator<RunningState> {
@@ -47,8 +41,16 @@ impl StateOperator<StoppedState> {
       Request::Reset => Typestate::Stopped(self.reset(data)),
       Request::Run => Typestate::Running(self.run()),
       Request::Skip(_) | Request::Stop => {
-        Typestate::Stopped(StateOperator::<StoppedState>::new())
+        Typestate::Stopped(StateOperator::<StoppedState>::default())
       },
+    }
+  }
+}
+
+impl Default for StateOperator<StoppedState> {
+  fn default() -> Self {
+    StateOperator {
+      state: PhantomData,
     }
   }
 }

@@ -33,8 +33,7 @@ impl Machine {
       .typestate_option
       .take();
 
-    let typestate_old: Typestate =
-      typestate_option.unwrap_or(Typestate::default());
+    let typestate_old: Typestate = typestate_option.unwrap_or_default();
 
     let typestate_new = match typestate_old {
       Typestate::Ejected(state_operator) => state_operator.transit(request),

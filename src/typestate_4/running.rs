@@ -32,7 +32,7 @@ impl StateOperator<RunningState> {
   }
 
   fn stop(&self) -> StateOperator<StoppedState> {
-    StateOperator::<StoppedState>::new()
+    StateOperator::<StoppedState>::default()
   }
 
   pub fn transit(
