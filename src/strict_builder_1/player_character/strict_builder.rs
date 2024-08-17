@@ -81,11 +81,6 @@ impl StrictBuilderArmor {
     StrictBuilderHealth::new(self.player_character)
   }
 
-  /// Use the character class-specific default values for the remaining fields
-  pub fn build(self) -> PlayerCharacter {
-    StrictBuilderHealth::new(self.player_character).build()
-  }
-
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -150,10 +145,10 @@ pub struct StrictBuilderHealth {
 
 impl StrictBuilderHealth {
   /// Use the character class-specific default values for the remaining fields
-  pub fn build(self) -> PlayerCharacter {
+  pub fn default(self) -> PlayerCharacter {
     self
       .health_default()
-      .build()
+      .default()
   }
 
   // The static constructor is only accessible to this module
@@ -193,10 +188,10 @@ pub struct StrictBuilderWealth {
 
 impl StrictBuilderWealth {
   /// Use the character class-specific default values for the remaining fields
-  pub fn build(self) -> PlayerCharacter {
+  pub fn default(self) -> PlayerCharacter {
     self
       .wealth_default()
-      .build()
+      .default()
   }
 
   // The static constructor is only accessible to this module
@@ -236,7 +231,7 @@ pub struct StrictBuilderWisdom {
 
 impl StrictBuilderWisdom {
   /// Use the character class-specific default values for the remaining fields
-  pub fn build(self) -> PlayerCharacter {
+  pub fn default(self) -> PlayerCharacter {
     self.wisdom_default()
   }
 
