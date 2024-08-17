@@ -44,6 +44,8 @@ pub fn example() {
     .armor(Armor::Chainmail)
     .default();
 
+  // TODO: update examples for new fields
+
   // ===========================================================================
   // Does not compile; cannot use a structure literal because fields are private
   //
