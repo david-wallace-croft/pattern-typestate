@@ -12,11 +12,11 @@ const DEFAULT_WEALTH_WIZARD: f64 = 12.;
 const DEFAULT_WISDOM_WARRIOR: usize = 11;
 const DEFAULT_WISDOM_WIZARD: usize = 15;
 
-pub struct StrictBuilderPlayerCharacter {
+pub struct FluentConstructorPlayerCharacter {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderPlayerCharacter {
+impl FluentConstructorPlayerCharacter {
   // The static constructor is only accessible to the super-module
   pub(super) fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -24,28 +24,28 @@ impl StrictBuilderPlayerCharacter {
     }
   }
 
-  pub fn warrior(mut self) -> StrictBuilderWarriorWeapon {
+  pub fn warrior(mut self) -> FluentConstructorWarriorWeapon {
     self
       .player_character
       .character_class = CharacterClass::Warrior;
 
-    StrictBuilderWarriorWeapon::new(self.player_character)
+    FluentConstructorWarriorWeapon::new(self.player_character)
   }
 
-  pub fn wizard(mut self) -> StrictBuilderWizardWeapon {
+  pub fn wizard(mut self) -> FluentConstructorWizardWeapon {
     self
       .player_character
       .character_class = CharacterClass::Wizard;
 
-    StrictBuilderWizardWeapon::new(self.player_character)
+    FluentConstructorWizardWeapon::new(self.player_character)
   }
 }
 
-pub struct StrictBuilderWarriorWeapon {
+pub struct FluentConstructorWarriorWeapon {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderWarriorWeapon {
+impl FluentConstructorWarriorWeapon {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -56,29 +56,29 @@ impl StrictBuilderWarriorWeapon {
   pub fn weapon(
     mut self,
     weapon: Weapon,
-  ) -> StrictBuilderArmor {
+  ) -> FluentConstructorArmor {
     self
       .player_character
       .weapon = weapon;
 
-    StrictBuilderArmor::new(self.player_character)
+    FluentConstructorArmor::new(self.player_character)
   }
 }
 
-pub struct StrictBuilderArmor {
+pub struct FluentConstructorArmor {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderArmor {
+impl FluentConstructorArmor {
   pub fn armor(
     mut self,
     armor: Armor,
-  ) -> StrictBuilderHealth {
+  ) -> FluentConstructorHealth {
     self
       .player_character
       .armor = armor;
 
-    StrictBuilderHealth::new(self.player_character)
+    FluentConstructorHealth::new(self.player_character)
   }
 
   // The static constructor is only accessible to this module
@@ -89,11 +89,11 @@ impl StrictBuilderArmor {
   }
 }
 
-pub struct StrictBuilderWizardWeapon {
+pub struct FluentConstructorWizardWeapon {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderWizardWeapon {
+impl FluentConstructorWizardWeapon {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -104,22 +104,22 @@ impl StrictBuilderWizardWeapon {
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
-  ) -> StrictBuilderSpell {
+  ) -> FluentConstructorSpell {
     let weapon: Weapon = wizard_weapon.into();
 
     self
       .player_character
       .weapon = weapon;
 
-    StrictBuilderSpell::new(self.player_character)
+    FluentConstructorSpell::new(self.player_character)
   }
 }
 
-pub struct StrictBuilderSpell {
+pub struct FluentConstructorSpell {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderSpell {
+impl FluentConstructorSpell {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -130,20 +130,20 @@ impl StrictBuilderSpell {
   pub fn spell(
     mut self,
     spell: Spell,
-  ) -> StrictBuilderHealth {
+  ) -> FluentConstructorHealth {
     self
       .player_character
       .spell = spell;
 
-    StrictBuilderHealth::new(self.player_character)
+    FluentConstructorHealth::new(self.player_character)
   }
 }
 
-pub struct StrictBuilderHealth {
+pub struct FluentConstructorHealth {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderHealth {
+impl FluentConstructorHealth {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self
@@ -161,16 +161,16 @@ impl StrictBuilderHealth {
   pub fn health(
     mut self,
     health: isize,
-  ) -> StrictBuilderWealth {
+  ) -> FluentConstructorWealth {
     self
       .player_character
       .health = health;
 
-    StrictBuilderWealth::new(self.player_character)
+    FluentConstructorWealth::new(self.player_character)
   }
 
   /// Use the character class-specific default value for health
-  pub fn health_default(self) -> StrictBuilderWealth {
+  pub fn health_default(self) -> FluentConstructorWealth {
     match self
       .player_character
       .character_class
@@ -182,11 +182,11 @@ impl StrictBuilderHealth {
   }
 }
 
-pub struct StrictBuilderWealth {
+pub struct FluentConstructorWealth {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderWealth {
+impl FluentConstructorWealth {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self
@@ -204,16 +204,16 @@ impl StrictBuilderWealth {
   pub fn wealth(
     mut self,
     wealth: f64,
-  ) -> StrictBuilderWisdom {
+  ) -> FluentConstructorWisdom {
     self
       .player_character
       .wealth = wealth;
 
-    StrictBuilderWisdom::new(self.player_character)
+    FluentConstructorWisdom::new(self.player_character)
   }
 
   /// Use the character class-specific default value for wealth
-  pub fn wealth_default(self) -> StrictBuilderWisdom {
+  pub fn wealth_default(self) -> FluentConstructorWisdom {
     match self
       .player_character
       .character_class
@@ -225,11 +225,11 @@ impl StrictBuilderWealth {
   }
 }
 
-pub struct StrictBuilderWisdom {
+pub struct FluentConstructorWisdom {
   player_character: PlayerCharacter,
 }
 
-impl StrictBuilderWisdom {
+impl FluentConstructorWisdom {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self.wisdom_default()

@@ -12,7 +12,7 @@ pub mod weapon;
 pub mod wizard_weapon;
 
 pub fn example() {
-  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
     .armor(Armor::Chainmail)
@@ -20,7 +20,7 @@ pub fn example() {
     .wealth(10.)
     .wisdom(10);
 
-  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .wizard()
     .weapon(WizardWeapon::Staff)
     .spell(Spell::Invisibility)
@@ -29,7 +29,7 @@ pub fn example() {
     .wisdom(15);
 
   // Use the character-specific default value for health
-  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
     .armor(Armor::Chainmail)
@@ -38,7 +38,7 @@ pub fn example() {
     .wisdom(10);
 
   // Use the character-specific default values for health, wealth, and wisdom
-  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
     .armor(Armor::Chainmail)

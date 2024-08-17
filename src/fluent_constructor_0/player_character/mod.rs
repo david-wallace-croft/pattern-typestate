@@ -2,9 +2,9 @@ use super::armor::Armor;
 use super::character_class::CharacterClass;
 use super::spell::Spell;
 use super::weapon::Weapon;
-use strict_builder::StrictBuilderPlayerCharacter;
+use fluent_constructor::FluentConstructorPlayerCharacter;
 
-mod strict_builder;
+mod fluent_constructor;
 
 pub struct PlayerCharacter {
   armor: Armor,
@@ -17,7 +17,7 @@ pub struct PlayerCharacter {
 }
 
 impl PlayerCharacter {
-  pub fn builder() -> StrictBuilderPlayerCharacter {
+  pub fn constructor() -> FluentConstructorPlayerCharacter {
     let player_character = PlayerCharacter {
       armor: Armor::None,
       character_class: CharacterClass::None,
@@ -28,6 +28,6 @@ impl PlayerCharacter {
       wisdom: 0,
     };
 
-    StrictBuilderPlayerCharacter::new(player_character)
+    FluentConstructorPlayerCharacter::new(player_character)
   }
 }
