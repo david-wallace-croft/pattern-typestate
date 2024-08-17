@@ -1,8 +1,15 @@
-use crate::strict_builder_1::player_character::{
-  Armor, PlayerCharacter, Spell, Weapon, WizardWeapon,
-};
+use armor::Armor;
+use player_character::PlayerCharacter;
+use spell::Spell;
+use weapon::Weapon;
+use wizard_weapon::WizardWeapon;
 
+pub mod armor;
+pub mod character_class;
 pub mod player_character;
+pub mod spell;
+pub mod weapon;
+pub mod wizard_weapon;
 
 pub fn example() {
   let _player_character: PlayerCharacter = PlayerCharacter::builder()

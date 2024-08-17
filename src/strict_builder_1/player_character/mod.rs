@@ -1,39 +1,8 @@
-#[derive(Debug, PartialEq)]
-pub enum Armor {
-  Chainmail,
-  None,
-  Plate,
-}
-
-#[derive(Debug, PartialEq)]
-pub enum CharacterClass {
-  None,
-  Warrior,
-  Wizard,
-}
-
-#[derive(Debug, PartialEq)]
-pub enum Spell {
-  Invisibility,
-  None,
-  Sleep,
-}
-
-#[derive(Debug, PartialEq)]
-pub enum WizardWeapon {
-  Dagger,
-  None,
-  Staff,
-}
-
-#[derive(Debug, PartialEq)]
-pub enum Weapon {
-  Dagger,
-  Mace,
-  None,
-  LongSword,
-  Staff,
-}
+use super::armor::Armor;
+use super::character_class::CharacterClass;
+use super::spell::Spell;
+use super::weapon::Weapon;
+use super::wizard_weapon::WizardWeapon;
 
 #[derive(Debug, PartialEq)]
 pub struct PlayerCharacter {
