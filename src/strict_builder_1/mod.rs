@@ -24,6 +24,19 @@ pub fn example() {
   //   weapon: Weapon::LongSword,
   // };
 
+  // Does not compile; PlayerCharacter does not implement the Default trait
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::default();
+
+  // Does not compile; PlayerCharacter does not have a non-fluent constructor
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::new(
+  //   Armor::Chainmail,
+  //   CharacterClass::Wizard,
+  //   Spell::Invisibility,
+  //   Weapon::LongSword,
+  // );
+
   // Does not compile; the character class must be chosen first
   //
   // let _player_character: PlayerCharacter = PlayerCharacter::builder()
