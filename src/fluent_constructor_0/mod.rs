@@ -31,7 +31,7 @@ pub fn example() {
     .wealth(20.)
     .wisdom(15);
 
-  // Use the character-specific default value for health
+  // Some fields such as health have character class-specific default values
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
@@ -40,7 +40,7 @@ pub fn example() {
     .wealth(10.)
     .wisdom(10);
 
-  // Use the character-specific default values for health, wealth, and wisdom
+  // Provide values only where required and use default values for the rest
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
