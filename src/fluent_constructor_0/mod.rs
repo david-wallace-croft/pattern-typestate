@@ -11,6 +11,9 @@ pub mod spell;
 pub mod weapon;
 pub mod wizard_weapon;
 
+#[cfg(test)]
+mod test;
+
 pub fn example() {
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()

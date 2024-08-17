@@ -17,6 +17,14 @@ pub struct PlayerCharacter {
 }
 
 impl PlayerCharacter {
+  pub fn armor(&self) -> Armor {
+    self.armor
+  }
+
+  pub fn character_class(&self) -> CharacterClass {
+    self.character_class
+  }
+
   pub fn constructor() -> FluentConstructorPlayerCharacter {
     let player_character = PlayerCharacter {
       armor: Armor::None,
@@ -29,5 +37,25 @@ impl PlayerCharacter {
     };
 
     FluentConstructorPlayerCharacter::new(player_character)
+  }
+
+  pub fn health(&self) -> isize {
+    self.health
+  }
+
+  pub fn spell(&self) -> Spell {
+    self.spell
+  }
+
+  pub fn weapon(&self) -> Weapon {
+    self.weapon
+  }
+
+  pub fn wealth(&self) -> f64 {
+    self.wealth
+  }
+
+  pub fn wisdom(&self) -> usize {
+    self.wisdom
   }
 }
