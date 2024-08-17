@@ -82,11 +82,7 @@ impl StrictBuilderWizardWeapon {
     mut self,
     wizard_weapon: WizardWeapon,
   ) -> StrictBuilderSpell {
-    let weapon: Weapon = match wizard_weapon {
-      WizardWeapon::Dagger => Weapon::Dagger,
-      WizardWeapon::None => Weapon::None,
-      WizardWeapon::Staff => Weapon::Staff,
-    };
+    let weapon: Weapon = wizard_weapon.into();
 
     self
       .player_character
