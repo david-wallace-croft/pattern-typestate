@@ -15,12 +15,32 @@ pub fn example() {
   let _player_character: PlayerCharacter = PlayerCharacter::builder()
     .warrior()
     .weapon(Weapon::LongSword)
-    .armor(Armor::Chainmail);
+    .armor(Armor::Chainmail)
+    .health(10)
+    .wealth(10.)
+    .wisdom(10);
 
   let _player_character: PlayerCharacter = PlayerCharacter::builder()
     .wizard()
     .weapon(WizardWeapon::Staff)
-    .spell(Spell::Invisibility);
+    .spell(Spell::Invisibility)
+    .health(4)
+    .wealth(20.)
+    .wisdom(15);
+
+  // Use the character-specific default values for health, wealth, and wisdom
+  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+    .warrior()
+    .weapon(Weapon::LongSword)
+    .armor(Armor::Chainmail)
+    .build();
+
+  // Use the character-specific default values for health, wealth, and wisdom
+  let _player_character: PlayerCharacter = PlayerCharacter::builder()
+    .wizard()
+    .weapon(WizardWeapon::Staff)
+    .spell(Spell::Invisibility)
+    .build();
 
   // ===========================================================================
   // Does not compile; cannot use a structure literal because fields are private

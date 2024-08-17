@@ -9,8 +9,11 @@ mod strict_builder;
 pub struct PlayerCharacter {
   armor: Armor,
   character_class: CharacterClass,
+  health: isize,
   spell: Spell,
   weapon: Weapon,
+  wealth: f64,
+  wisdom: usize,
 }
 
 impl PlayerCharacter {
@@ -18,8 +21,11 @@ impl PlayerCharacter {
     let player_character = PlayerCharacter {
       armor: Armor::None,
       character_class: CharacterClass::None,
+      health: 0,
       spell: Spell::None,
       weapon: Weapon::None,
+      wealth: 0.,
+      wisdom: 0,
     };
 
     StrictBuilderPlayerCharacter::new(player_character)
