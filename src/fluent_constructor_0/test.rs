@@ -5,7 +5,7 @@ use super::spell::Spell;
 use super::weapon::Weapon;
 
 #[test]
-fn test0() {
+fn test_fluent_constructor() {
   let actual = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
