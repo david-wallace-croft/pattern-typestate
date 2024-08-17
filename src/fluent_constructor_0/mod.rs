@@ -48,6 +48,7 @@ pub fn example() {
     .default();
 
   // TODO: update examples for new fields
+  // TODO: reuse the examples from strict_builder_0 then delete
 
   // ===========================================================================
   // Does not compile; cannot use a structure literal because fields are private
