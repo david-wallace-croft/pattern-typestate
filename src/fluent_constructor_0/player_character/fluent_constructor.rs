@@ -12,6 +12,8 @@ const DEFAULT_WEALTH_WIZARD: f64 = 12.;
 const DEFAULT_WISDOM_WARRIOR: usize = 11;
 const DEFAULT_WISDOM_WIZARD: usize = 15;
 
+// TODO: Separate structs with dashed line comments
+
 pub struct FluentConstructorPlayerCharacter {
   player_character: PlayerCharacter,
 }
