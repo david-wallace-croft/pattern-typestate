@@ -10,6 +10,7 @@ pub struct StrictBuilderPlayerCharacter {
 }
 
 impl StrictBuilderPlayerCharacter {
+  // The non-fluent constructor is only accessible to the super-module
   pub(super) fn new(player_character: PlayerCharacter) -> Self {
     Self {
       player_character,
@@ -21,9 +22,7 @@ impl StrictBuilderPlayerCharacter {
       .player_character
       .character_class = CharacterClass::Warrior;
 
-    StrictBuilderWarriorWeapon {
-      player_character: self.player_character,
-    }
+    StrictBuilderWarriorWeapon::new(self.player_character)
   }
 
   pub fn wizard(mut self) -> StrictBuilderWizardWeapon {
@@ -31,9 +30,7 @@ impl StrictBuilderPlayerCharacter {
       .player_character
       .character_class = CharacterClass::Wizard;
 
-    StrictBuilderWizardWeapon {
-      player_character: self.player_character,
-    }
+    StrictBuilderWizardWeapon::new(self.player_character)
   }
 }
 
@@ -42,6 +39,13 @@ pub struct StrictBuilderWarriorWeapon {
 }
 
 impl StrictBuilderWarriorWeapon {
+  // The non-fluent constructor is only accessible to this module
+  fn new(player_character: PlayerCharacter) -> Self {
+    Self {
+      player_character,
+    }
+  }
+
   pub fn weapon(
     mut self,
     weapon: Weapon,
@@ -50,9 +54,7 @@ impl StrictBuilderWarriorWeapon {
       .player_character
       .weapon = weapon;
 
-    StrictBuilderArmor {
-      player_character: self.player_character,
-    }
+    StrictBuilderArmor::new(self.player_character)
   }
 }
 
@@ -71,6 +73,13 @@ impl StrictBuilderArmor {
 
     self.player_character
   }
+
+  // The non-fluent constructor is only accessible to this module
+  fn new(player_character: PlayerCharacter) -> Self {
+    Self {
+      player_character,
+    }
+  }
 }
 
 pub struct StrictBuilderWizardWeapon {
@@ -78,6 +87,13 @@ pub struct StrictBuilderWizardWeapon {
 }
 
 impl StrictBuilderWizardWeapon {
+  // The non-fluent constructor is only accessible to this module
+  fn new(player_character: PlayerCharacter) -> Self {
+    Self {
+      player_character,
+    }
+  }
+
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
@@ -88,9 +104,7 @@ impl StrictBuilderWizardWeapon {
       .player_character
       .weapon = weapon;
 
-    StrictBuilderSpell {
-      player_character: self.player_character,
-    }
+    StrictBuilderSpell::new(self.player_character)
   }
 }
 
@@ -99,6 +113,13 @@ pub struct StrictBuilderSpell {
 }
 
 impl StrictBuilderSpell {
+  // The non-fluent constructor is only accessible to this module
+  fn new(player_character: PlayerCharacter) -> Self {
+    Self {
+      player_character,
+    }
+  }
+
   pub fn spell(
     mut self,
     spell: Spell,
