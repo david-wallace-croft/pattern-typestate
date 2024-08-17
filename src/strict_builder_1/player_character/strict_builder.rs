@@ -10,7 +10,7 @@ pub struct StrictBuilderPlayerCharacter {
 }
 
 impl StrictBuilderPlayerCharacter {
-  // The non-fluent constructor is only accessible to the super-module
+  // The static constructor is only accessible to the super-module
   pub(super) fn new(player_character: PlayerCharacter) -> Self {
     Self {
       player_character,
@@ -39,7 +39,7 @@ pub struct StrictBuilderWarriorWeapon {
 }
 
 impl StrictBuilderWarriorWeapon {
-  // The non-fluent constructor is only accessible to this module
+  // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
       player_character,
@@ -74,7 +74,7 @@ impl StrictBuilderArmor {
     self.player_character
   }
 
-  // The non-fluent constructor is only accessible to this module
+  // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
       player_character,
@@ -87,7 +87,7 @@ pub struct StrictBuilderWizardWeapon {
 }
 
 impl StrictBuilderWizardWeapon {
-  // The non-fluent constructor is only accessible to this module
+  // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
       player_character,
@@ -113,7 +113,7 @@ pub struct StrictBuilderSpell {
 }
 
 impl StrictBuilderSpell {
-  // The non-fluent constructor is only accessible to this module
+  // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
       player_character,

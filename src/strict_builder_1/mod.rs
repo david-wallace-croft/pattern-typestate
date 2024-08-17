@@ -40,7 +40,7 @@ pub fn example() {
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
-  // Does not compile; PlayerCharacter does not have a non-fluent constructor
+  // Does not compile; PlayerCharacter does not have a static constructor
   //
   // let _player_character: PlayerCharacter = PlayerCharacter::new(
   //   Armor::Chainmail,
