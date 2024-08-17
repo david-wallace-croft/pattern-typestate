@@ -1,6 +1,3 @@
-#[cfg(test)]
-mod test;
-
 #[derive(Debug, PartialEq)]
 pub enum Armor {
   Chainmail,
