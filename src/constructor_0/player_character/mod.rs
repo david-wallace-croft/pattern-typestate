@@ -12,8 +12,8 @@ pub struct PlayerCharacter {
   character_class: CharacterClass,
   health: isize,
   spell: Spell,
-  weapon: Weapon,
   wealth: f64,
+  weapon: Weapon,
   wisdom: usize,
 }
 
@@ -35,12 +35,12 @@ impl PlayerCharacter {
     self.spell
   }
 
-  pub fn weapon(&self) -> Weapon {
-    self.weapon
-  }
-
   pub fn wealth(&self) -> f64 {
     self.wealth
+  }
+
+  pub fn weapon(&self) -> Weapon {
+    self.weapon
   }
 
   pub fn wisdom(&self) -> usize {
