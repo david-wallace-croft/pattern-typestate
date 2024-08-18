@@ -7,6 +7,7 @@ use constructor::Constructor;
 // Submodule constructor is only accessible from PlayerCharacter::constructor()
 mod constructor;
 
+// The private fields can only be set using PlayerCharacter::constructor()
 pub struct PlayerCharacter {
   armor: Armor,
   character_class: CharacterClass,
