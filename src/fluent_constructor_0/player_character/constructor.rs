@@ -1,5 +1,13 @@
 //==============================================================================
-//! An example of a fluent constructor which uses the typestate pattern.
+//! An example of a fluent constructor that uses the typestate pattern.
+//!
+//! Always constructs a valid configuration of a PlayerCharacter:
+//! - The character class may be either Warrior or Wizard
+//! - Warriors can use any weapon
+//! - Wizards can only use a subset of the weapons
+//! - Warriors can wear armor but Wizards cannot
+//! - Wizards can cast a spell but Warriors cannot
+//! - Optionally provides default values for health, wealth, and wisdom
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
