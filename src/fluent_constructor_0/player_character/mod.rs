@@ -2,7 +2,7 @@ use super::armor::Armor;
 use super::character_class::CharacterClass;
 use super::spell::Spell;
 use super::weapon::Weapon;
-use constructor::FluentConstructorPlayerCharacter;
+use constructor::ConstructorPlayerCharacter;
 
 mod constructor;
 
@@ -25,7 +25,7 @@ impl PlayerCharacter {
     self.character_class
   }
 
-  pub fn constructor() -> FluentConstructorPlayerCharacter {
+  pub fn constructor() -> ConstructorPlayerCharacter {
     let player_character = PlayerCharacter {
       armor: Armor::None,
       character_class: CharacterClass::None,
@@ -36,7 +36,7 @@ impl PlayerCharacter {
       wisdom: 0,
     };
 
-    FluentConstructorPlayerCharacter::new(player_character)
+    ConstructorPlayerCharacter::new(player_character)
   }
 
   pub fn health(&self) -> isize {

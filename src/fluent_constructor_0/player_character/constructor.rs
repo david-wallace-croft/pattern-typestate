@@ -27,11 +27,11 @@ const DEFAULT_WISDOM_WIZARD: usize = 15;
 
 // TODO: Separate structs with dashed line comments
 
-pub struct FluentConstructorPlayerCharacter {
+pub struct ConstructorPlayerCharacter {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorPlayerCharacter {
+impl ConstructorPlayerCharacter {
   // The static constructor is only accessible to the super-module
   pub(super) fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -39,28 +39,28 @@ impl FluentConstructorPlayerCharacter {
     }
   }
 
-  pub fn warrior(mut self) -> FluentConstructorWarriorWeapon {
+  pub fn warrior(mut self) -> ConstructorWarriorWeapon {
     self
       .player_character
       .character_class = CharacterClass::Warrior;
 
-    FluentConstructorWarriorWeapon::new(self.player_character)
+    ConstructorWarriorWeapon::new(self.player_character)
   }
 
-  pub fn wizard(mut self) -> FluentConstructorWizardWeapon {
+  pub fn wizard(mut self) -> ConstructorWizardWeapon {
     self
       .player_character
       .character_class = CharacterClass::Wizard;
 
-    FluentConstructorWizardWeapon::new(self.player_character)
+    ConstructorWizardWeapon::new(self.player_character)
   }
 }
 
-pub struct FluentConstructorWarriorWeapon {
+pub struct ConstructorWarriorWeapon {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorWarriorWeapon {
+impl ConstructorWarriorWeapon {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -71,29 +71,29 @@ impl FluentConstructorWarriorWeapon {
   pub fn weapon(
     mut self,
     weapon: Weapon,
-  ) -> FluentConstructorArmor {
+  ) -> ConstructorArmor {
     self
       .player_character
       .weapon = weapon;
 
-    FluentConstructorArmor::new(self.player_character)
+    ConstructorArmor::new(self.player_character)
   }
 }
 
-pub struct FluentConstructorArmor {
+pub struct ConstructorArmor {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorArmor {
+impl ConstructorArmor {
   pub fn armor(
     mut self,
     armor: Armor,
-  ) -> FluentConstructorHealth {
+  ) -> ConstructorHealth {
     self
       .player_character
       .armor = armor;
 
-    FluentConstructorHealth::new(self.player_character)
+    ConstructorHealth::new(self.player_character)
   }
 
   // The static constructor is only accessible to this module
@@ -104,11 +104,11 @@ impl FluentConstructorArmor {
   }
 }
 
-pub struct FluentConstructorWizardWeapon {
+pub struct ConstructorWizardWeapon {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorWizardWeapon {
+impl ConstructorWizardWeapon {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -119,22 +119,22 @@ impl FluentConstructorWizardWeapon {
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
-  ) -> FluentConstructorSpell {
+  ) -> ConstructorSpell {
     let weapon: Weapon = wizard_weapon.into();
 
     self
       .player_character
       .weapon = weapon;
 
-    FluentConstructorSpell::new(self.player_character)
+    ConstructorSpell::new(self.player_character)
   }
 }
 
-pub struct FluentConstructorSpell {
+pub struct ConstructorSpell {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorSpell {
+impl ConstructorSpell {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -145,20 +145,20 @@ impl FluentConstructorSpell {
   pub fn spell(
     mut self,
     spell: Spell,
-  ) -> FluentConstructorHealth {
+  ) -> ConstructorHealth {
     self
       .player_character
       .spell = spell;
 
-    FluentConstructorHealth::new(self.player_character)
+    ConstructorHealth::new(self.player_character)
   }
 }
 
-pub struct FluentConstructorHealth {
+pub struct ConstructorHealth {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorHealth {
+impl ConstructorHealth {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self
@@ -176,16 +176,16 @@ impl FluentConstructorHealth {
   pub fn health(
     mut self,
     health: isize,
-  ) -> FluentConstructorWealth {
+  ) -> ConstructorWealth {
     self
       .player_character
       .health = health;
 
-    FluentConstructorWealth::new(self.player_character)
+    ConstructorWealth::new(self.player_character)
   }
 
   /// Use the character class-specific default value for health
-  pub fn health_default(self) -> FluentConstructorWealth {
+  pub fn health_default(self) -> ConstructorWealth {
     match self
       .player_character
       .character_class
@@ -197,11 +197,11 @@ impl FluentConstructorHealth {
   }
 }
 
-pub struct FluentConstructorWealth {
+pub struct ConstructorWealth {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorWealth {
+impl ConstructorWealth {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self
@@ -219,16 +219,16 @@ impl FluentConstructorWealth {
   pub fn wealth(
     mut self,
     wealth: f64,
-  ) -> FluentConstructorWisdom {
+  ) -> ConstructorWisdom {
     self
       .player_character
       .wealth = wealth;
 
-    FluentConstructorWisdom::new(self.player_character)
+    ConstructorWisdom::new(self.player_character)
   }
 
   /// Use the character class-specific default value for wealth
-  pub fn wealth_default(self) -> FluentConstructorWisdom {
+  pub fn wealth_default(self) -> ConstructorWisdom {
     match self
       .player_character
       .character_class
@@ -240,11 +240,11 @@ impl FluentConstructorWealth {
   }
 }
 
-pub struct FluentConstructorWisdom {
+pub struct ConstructorWisdom {
   player_character: PlayerCharacter,
 }
 
-impl FluentConstructorWisdom {
+impl ConstructorWisdom {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self.wisdom_default()
