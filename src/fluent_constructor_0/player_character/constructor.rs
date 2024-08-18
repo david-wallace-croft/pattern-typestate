@@ -21,6 +21,7 @@
 
 use super::super::armor::Armor;
 use super::super::character_class::CharacterClass;
+use super::super::constructor_creator::ConstructorCreator;
 use super::super::player_character::PlayerCharacter;
 use super::super::spell::Spell;
 use super::super::weapon::Weapon;
@@ -35,42 +36,60 @@ const DEFAULT_WISDOM_WIZARD: usize = 15;
 
 //==============================================================================
 
-pub struct Constructor {
-  player_character: PlayerCharacter,
-}
+impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
+  fn constructor() -> PlayerCharacterConstructor {
+    let player_character = PlayerCharacter {
+      armor: Armor::None,
+      character_class: CharacterClass::None,
+      health: 0,
+      spell: Spell::None,
+      weapon: Weapon::None,
+      wealth: 0.,
+      wisdom: 0,
+    };
 
-impl Constructor {
-  // The static constructor is only accessible to the super-module
-  pub(super) fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
-  pub fn warrior(mut self) -> ConstructorWarriorWeapon {
-    self
-      .player_character
-      .character_class = CharacterClass::Warrior;
-
-    ConstructorWarriorWeapon::new(self.player_character)
-  }
-
-  pub fn wizard(mut self) -> ConstructorWizardWeapon {
-    self
-      .player_character
-      .character_class = CharacterClass::Wizard;
-
-    ConstructorWizardWeapon::new(self.player_character)
+    PlayerCharacterConstructor::new(player_character)
   }
 }
 
 //==============================================================================
 
-pub struct ConstructorWarriorWeapon {
+pub struct PlayerCharacterConstructor {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorWarriorWeapon {
+impl PlayerCharacterConstructor {
+  // The static constructor is only accessible to this module
+  fn new(player_character: PlayerCharacter) -> Self {
+    Self {
+      player_character,
+    }
+  }
+
+  pub fn warrior(mut self) -> PlayerCharacterConstructorWarriorWeapon {
+    self
+      .player_character
+      .character_class = CharacterClass::Warrior;
+
+    PlayerCharacterConstructorWarriorWeapon::new(self.player_character)
+  }
+
+  pub fn wizard(mut self) -> PlayerCharacterConstructorWizardWeapon {
+    self
+      .player_character
+      .character_class = CharacterClass::Wizard;
+
+    PlayerCharacterConstructorWizardWeapon::new(self.player_character)
+  }
+}
+
+//==============================================================================
+
+pub struct PlayerCharacterConstructorWarriorWeapon {
+  player_character: PlayerCharacter,
+}
+
+impl PlayerCharacterConstructorWarriorWeapon {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -81,31 +100,31 @@ impl ConstructorWarriorWeapon {
   pub fn weapon(
     mut self,
     weapon: Weapon,
-  ) -> ConstructorWarriorArmor {
+  ) -> PlayerCharacterConstructorWarriorArmor {
     self
       .player_character
       .weapon = weapon;
 
-    ConstructorWarriorArmor::new(self.player_character)
+    PlayerCharacterConstructorWarriorArmor::new(self.player_character)
   }
 }
 
 //==============================================================================
 
-pub struct ConstructorWarriorArmor {
+pub struct PlayerCharacterConstructorWarriorArmor {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorWarriorArmor {
+impl PlayerCharacterConstructorWarriorArmor {
   pub fn armor(
     mut self,
     armor: Armor,
-  ) -> ConstructorHealth {
+  ) -> PlayerCharacterConstructorHealth {
     self
       .player_character
       .armor = armor;
 
-    ConstructorHealth::new(self.player_character)
+    PlayerCharacterConstructorHealth::new(self.player_character)
   }
 
   // The static constructor is only accessible to this module
@@ -118,11 +137,11 @@ impl ConstructorWarriorArmor {
 
 //==============================================================================
 
-pub struct ConstructorWizardWeapon {
+pub struct PlayerCharacterConstructorWizardWeapon {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorWizardWeapon {
+impl PlayerCharacterConstructorWizardWeapon {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -133,24 +152,24 @@ impl ConstructorWizardWeapon {
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
-  ) -> ConstructorWizardSpell {
+  ) -> PlayerCharacterConstructorWizardSpell {
     let weapon: Weapon = wizard_weapon.into();
 
     self
       .player_character
       .weapon = weapon;
 
-    ConstructorWizardSpell::new(self.player_character)
+    PlayerCharacterConstructorWizardSpell::new(self.player_character)
   }
 }
 
 //==============================================================================
 
-pub struct ConstructorWizardSpell {
+pub struct PlayerCharacterConstructorWizardSpell {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorWizardSpell {
+impl PlayerCharacterConstructorWizardSpell {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
@@ -161,22 +180,22 @@ impl ConstructorWizardSpell {
   pub fn spell(
     mut self,
     spell: Spell,
-  ) -> ConstructorHealth {
+  ) -> PlayerCharacterConstructorHealth {
     self
       .player_character
       .spell = spell;
 
-    ConstructorHealth::new(self.player_character)
+    PlayerCharacterConstructorHealth::new(self.player_character)
   }
 }
 
 //==============================================================================
 
-pub struct ConstructorHealth {
+pub struct PlayerCharacterConstructorHealth {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorHealth {
+impl PlayerCharacterConstructorHealth {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self
@@ -194,16 +213,16 @@ impl ConstructorHealth {
   pub fn health(
     mut self,
     health: isize,
-  ) -> ConstructorWealth {
+  ) -> PlayerCharacterConstructorWealth {
     self
       .player_character
       .health = health;
 
-    ConstructorWealth::new(self.player_character)
+    PlayerCharacterConstructorWealth::new(self.player_character)
   }
 
   /// Use the character class-specific default value for health
-  pub fn health_default(self) -> ConstructorWealth {
+  pub fn health_default(self) -> PlayerCharacterConstructorWealth {
     match self
       .player_character
       .character_class
@@ -217,11 +236,11 @@ impl ConstructorHealth {
 
 //==============================================================================
 
-pub struct ConstructorWealth {
+pub struct PlayerCharacterConstructorWealth {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorWealth {
+impl PlayerCharacterConstructorWealth {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self
@@ -239,16 +258,16 @@ impl ConstructorWealth {
   pub fn wealth(
     mut self,
     wealth: f64,
-  ) -> ConstructorWisdom {
+  ) -> PlayerCharacterConstructorWisdom {
     self
       .player_character
       .wealth = wealth;
 
-    ConstructorWisdom::new(self.player_character)
+    PlayerCharacterConstructorWisdom::new(self.player_character)
   }
 
   /// Use the character class-specific default value for wealth
-  pub fn wealth_default(self) -> ConstructorWisdom {
+  pub fn wealth_default(self) -> PlayerCharacterConstructorWisdom {
     match self
       .player_character
       .character_class
@@ -262,11 +281,11 @@ impl ConstructorWealth {
 
 //==============================================================================
 
-pub struct ConstructorWisdom {
+pub struct PlayerCharacterConstructorWisdom {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorWisdom {
+impl PlayerCharacterConstructorWisdom {
   /// Use the character class-specific default values for the remaining fields
   pub fn default(self) -> PlayerCharacter {
     self.wisdom_default()

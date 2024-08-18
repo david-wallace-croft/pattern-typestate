@@ -1,15 +1,19 @@
-use armor::Armor;
-use player_character::PlayerCharacter;
-use spell::Spell;
-use weapon::Weapon;
-use wizard_weapon::WizardWeapon;
+#![allow(dead_code)]
 
-pub mod armor;
-pub mod character_class;
-pub mod player_character;
-pub mod spell;
-pub mod weapon;
-pub mod wizard_weapon;
+use self::armor::Armor;
+use self::constructor_creator::ConstructorCreator;
+use self::player_character::PlayerCharacter;
+use self::spell::Spell;
+use self::weapon::Weapon;
+use self::wizard_weapon::WizardWeapon;
+
+mod armor;
+mod character_class;
+mod constructor_creator;
+mod player_character;
+mod spell;
+mod weapon;
+mod wizard_weapon;
 
 #[cfg(test)]
 mod test;

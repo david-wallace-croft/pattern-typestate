@@ -1,4 +1,4 @@
-#[derive(Clone, Debug, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Spell {
   Invisibility,
   None,
