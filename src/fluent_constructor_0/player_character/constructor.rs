@@ -1,3 +1,16 @@
+//==============================================================================
+//! A fluent constructor for PlayerCharacter.
+//!
+//! # Metadata
+//! - Author: [`David Wallace Croft`]
+//! - Copyright: &copy; 2024 [`CroftSoft Inc`]
+//! - Created: 2024-08-18
+//! - Updated: 2024-08-18
+//!
+//! [`CroftSoft Inc`]: https://www.croftsoft.com/
+//! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
+//==============================================================================
+
 use super::super::armor::Armor;
 use super::super::character_class::CharacterClass;
 use super::super::player_character::PlayerCharacter;

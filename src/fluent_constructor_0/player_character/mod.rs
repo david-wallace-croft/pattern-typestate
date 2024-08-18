@@ -2,9 +2,9 @@ use super::armor::Armor;
 use super::character_class::CharacterClass;
 use super::spell::Spell;
 use super::weapon::Weapon;
-use fluent_constructor::FluentConstructorPlayerCharacter;
+use constructor::FluentConstructorPlayerCharacter;
 
-mod fluent_constructor;
+mod constructor;
 
 pub struct PlayerCharacter {
   armor: Armor,
