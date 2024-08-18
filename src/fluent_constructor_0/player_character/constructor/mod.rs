@@ -1,5 +1,5 @@
 //==============================================================================
-//! A fluent constructor for PlayerCharacter.
+//! An example of a fluent constructor which uses the typestate pattern.
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
