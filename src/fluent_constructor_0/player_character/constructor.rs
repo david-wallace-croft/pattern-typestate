@@ -25,7 +25,7 @@ const DEFAULT_WEALTH_WIZARD: f64 = 12.;
 const DEFAULT_WISDOM_WARRIOR: usize = 11;
 const DEFAULT_WISDOM_WIZARD: usize = 15;
 
-// TODO: Separate structs with dashed line comments
+//==============================================================================
 
 pub struct ConstructorPlayerCharacter {
   player_character: PlayerCharacter,
@@ -56,6 +56,8 @@ impl ConstructorPlayerCharacter {
   }
 }
 
+//==============================================================================
+
 pub struct ConstructorWarriorWeapon {
   player_character: PlayerCharacter,
 }
@@ -80,6 +82,8 @@ impl ConstructorWarriorWeapon {
   }
 }
 
+//==============================================================================
+
 pub struct ConstructorArmor {
   player_character: PlayerCharacter,
 }
@@ -103,6 +107,8 @@ impl ConstructorArmor {
     }
   }
 }
+
+//==============================================================================
 
 pub struct ConstructorWizardWeapon {
   player_character: PlayerCharacter,
@@ -130,6 +136,8 @@ impl ConstructorWizardWeapon {
   }
 }
 
+//==============================================================================
+
 pub struct ConstructorSpell {
   player_character: PlayerCharacter,
 }
@@ -153,6 +161,8 @@ impl ConstructorSpell {
     ConstructorHealth::new(self.player_character)
   }
 }
+
+//==============================================================================
 
 pub struct ConstructorHealth {
   player_character: PlayerCharacter,
@@ -197,6 +207,8 @@ impl ConstructorHealth {
   }
 }
 
+//==============================================================================
+
 pub struct ConstructorWealth {
   player_character: PlayerCharacter,
 }
@@ -239,6 +251,8 @@ impl ConstructorWealth {
     }
   }
 }
+
+//==============================================================================
 
 pub struct ConstructorWisdom {
   player_character: PlayerCharacter,
