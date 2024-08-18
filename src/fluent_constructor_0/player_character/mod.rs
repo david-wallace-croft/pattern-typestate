@@ -4,7 +4,7 @@ use super::spell::Spell;
 use super::weapon::Weapon;
 use constructor::Constructor;
 
-// Module constructor can only be accessed from PlayerCharacter::constructor()
+// Submodule constructor is only accessible from PlayerCharacter::constructor()
 mod constructor;
 
 pub struct PlayerCharacter {
