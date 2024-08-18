@@ -37,7 +37,9 @@ const DEFAULT_WISDOM_WIZARD: usize = 15;
 //==============================================================================
 
 impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
+  // The public ConstructorCreator trait provides indirect access to the fields
   fn constructor() -> PlayerCharacterConstructor {
+    // The constructor submodule has direct access to the private fields
     let player_character = PlayerCharacter {
       armor: Armor::None,
       character_class: CharacterClass::None,
