@@ -3,10 +3,10 @@ use super::character_class::CharacterClass;
 use super::spell::Spell;
 use super::weapon::Weapon;
 
-// Submodule constructor is only accessible from PlayerCharacter::constructor()
+// The constructor submodule provides a ConstructorCreator trait implementation
 mod constructor;
 
-// The private fields can only be set using PlayerCharacter::constructor()
+// The private fields can only be set in the constructor submodule
 pub struct PlayerCharacter {
   armor: Armor,
   character_class: CharacterClass,
