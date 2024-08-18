@@ -7,7 +7,7 @@
 //! - Wizards can only use a subset of the weapons
 //! - Warriors can wear armor but Wizards cannot
 //! - Wizards can cast a spell but Warriors cannot
-//! - Optionally provides default values for health, wealth, and wisdom
+//! - Character class-specific default options for health, wealth, and wisdom
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
