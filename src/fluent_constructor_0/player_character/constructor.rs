@@ -291,18 +291,14 @@ impl ConstructorWisdom {
   }
 
   /// Use the character class-specific default value for wisdom
-  pub fn wisdom_default(mut self) -> PlayerCharacter {
-    self
-      .player_character
-      .wisdom = match self
+  pub fn wisdom_default(self) -> PlayerCharacter {
+    match self
       .player_character
       .character_class
     {
       CharacterClass::None => unreachable!(),
-      CharacterClass::Warrior => DEFAULT_WISDOM_WARRIOR,
-      CharacterClass::Wizard => DEFAULT_WISDOM_WIZARD,
-    };
-
-    self.player_character
+      CharacterClass::Warrior => self.wisdom(DEFAULT_WISDOM_WARRIOR),
+      CharacterClass::Wizard => self.wisdom(DEFAULT_WISDOM_WIZARD),
+    }
   }
 }
