@@ -2,8 +2,9 @@ use super::armor::Armor;
 use super::character_class::CharacterClass;
 use super::spell::Spell;
 use super::weapon::Weapon;
-use constructor::ConstructorPlayerCharacter;
+use constructor::Constructor;
 
+// Module constructor can only be accessed from PlayerCharacter::constructor()
 mod constructor;
 
 pub struct PlayerCharacter {
@@ -25,7 +26,7 @@ impl PlayerCharacter {
     self.character_class
   }
 
-  pub fn constructor() -> ConstructorPlayerCharacter {
+  pub fn constructor() -> Constructor {
     let player_character = PlayerCharacter {
       armor: Armor::None,
       character_class: CharacterClass::None,
@@ -36,7 +37,7 @@ impl PlayerCharacter {
       wisdom: 0,
     };
 
-    ConstructorPlayerCharacter::new(player_character)
+    Constructor::new(player_character)
   }
 
   pub fn health(&self) -> isize {

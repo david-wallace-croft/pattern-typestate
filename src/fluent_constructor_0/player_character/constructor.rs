@@ -27,11 +27,11 @@ const DEFAULT_WISDOM_WIZARD: usize = 15;
 
 //==============================================================================
 
-pub struct ConstructorPlayerCharacter {
+pub struct Constructor {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorPlayerCharacter {
+impl Constructor {
   // The static constructor is only accessible to the super-module
   pub(super) fn new(player_character: PlayerCharacter) -> Self {
     Self {
