@@ -81,22 +81,22 @@ impl ConstructorWarriorWeapon {
   pub fn weapon(
     mut self,
     weapon: Weapon,
-  ) -> ConstructorArmor {
+  ) -> ConstructorWarriorArmor {
     self
       .player_character
       .weapon = weapon;
 
-    ConstructorArmor::new(self.player_character)
+    ConstructorWarriorArmor::new(self.player_character)
   }
 }
 
 //==============================================================================
 
-pub struct ConstructorArmor {
+pub struct ConstructorWarriorArmor {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorArmor {
+impl ConstructorWarriorArmor {
   pub fn armor(
     mut self,
     armor: Armor,
@@ -133,24 +133,24 @@ impl ConstructorWizardWeapon {
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
-  ) -> ConstructorSpell {
+  ) -> ConstructorWizardSpell {
     let weapon: Weapon = wizard_weapon.into();
 
     self
       .player_character
       .weapon = weapon;
 
-    ConstructorSpell::new(self.player_character)
+    ConstructorWizardSpell::new(self.player_character)
   }
 }
 
 //==============================================================================
 
-pub struct ConstructorSpell {
+pub struct ConstructorWizardSpell {
   player_character: PlayerCharacter,
 }
 
-impl ConstructorSpell {
+impl ConstructorWizardSpell {
   // The static constructor is only accessible to this module
   fn new(player_character: PlayerCharacter) -> Self {
     Self {
