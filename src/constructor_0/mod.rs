@@ -17,6 +17,7 @@ mod wizard_weapon;
 mod test;
 
 pub fn example() {
+  // A warrior can use any weapon and can wear armor
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
@@ -25,6 +26,7 @@ pub fn example() {
     .wealth(10.)
     .wisdom(10);
 
+  // A wizard can use a wizard weapon and can cast spells
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .wizard()
     .weapon(WizardWeapon::Staff)
@@ -42,7 +44,7 @@ pub fn example() {
     .wealth(10.)
     .wisdom(10);
 
-  // Provide values only where required and use default values for the rest
+  // Provides values only where required and uses default values for the rest
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
