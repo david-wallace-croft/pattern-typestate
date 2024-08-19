@@ -1,5 +1,3 @@
-#![allow(dead_code)]
-
 use self::armor::Armor;
 use self::constructor_creator::ConstructorCreator;
 use self::player_character::PlayerCharacter;
@@ -51,7 +49,6 @@ pub fn example() {
     .armor(Armor::Chainmail)
     .default();
 
-  // TODO: update examples for new fields
   // TODO: reuse the examples from strict_builder_0 then delete
 
   // ===========================================================================
@@ -60,8 +57,11 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter {
   //   armor: Armor::Chainmail,
   //   character_class: CharacterClass::Wizard,
+  //   health: 10,
   //   spell: Spell::Invisibility,
+  //   wealth: 11.,
   //   weapon: Weapon::LongSword,
+  //   wisdom: 12,
   // };
   // ---------------------------------------------------------------------------
 
@@ -77,8 +77,11 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter::new(
   //   Armor::Chainmail,
   //   CharacterClass::Wizard,
+  //   10,
   //   Spell::Invisibility,
+  //   11.,
   //   Weapon::LongSword,
+  //   12,
   // );
   // ---------------------------------------------------------------------------
 
@@ -88,7 +91,8 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter::builder()
   //   .weapon(Weapon::LongSword)
   //   .wizard()
-  //   .spell(Spell::Invisibility);
+  //   .spell(Spell::Invisibility)
+  //   .default();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -98,6 +102,7 @@ pub fn example() {
   //   .warrior()
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail);
+  //   .default();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -107,6 +112,7 @@ pub fn example() {
   //   .wizard()
   //   .weapon(Weapon::LongSword)
   //   .spell(Spell::Invisibility);
+  //   .default();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -116,6 +122,7 @@ pub fn example() {
   //   .warrior()
   //   .weapon(Weapon::LongSword)
   //   .spell(Spell::Invisibility);
+  //   .default();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -125,5 +132,6 @@ pub fn example() {
   //   .wizard()
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail);
+  //   .default();
   // ---------------------------------------------------------------------------
 }

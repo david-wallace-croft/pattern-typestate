@@ -45,8 +45,8 @@ impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
       character_class: CharacterClass::None,
       health: 0,
       spell: Spell::None,
-      weapon: Weapon::None,
       wealth: 0.,
+      weapon: Weapon::None,
       wisdom: 0,
     };
 
