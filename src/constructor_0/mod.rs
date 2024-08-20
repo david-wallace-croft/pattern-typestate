@@ -9,8 +9,8 @@
 //! - Setting the fields out of prerequisite order
 //! - Using the wrong set of values for a field based on a previously set field
 //! - Setting a field that is not allowed based on a previously set field
-//! - Cannot reuse a fluent constructor once used
-//! - Cannot reuse a fluent constructor method chain fragment once used
+//! - Reusing a fluent constructor after it has been used
+//! - Reusing a fluent constructor method chain fragment after it has been used
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
