@@ -9,6 +9,8 @@
 //! - Setting the fields out of prerequisite order
 //! - Using the wrong set of values for a field based on a previously set field
 //! - Setting a field that is not allowed based on a previously set field
+//! - Cannot reuse a fluent constructor once used
+//! - Cannot reuse a fluent constructor method chain fragment once used
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
@@ -73,7 +75,8 @@ pub fn example() {
     .armor(Armor::Chainmail)
     .default();
 
-  // TODO: reuse the examples from strict_builder_0 then delete
+  // TODO: Example where you do have to call construct() for the last one
+  //   because a method can be called more than once.
 
   // ===========================================================================
   // Does not compile; cannot use a structure literal because fields are private
@@ -164,5 +167,38 @@ pub fn example() {
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail);
   //   .default();
+  // ---------------------------------------------------------------------------
+
+  // ===========================================================================
+  // Does not compile; cannot reuse a fluent constructor
+  //
+  // let player_character_constructor = PlayerCharacter::constructor();
+  //
+  // let _player_character: PlayerCharacter = player_character_constructor
+  //   .warrior()
+  //   .weapon(Weapon::LongSword)
+  //   .armor(Armor::Chainmail)
+  //   .default();
+  //
+  // let _player_character: PlayerCharacter = player_character_constructor
+  //   .wizard()
+  //   .weapon(WizardWeapon::Staff)
+  //   .spell(Spell::Invisibility)
+  //   .default();
+  // ---------------------------------------------------------------------------
+
+  // ===========================================================================
+  // Does not compile; cannot reuse a fluent constructor method chain fragment
+  //
+  // let player_character_constructor_fragment = PlayerCharacter::constructor()
+  //   .warrior()
+  //   .weapon(Weapon::LongSword)
+  //   .armor(Armor::Chainmail);
+  //
+  // let _player_character: PlayerCharacter
+  //   = player_character_constructor_fragment.default();
+  //
+  // let _player_character: PlayerCharacter
+  //   = player_character_constructor_fragment.default();
   // ---------------------------------------------------------------------------
 }
