@@ -1,3 +1,25 @@
+//==============================================================================
+//! An example of using a fluent constructor that uses the typestate pattern.
+//!
+//! The commented-out code shows what cannot be compiled:
+//! - Using a struct literal
+//! - Using the Default trait
+//! - Using a static constructor
+//! - Using the default() mutator method before all required fields are set
+//! - Setting the fields out of prerequisite order
+//! - Using the wrong set of values for a field based on a previously set field
+//! - Setting a field that is not allowed based on a previously set field
+//!
+//! # Metadata
+//! - Author: [`David Wallace Croft`]
+//! - Copyright: &copy; 2024 [`CroftSoft Inc`]
+//! - Created: 2024-08-14
+//! - Updated: 2024-08-19
+//!
+//! [`CroftSoft Inc`]: https://www.croftsoft.com/
+//! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
+//==============================================================================
+
 use self::armor::Armor;
 use self::constructor_creator::ConstructorCreator;
 use self::player_character::PlayerCharacter;
@@ -88,9 +110,16 @@ pub fn example() {
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
+  // Does not compile; some fields are required and do not have a default option
+  //
+  // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
+  //   .default();
+  // ---------------------------------------------------------------------------
+
+  // ===========================================================================
   // Does not compile; the character class must be chosen first
   //
-  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .weapon(Weapon::LongSword)
   //   .wizard()
   //   .spell(Spell::Invisibility)
@@ -100,7 +129,7 @@ pub fn example() {
   // ===========================================================================
   // Does not compile; warriors are not restricted to the wizard weapon subset
   //
-  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .warrior()
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail);
@@ -110,7 +139,7 @@ pub fn example() {
   // ===========================================================================
   // Does not compile; wizards are restricted to the wizard weapon subset
   //
-  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .wizard()
   //   .weapon(Weapon::LongSword)
   //   .spell(Spell::Invisibility);
@@ -120,7 +149,7 @@ pub fn example() {
   // ===========================================================================
   // Does not compile; warriors cannot cast a spell
   //
-  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .warrior()
   //   .weapon(Weapon::LongSword)
   //   .spell(Spell::Invisibility);
@@ -130,7 +159,7 @@ pub fn example() {
   // ===========================================================================
   // Does not compile; wizards cannot wear armor
   //
-  // let _player_character: PlayerCharacter = PlayerCharacter::builder()
+  // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .wizard()
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail);
