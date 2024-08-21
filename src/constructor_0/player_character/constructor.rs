@@ -41,12 +41,12 @@ impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
   fn constructor() -> PlayerCharacterConstructor {
     // The constructor submodule has direct access to the private fields
     let player_character = PlayerCharacter {
-      armor: Armor::None,
-      character_class: CharacterClass::None,
+      armor: Default::default(),
+      character_class: Default::default(),
       health: 0,
-      spell: Spell::None,
+      spell: Default::default(),
       wealth: 0.,
-      weapon: Weapon::None,
+      weapon: Default::default(),
       wisdom: 0,
     };
 

@@ -16,7 +16,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-14
-//! - Updated: 2024-08-19
+//! - Updated: 2024-08-21
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -135,7 +135,7 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .warrior()
   //   .weapon(WizardWeapon::Staff)
-  //   .armor(Armor::Chainmail);
+  //   .armor(Armor::Chainmail)
   //   .default();
   // ---------------------------------------------------------------------------
 
@@ -145,7 +145,7 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .wizard()
   //   .weapon(Weapon::LongSword)
-  //   .spell(Spell::Invisibility);
+  //   .spell(Spell::Invisibility)
   //   .default();
   // ---------------------------------------------------------------------------
 
@@ -155,7 +155,7 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .warrior()
   //   .weapon(Weapon::LongSword)
-  //   .spell(Spell::Invisibility);
+  //   .spell(Spell::Invisibility)
   //   .default();
   // ---------------------------------------------------------------------------
 
@@ -165,7 +165,7 @@ pub fn example() {
   // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .wizard()
   //   .weapon(WizardWeapon::Staff)
-  //   .armor(Armor::Chainmail);
+  //   .armor(Armor::Chainmail)
   //   .default();
   // ---------------------------------------------------------------------------
 

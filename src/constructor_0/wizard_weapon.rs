@@ -1,9 +1,11 @@
 use super::weapon::Weapon;
 
 /// The subset of weapons available to wizards
-#[derive(Clone, Debug, Copy, Eq, PartialEq)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+#[non_exhaustive]
 pub enum WizardWeapon {
   Dagger,
+  #[default]
   None,
   Staff,
 }
