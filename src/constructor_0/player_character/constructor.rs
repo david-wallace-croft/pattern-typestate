@@ -13,7 +13,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-17
-//! - Updated: 2024-08-19
+//! - Updated: 2024-08-21
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -43,11 +43,11 @@ impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
     let player_character = PlayerCharacter {
       armor: Default::default(),
       character_class: Default::default(),
-      health: 0,
+      health: Default::default(),
       spell: Default::default(),
-      wealth: 0.,
+      wealth: Default::default(),
       weapon: Default::default(),
-      wisdom: 0,
+      wisdom: Default::default(),
     };
 
     PlayerCharacterConstructor::new(player_character)
