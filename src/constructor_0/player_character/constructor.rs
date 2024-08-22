@@ -8,12 +8,13 @@
 //! - Warriors can wear armor but Wizards cannot
 //! - Wizards can cast a spell but Warriors cannot
 //! - Character class-specific default options for health, wealth, and wisdom
+//! - Can have zero or more notes describing the character
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-17
-//! - Updated: 2024-08-21
+//! - Updated: 2024-08-22
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -44,6 +45,7 @@ impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
       armor: Default::default(),
       character_class: Default::default(),
       health: Default::default(),
+      notes: Default::default(),
       spell: Default::default(),
       wealth: Default::default(),
       weapon: Default::default(),
@@ -198,11 +200,11 @@ pub struct PlayerCharacterConstructorHealth {
 }
 
 impl PlayerCharacterConstructorHealth {
-  /// Use the character class-specific default values for the remaining fields
-  pub fn default(self) -> PlayerCharacter {
+  /// Use the default values for the remaining fields
+  pub fn construct(self) -> PlayerCharacter {
     self
       .health_default()
-      .default()
+      .construct()
   }
 
   // The static constructor is only accessible to this module
@@ -243,11 +245,11 @@ pub struct PlayerCharacterConstructorWealth {
 }
 
 impl PlayerCharacterConstructorWealth {
-  /// Use the character class-specific default values for the remaining fields
-  pub fn default(self) -> PlayerCharacter {
+  /// Use the default values for the remaining fields
+  pub fn construct(self) -> PlayerCharacter {
     self
       .wealth_default()
-      .default()
+      .construct()
   }
 
   // The static constructor is only accessible to this module
@@ -288,9 +290,11 @@ pub struct PlayerCharacterConstructorWisdom {
 }
 
 impl PlayerCharacterConstructorWisdom {
-  /// Use the character class-specific default values for the remaining fields
-  pub fn default(self) -> PlayerCharacter {
-    self.wisdom_default()
+  /// Use the default values for the remaining fields
+  pub fn construct(self) -> PlayerCharacter {
+    self
+      .wisdom_default()
+      .construct()
   }
 
   // The static constructor is only accessible to this module
@@ -303,16 +307,16 @@ impl PlayerCharacterConstructorWisdom {
   pub fn wisdom(
     mut self,
     wisdom: usize,
-  ) -> PlayerCharacter {
+  ) -> PlayerCharacterConstructorNote {
     self
       .player_character
       .wisdom = wisdom;
 
-    self.player_character
+    PlayerCharacterConstructorNote::new(self.player_character)
   }
 
   /// Use the character class-specific default value for wisdom
-  pub fn wisdom_default(self) -> PlayerCharacter {
+  pub fn wisdom_default(self) -> PlayerCharacterConstructorNote {
     match self
       .player_character
       .character_class
@@ -321,5 +325,38 @@ impl PlayerCharacterConstructorWisdom {
       CharacterClass::Warrior => self.wisdom(DEFAULT_WISDOM_WARRIOR),
       CharacterClass::Wizard => self.wisdom(DEFAULT_WISDOM_WIZARD),
     }
+  }
+}
+
+//==============================================================================
+
+pub struct PlayerCharacterConstructorNote {
+  player_character: PlayerCharacter,
+}
+
+impl PlayerCharacterConstructorNote {
+  /// Completes the construction of the PlayerCharacter
+  pub fn construct(self) -> PlayerCharacter {
+    self.player_character
+  }
+
+  // The static constructor is only accessible to this module
+  fn new(player_character: PlayerCharacter) -> Self {
+    Self {
+      player_character,
+    }
+  }
+
+  /// Adds a note to the PlayerCharacter notes
+  pub fn note(
+    mut self,
+    note: &str,
+  ) -> Self {
+    self
+      .player_character
+      .notes
+      .push(note.into());
+
+    self
   }
 }

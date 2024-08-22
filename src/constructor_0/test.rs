@@ -14,13 +14,17 @@ fn test_constructor_0() {
     .armor(Armor::Chainmail)
     .health(10)
     .wealth(11.)
-    .wisdom(12);
+    .wisdom(12)
+    .note("Afraid of heights")
+    .construct();
 
   assert_eq!(actual.armor(), Armor::Chainmail);
 
   assert_eq!(actual.character_class(), CharacterClass::Warrior);
 
   assert_eq!(actual.health(), 10);
+
+  assert_eq!(actual.notes(), vec!["Afraid of heights".to_string()]);
 
   assert_eq!(actual.spell(), Spell::None);
 
@@ -37,13 +41,15 @@ fn test_constructor_1() {
     .wizard()
     .weapon(WizardWeapon::Dagger)
     .spell(Spell::Invisibility)
-    .default();
+    .construct();
 
   assert_eq!(actual.armor(), Armor::None);
 
   assert_eq!(actual.character_class(), CharacterClass::Wizard);
 
   assert_eq!(actual.health(), 4);
+
+  assert_eq!(actual.notes(), Vec::<String>::new());
 
   assert_eq!(actual.spell(), Spell::Invisibility);
 

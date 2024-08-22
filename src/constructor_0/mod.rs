@@ -5,7 +5,7 @@
 //! - Using a struct literal
 //! - Using the Default trait
 //! - Using a static constructor
-//! - Using the default() mutator method before all required fields are set
+//! - Using the construct() mutator method before all required fields are set
 //! - Setting the fields out of prerequisite order
 //! - Using the wrong set of values for a field based on a previously set field
 //! - Setting a field that is not allowed based on a previously set field
@@ -16,7 +16,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-14
-//! - Updated: 2024-08-21
+//! - Updated: 2024-08-22
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -48,7 +48,10 @@ pub fn example() {
     .armor(Armor::Chainmail)
     .health(10)
     .wealth(10.)
-    .wisdom(10);
+    .wisdom(10)
+    .note("Afraid of heights")
+    .note("Raised in a fishing village")
+    .construct();
 
   // A wizard can use a wizard weapon and can cast spells
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
@@ -57,7 +60,9 @@ pub fn example() {
     .spell(Spell::Invisibility)
     .health(4)
     .wealth(20.)
-    .wisdom(15);
+    .wisdom(15)
+    .note("Enjoys puns")
+    .construct();
 
   // Some fields such as health have character class-specific default values
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
@@ -66,17 +71,15 @@ pub fn example() {
     .armor(Armor::Chainmail)
     .health_default()
     .wealth(10.)
-    .wisdom(10);
+    .wisdom(10)
+    .construct();
 
   // Provides values only where required and uses default values for the rest
   let _player_character: PlayerCharacter = PlayerCharacter::constructor()
     .warrior()
     .weapon(Weapon::LongSword)
     .armor(Armor::Chainmail)
-    .default();
-
-  // TODO: Example where you do have to call construct() for the last one
-  //   because a method can be called more than once.
+    .construct();
 
   // ===========================================================================
   // Does not compile; cannot use a structure literal because fields are private
@@ -85,6 +88,7 @@ pub fn example() {
   //   armor: Armor::Chainmail,
   //   character_class: CharacterClass::Wizard,
   //   health: 10,
+  //   notes: vec!["Afraid of heights".to_string()],
   //   spell: Spell::Invisibility,
   //   wealth: 11.,
   //   weapon: Weapon::LongSword,
@@ -105,6 +109,7 @@ pub fn example() {
   //   Armor::Chainmail,
   //   CharacterClass::Wizard,
   //   10,
+  //   vec!["Afraid of heights".to_string()],
   //   Spell::Invisibility,
   //   11.,
   //   Weapon::LongSword,
@@ -116,17 +121,17 @@ pub fn example() {
   // Does not compile; some fields are required and do not have a default option
   //
   // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
-  // Does not compile; the character class must be chosen first
+  // Does not compile; the character class must be chosen before the weapon
   //
   // let _player_character: PlayerCharacter = PlayerCharacter::constructor()
   //   .weapon(Weapon::LongSword)
   //   .wizard()
   //   .spell(Spell::Invisibility)
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -136,7 +141,7 @@ pub fn example() {
   //   .warrior()
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail)
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -146,7 +151,7 @@ pub fn example() {
   //   .wizard()
   //   .weapon(Weapon::LongSword)
   //   .spell(Spell::Invisibility)
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -156,7 +161,7 @@ pub fn example() {
   //   .warrior()
   //   .weapon(Weapon::LongSword)
   //   .spell(Spell::Invisibility)
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -166,7 +171,7 @@ pub fn example() {
   //   .wizard()
   //   .weapon(WizardWeapon::Staff)
   //   .armor(Armor::Chainmail)
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -178,13 +183,13 @@ pub fn example() {
   //   .warrior()
   //   .weapon(Weapon::LongSword)
   //   .armor(Armor::Chainmail)
-  //   .default();
+  //   .construct();
   //
   // let _player_character: PlayerCharacter = player_character_constructor
   //   .wizard()
   //   .weapon(WizardWeapon::Staff)
   //   .spell(Spell::Invisibility)
-  //   .default();
+  //   .construct();
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
@@ -196,9 +201,9 @@ pub fn example() {
   //   .armor(Armor::Chainmail);
   //
   // let _player_character: PlayerCharacter
-  //   = player_character_constructor_fragment.default();
+  //   = player_character_constructor_fragment.construct();
   //
   // let _player_character: PlayerCharacter
-  //   = player_character_constructor_fragment.default();
+  //   = player_character_constructor_fragment.construct();
   // ---------------------------------------------------------------------------
 }

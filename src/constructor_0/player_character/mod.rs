@@ -1,3 +1,16 @@
+//==============================================================================
+//! The data for a PlayerCharacter can only be set using the fluent constructor.
+//!
+//! # Metadata
+//! - Author: [`David Wallace Croft`]
+//! - Copyright: &copy; 2024 [`CroftSoft Inc`]
+//! - Created: 2024-08-14
+//! - Updated: 2024-08-22
+//!
+//! [`CroftSoft Inc`]: https://www.croftsoft.com/
+//! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
+//==============================================================================
+
 use super::armor::Armor;
 use super::character_class::CharacterClass;
 use super::spell::Spell;
@@ -11,6 +24,7 @@ pub struct PlayerCharacter {
   armor: Armor,
   character_class: CharacterClass,
   health: isize,
+  notes: Vec<String>,
   spell: Spell,
   wealth: f64,
   weapon: Weapon,
@@ -29,6 +43,12 @@ impl PlayerCharacter {
 
   pub fn health(&self) -> isize {
     self.health
+  }
+
+  pub fn notes(&self) -> Vec<String> {
+    self
+      .notes
+      .clone()
   }
 
   pub fn spell(&self) -> Spell {
