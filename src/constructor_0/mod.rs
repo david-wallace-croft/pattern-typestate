@@ -5,7 +5,7 @@
 //! - Using a struct literal
 //! - Using the Default trait
 //! - Using a static constructor
-//! - Using the construct() mutator method before all required fields are set
+//! - Using the construct() method before all required fields are set
 //! - Setting the fields out of prerequisite order
 //! - Using the wrong set of values for a field based on a previously set field
 //! - Setting a field that is not allowed based on a previously set field
