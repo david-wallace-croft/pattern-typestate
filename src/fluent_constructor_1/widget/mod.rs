@@ -5,14 +5,14 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-23
-//! - Updated: 2024-08-23
+//! - Updated: 2024-08-24
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
 //==============================================================================
 
 // The constructor submodule provides a ConstructorCreator trait implementation
-mod constructor;
+mod constructor_0;
 
 // The private fields can only be set in the constructor submodule
 pub struct Widget {
