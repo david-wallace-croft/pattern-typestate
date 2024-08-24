@@ -30,7 +30,9 @@ impl ConstructorCreator<WidgetConstructor> for Widget {
       weight: Default::default(),
     };
 
-    WidgetConstructor::new(widget)
+    WidgetConstructor {
+      widget,
+    }
   }
 }
 
@@ -48,13 +50,6 @@ impl WidgetConstructor {
       .construct()
   }
 
-  // The static constructor is only accessible to this module
-  fn new(widget: Widget) -> Self {
-    Self {
-      widget,
-    }
-  }
-
   pub fn height(
     mut self,
     height: usize,
@@ -63,7 +58,9 @@ impl WidgetConstructor {
       .widget
       .height = height;
 
-    WidgetConstructorOffset::new(self.widget)
+    WidgetConstructorOffset {
+      widget: self.widget,
+    }
   }
 
   /// Use the default value
@@ -86,13 +83,6 @@ impl WidgetConstructorOffset {
       .construct()
   }
 
-  // The static constructor is only accessible to this module
-  fn new(widget: Widget) -> Self {
-    Self {
-      widget,
-    }
-  }
-
   pub fn offset(
     mut self,
     offset: isize,
@@ -101,7 +91,9 @@ impl WidgetConstructorOffset {
       .widget
       .offset = offset;
 
-    WidgetConstructorWeight::new(self.widget)
+    WidgetConstructorWeight {
+      widget: self.widget,
+    }
   }
 
   /// Use the default value
@@ -120,13 +112,6 @@ impl WidgetConstructorWeight {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> Widget {
     self.weight_default()
-  }
-
-  // The static constructor is only accessible to this module
-  fn new(widget: Widget) -> Self {
-    Self {
-      widget,
-    }
   }
 
   pub fn weight(
