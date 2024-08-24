@@ -1,6 +1,21 @@
 //==============================================================================
 //! An example of a fluent constructor that uses the typestate pattern.
 //!
+//! This example shows how a fluent constructor can be implemented for a struct
+//! defined in an unrelated module or external crate. The struct provides a
+//! public static constructor but no other means of setting the field values.
+//!
+//! The reasons the struct fields cannot be set directly could include:
+//! - at least one field is private which prevents the use of a struct literal
+//! - #\[non_exhaustive] prevents using a struct literal outside of its crate
+//! - no public mutator (setter) methods are implemented
+//!
+//! The fluent constructor implementation accumulates and stores the field
+//! values in its state structures as the calls to the chain methods drive the
+//! constructor from one state to the next.  Internally, the fluent constructor
+//! completes construction by calling the public static constructor once all of
+//! the required field values have been acquired.
+//!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
@@ -11,8 +26,8 @@
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
 //==============================================================================
 
-use super::super::constructor_creator::ConstructorCreator;
-use super::super::widget::Widget;
+use super::constructor_creator::ConstructorCreator;
+use super::widget::Widget;
 
 const DEFAULT_HEIGHT: usize = 11;
 const DEFAULT_OFFSET: isize = 22;
@@ -102,11 +117,7 @@ impl WidgetConstructorWeight {
     &self,
     weight: f64,
   ) -> Widget {
-    Widget {
-      height: self.height,
-      offset: self.offset,
-      weight,
-    }
+    Widget::new(self.height, self.offset, weight)
   }
 
   /// Use the default value

@@ -11,10 +11,11 @@
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
 //==============================================================================
 
+use self::constructor::WidgetConstructorWeight;
 use self::constructor_creator::ConstructorCreator;
 use self::widget::Widget;
-use crate::fluent_constructor_3::widget::constructor::WidgetConstructorWeight;
 
+mod constructor;
 mod constructor_creator;
 mod widget;
 

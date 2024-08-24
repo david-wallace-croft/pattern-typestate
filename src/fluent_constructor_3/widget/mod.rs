@@ -1,5 +1,5 @@
 //==============================================================================
-//! The data for a Widget can only be set using the fluent constructor.
+//! The data for a Widget can only be set using the static constructor.
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
@@ -11,20 +11,28 @@
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
 //==============================================================================
 
-// The constructor submodule provides a ConstructorCreator trait implementation
-pub mod constructor;
-
-// The private fields can only be set in the constructor submodule
 pub struct Widget {
   height: usize,
   offset: isize,
   weight: f64,
 }
 
-// Provides field accessor (getter) methods but no mutator (setter) methods
 impl Widget {
   pub fn height(&self) -> usize {
     self.height
+  }
+
+  // The private fields can only be set using the static constructor
+  pub fn new(
+    height: usize,
+    offset: isize,
+    weight: f64,
+  ) -> Self {
+    Self {
+      height,
+      offset,
+      weight,
+    }
   }
 
   pub fn offset(&self) -> isize {
