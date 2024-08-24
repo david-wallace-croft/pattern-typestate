@@ -5,7 +5,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-23
-//! - Updated: 2024-08-23
+//! - Updated: 2024-08-24
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -15,7 +15,8 @@ use super::super::constructor_creator::ConstructorCreator;
 use super::super::widget::Widget;
 
 const DEFAULT_HEIGHT: usize = 11;
-const DEFAULT_OFFSET: isize = 10;
+const DEFAULT_OFFSET: isize = 22;
+const DEFAULT_WEIGHT: f64 = 33.;
 
 //==============================================================================
 
@@ -26,6 +27,7 @@ impl ConstructorCreator<WidgetConstructor> for Widget {
     let widget = Widget {
       height: Default::default(),
       offset: Default::default(),
+      weight: Default::default(),
     };
 
     WidgetConstructor::new(widget)
@@ -64,7 +66,7 @@ impl WidgetConstructor {
     WidgetConstructorOffset::new(self.widget)
   }
 
-  /// Use the character class-specific default value for height
+  /// Use the default value
   pub fn height_default(self) -> WidgetConstructorOffset {
     self.height(DEFAULT_HEIGHT)
   }
@@ -79,7 +81,9 @@ pub struct WidgetConstructorOffset {
 impl WidgetConstructorOffset {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> Widget {
-    self.offset_default()
+    self
+      .offset_default()
+      .construct()
   }
 
   // The static constructor is only accessible to this module
@@ -92,16 +96,52 @@ impl WidgetConstructorOffset {
   pub fn offset(
     mut self,
     offset: isize,
-  ) -> Widget {
+  ) -> WidgetConstructorWeight {
     self
       .widget
       .offset = offset;
 
+    WidgetConstructorWeight::new(self.widget)
+  }
+
+  /// Use the default value
+  pub fn offset_default(self) -> WidgetConstructorWeight {
+    self.offset(DEFAULT_OFFSET)
+  }
+}
+
+//==============================================================================
+
+pub struct WidgetConstructorWeight {
+  widget: Widget,
+}
+
+impl WidgetConstructorWeight {
+  /// Use the default values for the remaining fields
+  pub fn construct(self) -> Widget {
+    self.weight_default()
+  }
+
+  // The static constructor is only accessible to this module
+  fn new(widget: Widget) -> Self {
+    Self {
+      widget,
+    }
+  }
+
+  pub fn weight(
+    mut self,
+    weight: f64,
+  ) -> Widget {
+    self
+      .widget
+      .weight = weight;
+
     self.widget
   }
 
-  /// Use the character class-specific default value for offset
-  pub fn offset_default(self) -> Widget {
-    self.offset(DEFAULT_OFFSET)
+  /// Use the default value
+  pub fn weight_default(self) -> Widget {
+    self.weight(DEFAULT_WEIGHT)
   }
 }

@@ -18,6 +18,7 @@ mod constructor_0;
 pub struct Widget {
   height: usize,
   offset: isize,
+  weight: f64,
 }
 
 // Provides field accessor (getter) methods but no mutator (setter) methods
@@ -28,5 +29,9 @@ impl Widget {
 
   pub fn offset(&self) -> isize {
     self.offset
+  }
+
+  pub fn weight(&self) -> f64 {
+    self.weight
   }
 }
