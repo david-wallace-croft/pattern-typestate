@@ -14,7 +14,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-17
-//! - Updated: 2024-08-22
+//! - Updated: 2024-08-24
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -52,7 +52,9 @@ impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
       wisdom: Default::default(),
     };
 
-    PlayerCharacterConstructor::new(player_character)
+    PlayerCharacterConstructor {
+      player_character,
+    }
   }
 }
 
@@ -63,19 +65,14 @@ pub struct PlayerCharacterConstructor {
 }
 
 impl PlayerCharacterConstructor {
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn warrior(mut self) -> PlayerCharacterConstructorWarriorWeapon {
     self
       .player_character
       .character_class = CharacterClass::Warrior;
 
-    PlayerCharacterConstructorWarriorWeapon::new(self.player_character)
+    PlayerCharacterConstructorWarriorWeapon {
+      player_character: self.player_character,
+    }
   }
 
   pub fn wizard(mut self) -> PlayerCharacterConstructorWizardWeapon {
@@ -83,7 +80,9 @@ impl PlayerCharacterConstructor {
       .player_character
       .character_class = CharacterClass::Wizard;
 
-    PlayerCharacterConstructorWizardWeapon::new(self.player_character)
+    PlayerCharacterConstructorWizardWeapon {
+      player_character: self.player_character,
+    }
   }
 }
 
@@ -94,13 +93,6 @@ pub struct PlayerCharacterConstructorWarriorWeapon {
 }
 
 impl PlayerCharacterConstructorWarriorWeapon {
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn weapon(
     mut self,
     weapon: Weapon,
@@ -109,7 +101,9 @@ impl PlayerCharacterConstructorWarriorWeapon {
       .player_character
       .weapon = weapon;
 
-    PlayerCharacterConstructorWarriorArmor::new(self.player_character)
+    PlayerCharacterConstructorWarriorArmor {
+      player_character: self.player_character,
+    }
   }
 }
 
@@ -128,13 +122,8 @@ impl PlayerCharacterConstructorWarriorArmor {
       .player_character
       .armor = armor;
 
-    PlayerCharacterConstructorHealth::new(self.player_character)
-  }
-
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
+    PlayerCharacterConstructorHealth {
+      player_character: self.player_character,
     }
   }
 }
@@ -146,13 +135,6 @@ pub struct PlayerCharacterConstructorWizardWeapon {
 }
 
 impl PlayerCharacterConstructorWizardWeapon {
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
@@ -163,7 +145,9 @@ impl PlayerCharacterConstructorWizardWeapon {
       .player_character
       .weapon = weapon;
 
-    PlayerCharacterConstructorWizardSpell::new(self.player_character)
+    PlayerCharacterConstructorWizardSpell {
+      player_character: self.player_character,
+    }
   }
 }
 
@@ -174,13 +158,6 @@ pub struct PlayerCharacterConstructorWizardSpell {
 }
 
 impl PlayerCharacterConstructorWizardSpell {
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn spell(
     mut self,
     spell: Spell,
@@ -189,7 +166,9 @@ impl PlayerCharacterConstructorWizardSpell {
       .player_character
       .spell = spell;
 
-    PlayerCharacterConstructorHealth::new(self.player_character)
+    PlayerCharacterConstructorHealth {
+      player_character: self.player_character,
+    }
   }
 }
 
@@ -207,13 +186,6 @@ impl PlayerCharacterConstructorHealth {
       .construct()
   }
 
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn health(
     mut self,
     health: isize,
@@ -222,7 +194,9 @@ impl PlayerCharacterConstructorHealth {
       .player_character
       .health = health;
 
-    PlayerCharacterConstructorWealth::new(self.player_character)
+    PlayerCharacterConstructorWealth {
+      player_character: self.player_character,
+    }
   }
 
   /// Use the character class-specific default value for health
@@ -252,13 +226,6 @@ impl PlayerCharacterConstructorWealth {
       .construct()
   }
 
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn wealth(
     mut self,
     wealth: f64,
@@ -267,7 +234,9 @@ impl PlayerCharacterConstructorWealth {
       .player_character
       .wealth = wealth;
 
-    PlayerCharacterConstructorWisdom::new(self.player_character)
+    PlayerCharacterConstructorWisdom {
+      player_character: self.player_character,
+    }
   }
 
   /// Use the character class-specific default value for wealth
@@ -297,13 +266,6 @@ impl PlayerCharacterConstructorWisdom {
       .construct()
   }
 
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
-  }
-
   pub fn wisdom(
     mut self,
     wisdom: usize,
@@ -312,7 +274,9 @@ impl PlayerCharacterConstructorWisdom {
       .player_character
       .wisdom = wisdom;
 
-    PlayerCharacterConstructorNote::new(self.player_character)
+    PlayerCharacterConstructorNote {
+      player_character: self.player_character,
+    }
   }
 
   /// Use the character class-specific default value for wisdom
@@ -338,13 +302,6 @@ impl PlayerCharacterConstructorNote {
   /// Completes the construction of the PlayerCharacter
   pub fn construct(self) -> PlayerCharacter {
     self.player_character
-  }
-
-  // The static constructor is only accessible to this module
-  fn new(player_character: PlayerCharacter) -> Self {
-    Self {
-      player_character,
-    }
   }
 
   /// Adds a note to the PlayerCharacter notes
