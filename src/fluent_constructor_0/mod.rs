@@ -9,8 +9,8 @@
 //! - Setting the fields out of prerequisite order
 //! - Using the wrong set of values for a field based on a previously set field
 //! - Setting a field that is not allowed based on a previously set field
-//! - Reusing a fluent constructor after construction has completed
-//! - Reusing a fluent constructor fragment after construction has completed
+//! - Reusing a fluent constructor after construction completion
+//! - Reusing a fluent constructor fragment after construction completion
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
