@@ -5,7 +5,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-14
-//! - Updated: 2024-08-22
+//! - Updated: 2024-08-25
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -17,7 +17,7 @@ use super::spell::Spell;
 use super::weapon::Weapon;
 
 // The constructor submodule provides a ConstructorCreator trait implementation
-mod constructor;
+pub mod constructor;
 
 // The private fields can only be set in the constructor submodule
 pub struct PlayerCharacter {

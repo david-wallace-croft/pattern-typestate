@@ -9,14 +9,14 @@
 //! - Setting the fields out of prerequisite order
 //! - Using the wrong set of values for a field based on a previously set field
 //! - Setting a field that is not allowed based on a previously set field
-//! - Reusing a fluent constructor after it has been used
-//! - Reusing a fluent constructor method chain fragment after it has been used
+//! - Reusing a fluent constructor after construction was completed
+//! - Reusing a fluent constructor fragment after construction was completed
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-14
-//! - Updated: 2024-08-22
+//! - Updated: 2024-08-25
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -24,6 +24,7 @@
 
 use self::armor::Armor;
 use self::constructor_creator::ConstructorCreator;
+use self::player_character::constructor::PlayerCharacterConstructorNote;
 use self::player_character::PlayerCharacter;
 use self::spell::Spell;
 use self::weapon::Weapon;
@@ -50,7 +51,6 @@ pub fn example() {
     .wealth(10.)
     .wisdom(10)
     .note("Afraid of heights")
-    .note("Raised in a fishing village")
     .construct();
 
   // A wizard can use a wizard weapon and can cast spells
@@ -72,6 +72,7 @@ pub fn example() {
     .health_default()
     .wealth(10.)
     .wisdom(10)
+    .note("Raised in a fishing village")
     .construct();
 
   // Provides values only where required and uses default values for the rest
@@ -80,6 +81,40 @@ pub fn example() {
     .weapon(Weapon::LongSword)
     .armor(Armor::Chainmail)
     .construct();
+
+  // Some fields can have multiple values
+  let _player_character: PlayerCharacter = PlayerCharacter::constructor()
+    .warrior()
+    .weapon(Weapon::LongSword)
+    .armor(Armor::Chainmail)
+    .health(10)
+    .wealth(10.)
+    .wisdom(10)
+    .note("Afraid of heights")
+    .note("Enjoys puns")
+    .note("Raised in a fishing village")
+    .construct();
+
+  // A constructor fragment can be used when iterating over values for a field
+  let mut player_character_constructor_note: PlayerCharacterConstructorNote =
+    PlayerCharacter::constructor()
+      .warrior()
+      .weapon(Weapon::LongSword)
+      .armor(Armor::Chainmail)
+      .health(10)
+      .wealth(10.)
+      .wisdom(10);
+
+  for note in [
+    "Afraid of heights",
+    "Enjoys puns",
+    "Raised in a fishing village",
+  ] {
+    player_character_constructor_note =
+      player_character_constructor_note.note(note);
+  }
+
+  let _player_character = player_character_constructor_note.construct();
 
   // ===========================================================================
   // Does not compile; cannot use a structure literal because fields are private
@@ -175,7 +210,7 @@ pub fn example() {
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
-  // Does not compile; cannot reuse a fluent constructor
+  // Does not compile; cannot reuse a constructor after construction
   //
   // let player_character_constructor = PlayerCharacter::constructor();
   //
@@ -193,7 +228,7 @@ pub fn example() {
   // ---------------------------------------------------------------------------
 
   // ===========================================================================
-  // Does not compile; cannot reuse a fluent constructor method chain fragment
+  // Does not compile; cannot reuse a constructor fragment after construction
   //
   // let player_character_constructor_fragment = PlayerCharacter::constructor()
   //   .warrior()
