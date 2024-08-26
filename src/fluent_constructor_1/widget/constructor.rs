@@ -13,16 +13,21 @@
 
 use super::super::constructor_creator::ConstructorCreator;
 use super::super::widget::Widget;
+use std::marker::PhantomData;
 
 const DEFAULT_HEIGHT: usize = 11;
 const DEFAULT_OFFSET: isize = 22;
 const DEFAULT_WEIGHT: f64 = 33.;
 
+pub struct StateHeight;
+pub struct StateOffset;
+pub struct StateWeight;
+
 //==============================================================================
 
-impl ConstructorCreator<WidgetConstructor> for Widget {
+impl ConstructorCreator<WidgetConstructor<StateHeight>> for Widget {
   // The public ConstructorCreator trait provides indirect access to the fields
-  fn constructor() -> WidgetConstructor {
+  fn constructor() -> WidgetConstructor<StateHeight> {
     // The constructor submodule has direct access to the private fields
     let widget = Widget {
       height: Default::default(),
@@ -30,7 +35,8 @@ impl ConstructorCreator<WidgetConstructor> for Widget {
       weight: Default::default(),
     };
 
-    WidgetConstructor {
+    WidgetConstructor::<StateHeight> {
+      state: PhantomData,
       widget,
     }
   }
@@ -38,11 +44,12 @@ impl ConstructorCreator<WidgetConstructor> for Widget {
 
 //==============================================================================
 
-pub struct WidgetConstructor {
+pub struct WidgetConstructor<S> {
+  state: PhantomData<S>,
   widget: Widget,
 }
 
-impl WidgetConstructor {
+impl WidgetConstructor<StateHeight> {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> Widget {
     self
@@ -53,29 +60,26 @@ impl WidgetConstructor {
   pub fn height(
     mut self,
     height: usize,
-  ) -> WidgetConstructorOffset {
+  ) -> WidgetConstructor<StateOffset> {
     self
       .widget
       .height = height;
 
-    WidgetConstructorOffset {
+    WidgetConstructor::<StateOffset> {
+      state: PhantomData,
       widget: self.widget,
     }
   }
 
   /// Use the default value
-  pub fn height_default(self) -> WidgetConstructorOffset {
+  pub fn height_default(self) -> WidgetConstructor<StateOffset> {
     self.height(DEFAULT_HEIGHT)
   }
 }
 
 //==============================================================================
 
-pub struct WidgetConstructorOffset {
-  widget: Widget,
-}
-
-impl WidgetConstructorOffset {
+impl WidgetConstructor<StateOffset> {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> Widget {
     self
@@ -86,29 +90,26 @@ impl WidgetConstructorOffset {
   pub fn offset(
     mut self,
     offset: isize,
-  ) -> WidgetConstructorWeight {
+  ) -> WidgetConstructor<StateWeight> {
     self
       .widget
       .offset = offset;
 
-    WidgetConstructorWeight {
+    WidgetConstructor::<StateWeight> {
+      state: PhantomData,
       widget: self.widget,
     }
   }
 
   /// Use the default value
-  pub fn offset_default(self) -> WidgetConstructorWeight {
+  pub fn offset_default(self) -> WidgetConstructor<StateWeight> {
     self.offset(DEFAULT_OFFSET)
   }
 }
 
 //==============================================================================
 
-pub struct WidgetConstructorWeight {
-  widget: Widget,
-}
-
-impl WidgetConstructorWeight {
+impl WidgetConstructor<StateWeight> {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> Widget {
     self.weight_default()

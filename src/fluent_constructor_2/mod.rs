@@ -11,9 +11,11 @@
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
 //==============================================================================
 
+use self::constructor::WidgetConstructorWeight;
 use self::constructor_creator::ConstructorCreator;
 use self::widget::Widget;
 
+mod constructor;
 mod constructor_creator;
 mod widget;
 
@@ -40,4 +42,16 @@ pub fn example() {
 
   // Uses the default values for all fields
   let _widget: Widget = Widget::constructor().construct();
+
+  // Since the final field is not set, returns a constructor fragment
+  let widget_constructor_weight: WidgetConstructorWeight =
+    Widget::constructor()
+      .height(1)
+      .offset(2);
+
+  // When the final field is set, the Widget is constructed
+  let _widget: Widget = widget_constructor_weight.weight(3.);
+
+  // The constructor fragment can be reused to return a different widget
+  let _widget: Widget = widget_constructor_weight.weight(33.);
 }
