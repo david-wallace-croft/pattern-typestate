@@ -16,7 +16,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-14
-//! - Updated: 2024-08-25
+//! - Updated: 2024-08-26
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -24,7 +24,9 @@
 
 use self::armor::Armor;
 use self::constructor_creator::ConstructorCreator;
-use self::player_character::constructor::PlayerCharacterConstructorNote;
+use self::player_character::constructor::{
+  PlayerCharacterConstructor, StateNote,
+};
 use self::player_character::PlayerCharacter;
 use self::spell::Spell;
 use self::weapon::Weapon;
@@ -96,14 +98,15 @@ pub fn example() {
     .construct();
 
   // A constructor fragment can be used when iterating over values for a field
-  let mut player_character_constructor_note: PlayerCharacterConstructorNote =
-    PlayerCharacter::constructor()
-      .warrior()
-      .weapon(Weapon::LongSword)
-      .armor(Armor::Chainmail)
-      .health(10)
-      .wealth(10.)
-      .wisdom(10);
+  let mut player_character_constructor_note: PlayerCharacterConstructor<
+    StateNote,
+  > = PlayerCharacter::constructor()
+    .warrior()
+    .weapon(Weapon::LongSword)
+    .armor(Armor::Chainmail)
+    .health(10)
+    .wealth(10.)
+    .wisdom(10);
 
   for note in [
     "Afraid of heights",

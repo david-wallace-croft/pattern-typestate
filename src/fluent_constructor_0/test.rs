@@ -1,7 +1,9 @@
 use super::armor::Armor;
 use super::character_class::CharacterClass;
 use super::constructor_creator::ConstructorCreator;
-use super::player_character::constructor::PlayerCharacterConstructorNote;
+use super::player_character::constructor::{
+  PlayerCharacterConstructor, StateNote,
+};
 use super::player_character::PlayerCharacter;
 use super::spell::Spell;
 use super::weapon::Weapon;
@@ -98,14 +100,15 @@ fn test_constructor_3() {
     .map(|s| s.to_string())
     .collect();
 
-  let mut player_character_constructor_note: PlayerCharacterConstructorNote =
-    PlayerCharacter::constructor()
-      .warrior()
-      .weapon(Weapon::LongSword)
-      .armor(Armor::Chainmail)
-      .health(11)
-      .wealth(12.)
-      .wisdom(13);
+  let mut player_character_constructor_note: PlayerCharacterConstructor<
+    StateNote,
+  > = PlayerCharacter::constructor()
+    .warrior()
+    .weapon(Weapon::LongSword)
+    .armor(Armor::Chainmail)
+    .health(11)
+    .wealth(12.)
+    .wisdom(13);
 
   for note in TEST_NOTES {
     player_character_constructor_note =

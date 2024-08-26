@@ -14,7 +14,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-17
-//! - Updated: 2024-08-24
+//! - Updated: 2024-08-26
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -27,6 +27,7 @@ use super::super::player_character::PlayerCharacter;
 use super::super::spell::Spell;
 use super::super::weapon::Weapon;
 use super::super::wizard_weapon::WizardWeapon;
+use std::marker::PhantomData;
 
 const DEFAULT_HEALTH_WARRIOR: isize = 10;
 const DEFAULT_HEALTH_WIZARD: isize = 4;
@@ -35,11 +36,28 @@ const DEFAULT_WEALTH_WIZARD: f64 = 12.;
 const DEFAULT_WISDOM_WARRIOR: usize = 11;
 const DEFAULT_WISDOM_WIZARD: usize = 15;
 
+pub struct StateCharacterClass;
+pub struct StateHealth;
+pub struct StateNote;
+pub struct StateWarriorArmor;
+pub struct StateWarriorWeapon;
+pub struct StateWealth;
+pub struct StateWisdom;
+pub struct StateWizardSpell;
+pub struct StateWizardWeapon;
+
 //==============================================================================
 
-impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
+pub struct PlayerCharacterConstructor<S> {
+  player_character: PlayerCharacter,
+  state: PhantomData<S>,
+}
+
+impl ConstructorCreator<PlayerCharacterConstructor<StateCharacterClass>>
+  for PlayerCharacter
+{
   // The public ConstructorCreator trait provides indirect access to the fields
-  fn constructor() -> PlayerCharacterConstructor {
+  fn constructor() -> PlayerCharacterConstructor<StateCharacterClass> {
     // The constructor submodule has direct access to the private fields
     let player_character = PlayerCharacter {
       armor: Default::default(),
@@ -54,131 +72,114 @@ impl ConstructorCreator<PlayerCharacterConstructor> for PlayerCharacter {
 
     PlayerCharacterConstructor {
       player_character,
+      state: PhantomData,
     }
   }
 }
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructor {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructor {
-  pub fn warrior(mut self) -> PlayerCharacterConstructorWarriorWeapon {
+impl PlayerCharacterConstructor<StateCharacterClass> {
+  pub fn warrior(mut self) -> PlayerCharacterConstructor<StateWarriorWeapon> {
     self
       .player_character
       .character_class = CharacterClass::Warrior;
 
-    PlayerCharacterConstructorWarriorWeapon {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 
-  pub fn wizard(mut self) -> PlayerCharacterConstructorWizardWeapon {
+  pub fn wizard(mut self) -> PlayerCharacterConstructor<StateWizardWeapon> {
     self
       .player_character
       .character_class = CharacterClass::Wizard;
 
-    PlayerCharacterConstructorWizardWeapon {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 }
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorWarriorWeapon {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorWarriorWeapon {
+impl PlayerCharacterConstructor<StateWarriorWeapon> {
   pub fn weapon(
     mut self,
     weapon: Weapon,
-  ) -> PlayerCharacterConstructorWarriorArmor {
+  ) -> PlayerCharacterConstructor<StateWarriorArmor> {
     self
       .player_character
       .weapon = weapon;
 
-    PlayerCharacterConstructorWarriorArmor {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 }
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorWarriorArmor {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorWarriorArmor {
+impl PlayerCharacterConstructor<StateWarriorArmor> {
   pub fn armor(
     mut self,
     armor: Armor,
-  ) -> PlayerCharacterConstructorHealth {
+  ) -> PlayerCharacterConstructor<StateHealth> {
     self
       .player_character
       .armor = armor;
 
-    PlayerCharacterConstructorHealth {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 }
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorWizardWeapon {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorWizardWeapon {
+impl PlayerCharacterConstructor<StateWizardWeapon> {
   pub fn weapon(
     mut self,
     wizard_weapon: WizardWeapon,
-  ) -> PlayerCharacterConstructorWizardSpell {
+  ) -> PlayerCharacterConstructor<StateWizardSpell> {
     let weapon: Weapon = wizard_weapon.into();
 
     self
       .player_character
       .weapon = weapon;
 
-    PlayerCharacterConstructorWizardSpell {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 }
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorWizardSpell {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorWizardSpell {
+impl PlayerCharacterConstructor<StateWizardSpell> {
   pub fn spell(
     mut self,
     spell: Spell,
-  ) -> PlayerCharacterConstructorHealth {
+  ) -> PlayerCharacterConstructor<StateHealth> {
     self
       .player_character
       .spell = spell;
 
-    PlayerCharacterConstructorHealth {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 }
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorHealth {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorHealth {
+impl PlayerCharacterConstructor<StateHealth> {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> PlayerCharacter {
     self
@@ -189,18 +190,19 @@ impl PlayerCharacterConstructorHealth {
   pub fn health(
     mut self,
     health: isize,
-  ) -> PlayerCharacterConstructorWealth {
+  ) -> PlayerCharacterConstructor<StateWealth> {
     self
       .player_character
       .health = health;
 
-    PlayerCharacterConstructorWealth {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 
   /// Use the character class-specific default value for health
-  pub fn health_default(self) -> PlayerCharacterConstructorWealth {
+  pub fn health_default(self) -> PlayerCharacterConstructor<StateWealth> {
     match self
       .player_character
       .character_class
@@ -214,11 +216,7 @@ impl PlayerCharacterConstructorHealth {
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorWealth {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorWealth {
+impl PlayerCharacterConstructor<StateWealth> {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> PlayerCharacter {
     self
@@ -229,18 +227,19 @@ impl PlayerCharacterConstructorWealth {
   pub fn wealth(
     mut self,
     wealth: f64,
-  ) -> PlayerCharacterConstructorWisdom {
+  ) -> PlayerCharacterConstructor<StateWisdom> {
     self
       .player_character
       .wealth = wealth;
 
-    PlayerCharacterConstructorWisdom {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 
   /// Use the character class-specific default value for wealth
-  pub fn wealth_default(self) -> PlayerCharacterConstructorWisdom {
+  pub fn wealth_default(self) -> PlayerCharacterConstructor<StateWisdom> {
     match self
       .player_character
       .character_class
@@ -254,11 +253,7 @@ impl PlayerCharacterConstructorWealth {
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorWisdom {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorWisdom {
+impl PlayerCharacterConstructor<StateWisdom> {
   /// Use the default values for the remaining fields
   pub fn construct(self) -> PlayerCharacter {
     self
@@ -269,18 +264,19 @@ impl PlayerCharacterConstructorWisdom {
   pub fn wisdom(
     mut self,
     wisdom: usize,
-  ) -> PlayerCharacterConstructorNote {
+  ) -> PlayerCharacterConstructor<StateNote> {
     self
       .player_character
       .wisdom = wisdom;
 
-    PlayerCharacterConstructorNote {
+    PlayerCharacterConstructor {
       player_character: self.player_character,
+      state: PhantomData,
     }
   }
 
   /// Use the character class-specific default value for wisdom
-  pub fn wisdom_default(self) -> PlayerCharacterConstructorNote {
+  pub fn wisdom_default(self) -> PlayerCharacterConstructor<StateNote> {
     match self
       .player_character
       .character_class
@@ -294,11 +290,7 @@ impl PlayerCharacterConstructorWisdom {
 
 //==============================================================================
 
-pub struct PlayerCharacterConstructorNote {
-  player_character: PlayerCharacter,
-}
-
-impl PlayerCharacterConstructorNote {
+impl PlayerCharacterConstructor<StateNote> {
   /// Completes the construction of the PlayerCharacter
   pub fn construct(self) -> PlayerCharacter {
     self.player_character
