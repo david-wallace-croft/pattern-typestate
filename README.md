@@ -12,7 +12,6 @@
 - Examples of using the typestate pattern to make a fluent constructor
 - Techniques are gradually introduced from one example module to the next
 
-
 - fluent_constructor_0
   - Demonstrates the basic typestate pattern as used with a fluent constructor
 - fluent_constructor_1
@@ -25,7 +24,6 @@
 ## State Machine Examples
 
 - Examples of using the typestate pattern to make a state machine
-
 
 - typestate_0
   - TODO
