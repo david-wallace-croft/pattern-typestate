@@ -120,7 +120,7 @@ pub fn example() {
   let _player_character = player_character_constructor_note.construct();
 
   // ===========================================================================
-  // Does not compile; cannot use a structure literal because fields are private
+  // Does not compile; cannot use a struct literal because fields are private
   //
   // let _player_character: PlayerCharacter = PlayerCharacter {
   //   armor: Armor::Chainmail,
