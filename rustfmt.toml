@@ -1,8 +1,6 @@
 # https://rust-lang.github.io/rustfmt/
 array_width = 1
-# new
 attr_fn_like_width = 1
-# new
 chain_width = 1
 # condense_wildcard_suffixes = true
 disable_all_formatting = false
