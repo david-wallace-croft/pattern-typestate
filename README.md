@@ -25,15 +25,11 @@
 
 - Examples of using the typestate pattern to make a state machine
 
-- typestate_0
+- state_machine_0
   - TODO
-- typestate_1
+- state_machine_1
   - TODO
-- typestate_2
-  - TODO
-- typestate_3
-  - TODO
-- typestate_4
+- state_machine_2
   - TODO
 
 ## Links

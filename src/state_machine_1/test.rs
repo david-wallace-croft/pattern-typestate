@@ -3,7 +3,7 @@ use super::request::Request::{self, *};
 use super::running::RunningState;
 use super::stopped::StoppedState;
 use super::typestate::Typestate;
-use crate::typestate_3::state_operator::StateOperator;
+use crate::state_machine_1::state_operator::StateOperator;
 
 #[test]
 pub fn test0() {

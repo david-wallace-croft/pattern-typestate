@@ -3,7 +3,7 @@ use super::state_operator::StateOperator;
 use super::state_trait::StateTrait;
 use super::stopped::StoppedState;
 use super::typestate::Typestate;
-use crate::typestate_4::data::Data;
+use crate::state_machine_2::data::Data;
 use std::fmt::{Display, Formatter};
 use std::marker::PhantomData;
 
