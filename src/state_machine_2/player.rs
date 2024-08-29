@@ -3,12 +3,12 @@ use super::request::Request;
 use super::typestate::Typestate;
 
 #[derive(Debug, PartialEq)]
-pub struct Machine {
+pub struct Player {
   data: Data,
   typestate_option: Option<Typestate>,
 }
 
-impl Machine {
+impl Player {
   pub fn get_position(&self) -> usize {
     self
       .data
@@ -51,7 +51,7 @@ impl Machine {
   }
 }
 
-impl Default for Machine {
+impl Default for Player {
   fn default() -> Self {
     Self {
       data: Data::default(),

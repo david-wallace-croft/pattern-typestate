@@ -1,6 +1,6 @@
 pub mod data;
 pub mod ejected;
-pub mod machine;
+pub mod player;
 pub mod request;
 pub mod running;
 pub mod state_operator;

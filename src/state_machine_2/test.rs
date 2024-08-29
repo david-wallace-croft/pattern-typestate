@@ -1,4 +1,4 @@
-use super::machine::Machine;
+use super::player::Player;
 use super::request::Request::{self, *};
 
 #[test]
@@ -26,17 +26,17 @@ pub fn test0() {
     (Stop, "EJECTED", 1),
   ];
 
-  let mut machine = Machine::default();
+  let mut player = Player::default();
 
-  assert_eq!(machine.get_position(), 0);
+  assert_eq!(player.get_position(), 0);
 
-  assert_eq!(&machine.get_state(), "STOPPED");
+  assert_eq!(&player.get_state(), "STOPPED");
 
   for (request, expected_state, expected_position) in input_output_data {
-    machine.transit(&request);
+    player.transit(&request);
 
-    assert_eq!(machine.get_position(), expected_position);
+    assert_eq!(player.get_position(), expected_position);
 
-    assert_eq!(&machine.get_state(), expected_state);
+    assert_eq!(&player.get_state(), expected_state);
   }
 }
