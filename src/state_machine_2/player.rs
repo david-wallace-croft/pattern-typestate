@@ -9,6 +9,10 @@ pub struct Player {
 }
 
 impl Player {
+  pub fn eject(&mut self) {
+    self.transit(Request::Eject);
+  }
+
   pub fn get_position(&self) -> usize {
     self
       .data
@@ -22,9 +26,29 @@ impl Player {
     }
   }
 
+  pub fn reset(&mut self) {
+    self.transit(Request::Reset);
+  }
+
+  pub fn run(&mut self) {
+    self.transit(Request::Run);
+  }
+
+  pub fn skip(
+    &mut self,
+    delta: isize,
+  ) {
+    self.transit(Request::Skip(delta));
+  }
+
+  pub fn stop(&mut self) {
+    self.transit(Request::Stop);
+  }
+
+  // TODO: Make this private
   pub fn transit(
     &mut self,
-    request: &Request,
+    request: Request,
   ) {
     // Will not compile; cannot move
     // self.typestate = self.typestate.transit(request);
@@ -36,6 +60,7 @@ impl Player {
     let typestate_old: Typestate = typestate_option.unwrap_or_default();
 
     let typestate_new = match typestate_old {
+      // TODO: add transit() to StateOperator
       Typestate::Ejected(state_operator) => state_operator.transit(request),
       Typestate::Running(state_operator) => {
         state_operator.transit(&mut self.data, request)

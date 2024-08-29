@@ -34,7 +34,7 @@ impl StateOperator<StoppedState> {
   pub fn transit(
     self,
     data: &mut Data,
-    request: &Request,
+    request: Request,
   ) -> Typestate {
     match request {
       Request::Eject => Typestate::Ejected(self.eject()),

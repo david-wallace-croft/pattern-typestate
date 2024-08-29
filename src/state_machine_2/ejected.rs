@@ -19,7 +19,7 @@ impl StateOperator<EjectedState> {
 
   pub fn transit(
     self,
-    _request: &Request,
+    _request: Request,
   ) -> Typestate {
     Typestate::Ejected(self)
   }

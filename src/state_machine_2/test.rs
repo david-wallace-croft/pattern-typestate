@@ -33,7 +33,7 @@ pub fn test0() {
   assert_eq!(&player.get_state(), "STOPPED");
 
   for (request, expected_state, expected_position) in input_output_data {
-    player.transit(&request);
+    player.transit(request);
 
     assert_eq!(player.get_position(), expected_position);
 

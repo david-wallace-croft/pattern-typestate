@@ -38,13 +38,13 @@ impl StateOperator<RunningState> {
   pub fn transit(
     self,
     data: &mut Data,
-    request: &Request,
+    request: Request,
   ) -> Typestate {
     match request {
       Request::Eject | Request::Reset | Request::Run => {
         Typestate::Running(StateOperator::<RunningState>::new())
       },
-      Request::Skip(delta) => Typestate::Running(self.skip(data, *delta)),
+      Request::Skip(delta) => Typestate::Running(self.skip(data, delta)),
       Request::Stop => Typestate::Stopped(self.stop()),
     }
   }

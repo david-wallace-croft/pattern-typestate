@@ -1,4 +1,4 @@
-#[derive(Debug)]
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum Request {
   Eject,       // when stopped
   Reset,       // when stopped
@@ -6,3 +6,5 @@ pub enum Request {
   Skip(isize), // when running
   Stop,        // when running
 }
+
+// TODO: maybe implement Display
