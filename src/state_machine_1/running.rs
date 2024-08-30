@@ -3,10 +3,20 @@ use super::state_operator::StateOperator;
 use super::state_trait::StateTrait;
 use super::stopped::StoppedState;
 use super::typestate::Typestate;
+use std::fmt::{Display, Formatter};
 
 #[derive(Debug, PartialEq)]
 pub struct RunningState {
   position: usize,
+}
+
+impl Display for RunningState {
+  fn fmt(
+    &self,
+    f: &mut Formatter<'_>,
+  ) -> std::fmt::Result {
+    write!(f, "RUNNING")
+  }
 }
 
 impl StateTrait for RunningState {

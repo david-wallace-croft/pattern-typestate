@@ -4,10 +4,21 @@ use super::running::RunningState;
 use super::state_operator::StateOperator;
 use super::state_trait::StateTrait;
 use super::typestate::Typestate;
+use std::fmt::{Display, Formatter};
 
 #[derive(Debug, PartialEq)]
 pub struct StoppedState {
+  // TODO: Make this private
   pub position: usize,
+}
+
+impl Display for StoppedState {
+  fn fmt(
+    &self,
+    f: &mut Formatter<'_>,
+  ) -> std::fmt::Result {
+    write!(f, "STOPPED")
+  }
 }
 
 impl StateTrait for StoppedState {

@@ -17,12 +17,16 @@ mod test;
 pub fn example() {
   let stopped = StateOperator::<StoppedState>::new(0);
 
+  assert_eq!(format!("{stopped}"), "STOPPED");
+
   let position: usize = stopped.get_position();
 
   assert_eq!(position, 0);
 
   // method takes ownership of self
   let mut running: StateOperator<RunningState> = stopped.run();
+
+  assert_eq!(format!("{running}"), "RUNNING");
 
   // Will not compile; value used after being moved
   // let mut running: StateOperator<RunningState> = stopped.run();
@@ -58,5 +62,7 @@ pub fn example() {
 
   let stopped: StateOperator<StoppedState> = running.stop();
 
-  let _ejected: StateOperator<EjectedState> = stopped.eject();
+  let ejected: StateOperator<EjectedState> = stopped.eject();
+
+  assert_eq!(format!("{ejected}"), "EJECTED");
 }
