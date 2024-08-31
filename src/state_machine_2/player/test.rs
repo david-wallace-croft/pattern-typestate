@@ -1,5 +1,5 @@
-use super::player::Player;
-use super::request::Request::{self, *};
+use super::super::request::Request::{self, *};
+use super::Player;
 
 #[test]
 pub fn test0() {

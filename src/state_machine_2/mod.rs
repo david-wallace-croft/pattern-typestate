@@ -8,9 +8,6 @@ pub mod state_trait;
 pub mod stopped;
 pub mod typestate;
 
-#[cfg(test)]
-mod test;
-
 pub fn example() {
-  // see the test module
+  // see the Player test module
 }

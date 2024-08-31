@@ -2,6 +2,9 @@ use super::data::Data;
 use super::request::Request;
 use super::typestate::Typestate;
 
+#[cfg(test)]
+mod test;
+
 #[derive(Debug, PartialEq)]
 pub struct Player {
   data: Data,
@@ -45,8 +48,9 @@ impl Player {
     self.transit(Request::Stop);
   }
 
-  // TODO: Make this private
-  pub fn transit(
+  // private methods
+
+  fn transit(
     &mut self,
     request: Request,
   ) {
