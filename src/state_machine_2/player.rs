@@ -9,11 +9,7 @@ pub struct Player {
 }
 
 impl Player {
-  pub fn eject(&mut self) {
-    self
-      .state_machine
-      .transit(&mut self.data, Event::Eject);
-  }
+  // access methods
 
   pub fn get_position(&self) -> usize {
     self
@@ -27,19 +23,27 @@ impl Player {
       .get_state()
   }
 
-  pub fn reset(&mut self) {
+  // mutator methods
+
+  pub fn request_eject(&mut self) {
+    self
+      .state_machine
+      .transit(&mut self.data, Event::Eject);
+  }
+
+  pub fn request_reset(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Reset);
   }
 
-  pub fn run(&mut self) {
+  pub fn request_run(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Run);
   }
 
-  pub fn skip(
+  pub fn request_skip(
     &mut self,
     delta: isize,
   ) {
@@ -48,7 +52,7 @@ impl Player {
       .transit(&mut self.data, Event::Skip(delta));
   }
 
-  pub fn stop(&mut self) {
+  pub fn request_stop(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Stop);
