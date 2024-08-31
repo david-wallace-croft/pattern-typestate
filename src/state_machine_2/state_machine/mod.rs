@@ -25,6 +25,7 @@ impl StateMachine {
     }
   }
 
+  // TODO: Is this the State Strategy pattern?
   pub fn transit(
     &mut self,
     data: &mut Data,
