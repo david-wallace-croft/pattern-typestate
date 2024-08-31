@@ -1,6 +1,6 @@
 use super::data::Data;
 use super::ejected::EjectedState;
-use super::request::Request;
+use super::event::Event;
 use super::running::RunningState;
 use super::state_operator::StateOperator;
 use super::state_trait::StateTrait;
@@ -34,13 +34,13 @@ impl StateOperator<StoppedState> {
   pub fn transit(
     self,
     data: &mut Data,
-    request: Request,
+    event: Event,
   ) -> Typestate {
-    match request {
-      Request::Eject => Typestate::Ejected(self.eject()),
-      Request::Reset => Typestate::Stopped(self.reset(data)),
-      Request::Run => Typestate::Running(self.run()),
-      Request::Skip(_) | Request::Stop => {
+    match event {
+      Event::Eject => Typestate::Ejected(self.eject()),
+      Event::Reset => Typestate::Stopped(self.reset(data)),
+      Event::Run => Typestate::Running(self.run()),
+      Event::Skip(_) | Event::Stop => {
         Typestate::Stopped(StateOperator::<StoppedState>::default())
       },
     }

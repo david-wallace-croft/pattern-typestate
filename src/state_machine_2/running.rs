@@ -1,4 +1,4 @@
-use super::request::Request;
+use super::event::Event;
 use super::state_operator::StateOperator;
 use super::state_trait::StateTrait;
 use super::stopped::StoppedState;
@@ -38,14 +38,14 @@ impl StateOperator<RunningState> {
   pub fn transit(
     self,
     data: &mut Data,
-    request: Request,
+    event: Event,
   ) -> Typestate {
-    match request {
-      Request::Eject | Request::Reset | Request::Run => {
+    match event {
+      Event::Eject | Event::Reset | Event::Run => {
         Typestate::Running(StateOperator::<RunningState>::new())
       },
-      Request::Skip(delta) => Typestate::Running(self.skip(data, delta)),
-      Request::Stop => Typestate::Stopped(self.stop()),
+      Event::Skip(delta) => Typestate::Running(self.skip(data, delta)),
+      Event::Stop => Typestate::Stopped(self.stop()),
     }
   }
 }

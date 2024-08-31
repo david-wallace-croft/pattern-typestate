@@ -1,10 +1,10 @@
 use super::super::data::Data;
-use super::super::request::Request::{self, *};
+use super::super::event::Event::{self, *};
 use super::super::state_machine::StateMachine;
 
 #[test]
 pub fn test0() {
-  let input_output_data: Vec<(Request, &'static str, usize)> = vec![
+  let input_output_data: Vec<(Event, &'static str, usize)> = vec![
     (Skip(1), "STOPPED", 0),
     (Stop, "STOPPED", 0),
     (Run, "RUNNING", 0),
@@ -35,8 +35,8 @@ pub fn test0() {
 
   assert_eq!(&state_machine.get_state(), "STOPPED");
 
-  for (request, expected_state, expected_position) in input_output_data {
-    state_machine.transit(&mut data, request);
+  for (event, expected_state, expected_position) in input_output_data {
+    state_machine.transit(&mut data, event);
 
     assert_eq!(data.position, expected_position);
 

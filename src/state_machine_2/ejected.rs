@@ -1,4 +1,4 @@
-use super::request::Request;
+use super::event::Event;
 use super::state_operator::StateOperator;
 use super::state_trait::StateTrait;
 use super::typestate::Typestate;
@@ -19,7 +19,7 @@ impl StateOperator<EjectedState> {
 
   pub fn transit(
     self,
-    _request: Request,
+    _event: Event,
   ) -> Typestate {
     Typestate::Ejected(self)
   }

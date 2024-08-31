@@ -1,5 +1,5 @@
 use super::data::Data;
-use super::request::Request;
+use super::event::Event;
 use super::state_machine::StateMachine;
 
 #[derive(Default)]
@@ -12,7 +12,7 @@ impl Player {
   pub fn eject(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Request::Eject);
+      .transit(&mut self.data, Event::Eject);
   }
 
   pub fn get_position(&self) -> usize {
@@ -30,13 +30,13 @@ impl Player {
   pub fn reset(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Request::Reset);
+      .transit(&mut self.data, Event::Reset);
   }
 
   pub fn run(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Request::Run);
+      .transit(&mut self.data, Event::Run);
   }
 
   pub fn skip(
@@ -45,12 +45,12 @@ impl Player {
   ) {
     self
       .state_machine
-      .transit(&mut self.data, Request::Skip(delta));
+      .transit(&mut self.data, Event::Skip(delta));
   }
 
   pub fn stop(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Request::Stop);
+      .transit(&mut self.data, Event::Stop);
   }
 }

@@ -1,5 +1,5 @@
 use super::data::Data;
-use super::request::Request;
+use super::event::Event;
 use super::typestate::Typestate;
 
 #[cfg(test)]
@@ -20,8 +20,7 @@ impl StateMachine {
   pub fn transit(
     &mut self,
     data: &mut Data,
-    // TODO: rename this to event
-    request: Request,
+    event: Event,
   ) {
     // Will not compile; cannot move
     // self.typestate = self.typestate.transit(request);
@@ -34,13 +33,9 @@ impl StateMachine {
 
     let typestate_new = match typestate_old {
       // TODO: add transit() to StateOperator
-      Typestate::Ejected(state_operator) => state_operator.transit(request),
-      Typestate::Running(state_operator) => {
-        state_operator.transit(data, request)
-      },
-      Typestate::Stopped(state_operator) => {
-        state_operator.transit(data, request)
-      },
+      Typestate::Ejected(state_operator) => state_operator.transit(event),
+      Typestate::Running(state_operator) => state_operator.transit(data, event),
+      Typestate::Stopped(state_operator) => state_operator.transit(data, event),
     };
 
     self

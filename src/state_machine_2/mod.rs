@@ -1,7 +1,7 @@
 mod data;
 mod ejected;
+mod event;
 mod player;
-mod request;
 mod running;
 mod state_machine;
 mod state_operator;
