@@ -25,6 +25,8 @@ impl Player {
 
   // mutator methods
 
+  // TODO: Should mutator methods return Result?
+
   pub fn request_eject(&mut self) {
     self
       .state_machine
