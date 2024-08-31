@@ -1,6 +1,14 @@
+use self::typestate::Typestate;
 use super::data::Data;
 use super::event::Event;
-use super::typestate::Typestate;
+
+// sub-modules are private
+mod ejected;
+mod running;
+mod state_operator;
+mod state_trait;
+mod stopped;
+mod typestate;
 
 #[cfg(test)]
 mod test;

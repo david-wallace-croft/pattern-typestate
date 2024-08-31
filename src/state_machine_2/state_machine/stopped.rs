@@ -1,10 +1,10 @@
-use super::data::Data;
-use super::ejected::EjectedState;
-use super::event::Event;
-use super::running::RunningState;
-use super::state_operator::StateOperator;
-use super::state_trait::StateTrait;
-use super::typestate::Typestate;
+use crate::state_machine_2::data::Data;
+use crate::state_machine_2::event::Event;
+use crate::state_machine_2::state_machine::ejected::EjectedState;
+use crate::state_machine_2::state_machine::running::RunningState;
+use crate::state_machine_2::state_machine::state_operator::StateOperator;
+use crate::state_machine_2::state_machine::state_trait::StateTrait;
+use crate::state_machine_2::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
 use std::marker::PhantomData;
 

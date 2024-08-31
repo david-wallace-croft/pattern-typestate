@@ -1,6 +1,6 @@
 use super::data::Data;
-use super::event::Event;
 use super::state_machine::StateMachine;
+use crate::state_machine_2::event::Event;
 
 #[derive(Default)]
 pub struct Player {
