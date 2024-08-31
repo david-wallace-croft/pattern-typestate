@@ -5,23 +5,11 @@ use super::typestate::Typestate;
 #[cfg(test)]
 mod test;
 
-#[derive(Debug, PartialEq)]
-pub struct Player {
-  data: Data,
+pub struct StateMachine {
   typestate_option: Option<Typestate>,
 }
 
-impl Player {
-  pub fn eject(&mut self) {
-    self.transit(Request::Eject);
-  }
-
-  pub fn get_position(&self) -> usize {
-    self
-      .data
-      .position
-  }
-
+impl StateMachine {
   pub fn get_state(&self) -> String {
     match &self.typestate_option {
       None => "NONE".to_string(),
@@ -29,29 +17,10 @@ impl Player {
     }
   }
 
-  pub fn reset(&mut self) {
-    self.transit(Request::Reset);
-  }
-
-  pub fn run(&mut self) {
-    self.transit(Request::Run);
-  }
-
-  pub fn skip(
+  pub fn transit(
     &mut self,
-    delta: isize,
-  ) {
-    self.transit(Request::Skip(delta));
-  }
-
-  pub fn stop(&mut self) {
-    self.transit(Request::Stop);
-  }
-
-  // private methods
-
-  fn transit(
-    &mut self,
+    data: &mut Data,
+    // TODO: rename this to event
     request: Request,
   ) {
     // Will not compile; cannot move
@@ -67,10 +36,10 @@ impl Player {
       // TODO: add transit() to StateOperator
       Typestate::Ejected(state_operator) => state_operator.transit(request),
       Typestate::Running(state_operator) => {
-        state_operator.transit(&mut self.data, request)
+        state_operator.transit(data, request)
       },
       Typestate::Stopped(state_operator) => {
-        state_operator.transit(&mut self.data, request)
+        state_operator.transit(data, request)
       },
     };
 
@@ -80,10 +49,9 @@ impl Player {
   }
 }
 
-impl Default for Player {
+impl Default for StateMachine {
   fn default() -> Self {
     Self {
-      data: Data::default(),
       typestate_option: Some(Typestate::default()),
     }
   }
