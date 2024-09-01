@@ -1,6 +1,6 @@
 use super::super::data::Data;
+use super::super::event::Event::{self, *};
 use super::super::state_machine::StateMachine;
-use crate::state_machine_2::event::Event::{self, *};
 
 #[test]
 pub fn test0() {

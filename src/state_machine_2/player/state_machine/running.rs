@@ -1,9 +1,9 @@
-use crate::state_machine_2::data::Data;
-use crate::state_machine_2::event::Event;
-use crate::state_machine_2::state_machine::state_operator::StateOperator;
-use crate::state_machine_2::state_machine::state_trait::StateTrait;
-use crate::state_machine_2::state_machine::stopped::StoppedState;
-use crate::state_machine_2::state_machine::typestate::Typestate;
+use super::super::data::Data;
+use super::super::event::Event;
+use super::super::state_machine::state_operator::StateOperator;
+use super::super::state_machine::state_trait::StateTrait;
+use super::super::state_machine::stopped::StoppedState;
+use super::super::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
 use std::marker::PhantomData;
 

@@ -1,4 +1,4 @@
-use crate::state_machine_2::state_machine::state_trait::StateTrait;
+use super::super::state_machine::state_trait::StateTrait;
 use std::fmt::Debug;
 use std::marker::PhantomData;
 

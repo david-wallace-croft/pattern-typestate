@@ -1,6 +1,11 @@
-use super::data::Data;
-use super::state_machine::StateMachine;
-use crate::state_machine_2::event::Event;
+use self::data::Data;
+use self::event::Event;
+use self::state_machine::StateMachine;
+
+// The Player submodules are private
+mod data;
+mod event;
+mod state_machine;
 
 #[derive(Default)]
 pub struct Player {

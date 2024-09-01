@@ -1,7 +1,7 @@
-use crate::state_machine_2::state_machine::ejected::EjectedState;
-use crate::state_machine_2::state_machine::running::RunningState;
-use crate::state_machine_2::state_machine::state_operator::StateOperator;
-use crate::state_machine_2::state_machine::stopped::StoppedState;
+use super::super::state_machine::ejected::EjectedState;
+use super::super::state_machine::running::RunningState;
+use super::super::state_machine::state_operator::StateOperator;
+use super::super::state_machine::stopped::StoppedState;
 use std::fmt::{Display, Formatter};
 
 #[derive(Debug, PartialEq)]

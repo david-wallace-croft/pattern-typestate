@@ -1,9 +1,6 @@
 use self::player::Player;
 
-mod data;
-mod event;
 mod player;
-mod state_machine;
 
 #[cfg(test)]
 mod test;
@@ -13,5 +10,9 @@ pub fn example() {
 
   player.request_run();
 
-  // TODO
+  player.request_skip(1);
+
+  player.request_stop();
+
+  player.request_eject();
 }

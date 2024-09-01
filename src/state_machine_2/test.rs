@@ -1,4 +1,4 @@
-use crate::state_machine_2::player::Player;
+use super::player::Player;
 
 #[test]
 fn test() {

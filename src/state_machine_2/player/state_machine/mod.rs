@@ -2,7 +2,7 @@ use self::typestate::Typestate;
 use super::data::Data;
 use super::event::Event;
 
-// sub-modules are private
+// The StateMachine submodules are private
 mod ejected;
 mod running;
 mod state_operator;
