@@ -35,7 +35,9 @@ impl StateMachine {
     &mut self,
     event: &Event,
   ) {
-    // Doing this directly will not compile; cannot move
+    // Doing this directly will not compile; cannot move and cannot copy because
+    // Typestate uses Data which does not implement Copy.
+    //
     // self.typestate = self.typestate.transit(event);
 
     let typestate: Typestate = mem::take(&mut self.typestate);

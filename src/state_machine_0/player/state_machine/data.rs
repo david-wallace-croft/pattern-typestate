@@ -3,6 +3,7 @@ use super::running_state::RunningState;
 use super::state_trait::StateTrait;
 use super::stopped_state::StoppedState;
 
+// Does not derive Copy to demonstrate how that can be handled by StateMachine
 #[derive(Debug, PartialEq)]
 pub struct Data<S: StateTrait> {
   position: usize,
