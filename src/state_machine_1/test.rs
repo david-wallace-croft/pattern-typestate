@@ -33,4 +33,8 @@ fn test() {
 
   // Does reset when stopped
   assert_eq!(player.get_position(), 0);
+
+  player.press_eject();
+
+  assert_eq!(player.get_state_name(), EJECTED);
 }

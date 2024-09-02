@@ -1,7 +1,7 @@
-use super::super::state_machine::ejected::EjectedState;
-use super::super::state_machine::running::RunningState;
-use super::super::state_machine::state_trait::StateTrait;
-use super::super::state_machine::stopped::StoppedState;
+use super::ejected::EjectedState;
+use super::running::RunningState;
+use super::state_trait::StateTrait;
+use super::stopped::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub struct Data<S: StateTrait> {

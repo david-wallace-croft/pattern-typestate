@@ -14,7 +14,7 @@ pub struct Player {
 }
 
 impl Player {
-  // access methods
+  // accessor methods
 
   pub fn get_position(&self) -> usize {
     self

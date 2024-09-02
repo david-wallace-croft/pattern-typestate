@@ -7,7 +7,7 @@ const RUNNING: &str = "RUNNING";
 const STOPPED: &str = "STOPPED";
 
 #[test]
-pub fn test0() {
+pub fn test_typestate_0() {
   let test_data: Vec<(Event, &'static str, usize)> = vec![
     (Skip(1), STOPPED, 0),
     (Stop, STOPPED, 0),
@@ -39,11 +39,11 @@ pub fn test0() {
 
   assert_eq!(state_machine.get_state_name(), STOPPED);
 
-  for (event, expected_state, expected_position) in test_data {
+  for (event, expected_state_name, expected_position) in test_data {
     state_machine.transit(&mut data, &event);
 
     assert_eq!(data.position, expected_position);
 
-    assert_eq!(state_machine.get_state_name(), expected_state);
+    assert_eq!(state_machine.get_state_name(), expected_state_name);
   }
 }

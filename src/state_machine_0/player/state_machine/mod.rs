@@ -35,7 +35,7 @@ impl StateMachine {
     &mut self,
     event: &Event,
   ) {
-    // Will not compile; cannot move
+    // Doing this directly will not compile; cannot move
     // self.typestate = self.typestate.transit(event);
 
     let typestate_option = self

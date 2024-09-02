@@ -2,7 +2,7 @@ use super::state_trait::StateTrait;
 
 const STATE_NAME: &str = "STOPPED";
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct StoppedState;
 
 impl StateTrait for StoppedState {

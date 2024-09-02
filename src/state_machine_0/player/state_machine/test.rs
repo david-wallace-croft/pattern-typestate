@@ -7,26 +7,27 @@ const STOPPED: &str = "STOPPED";
 
 #[test]
 pub fn test_typestate_0() {
-  let test_data: Vec<(Event, usize, &'static str)> = vec![
-    (Skip(1), 0, STOPPED),
-    (Run, 0, RUNNING),
-    (Skip(2), 2, RUNNING),
-    (Skip(-1), 1, RUNNING),
-    (Eject, 1, RUNNING),
-    (Reset, 1, RUNNING),
-    (Run, 1, RUNNING),
-    (Stop, 1, STOPPED),
-    (Reset, 0, STOPPED),
-    (Skip(1), 0, STOPPED),
-    (Stop, 0, STOPPED),
-    (Run, 0, RUNNING),
-    (Skip(1), 1, RUNNING),
-    (Stop, 1, STOPPED),
-    (Eject, 1, EJECTED),
-    (Reset, 1, EJECTED),
-    (Run, 1, EJECTED),
-    (Skip(2), 1, EJECTED),
-    (Stop, 1, EJECTED),
+  let test_data: Vec<(Event, &'static str, usize)> = vec![
+    (Skip(1), STOPPED, 0),
+    (Stop, STOPPED, 0),
+    (Run, RUNNING, 0),
+    (Skip(2), RUNNING, 2),
+    (Skip(-1), RUNNING, 1),
+    (Eject, RUNNING, 1),
+    (Reset, RUNNING, 1),
+    (Run, RUNNING, 1),
+    (Stop, STOPPED, 1),
+    (Reset, STOPPED, 0),
+    (Skip(1), STOPPED, 0),
+    (Stop, STOPPED, 0),
+    (Run, RUNNING, 0),
+    (Skip(1), RUNNING, 1),
+    (Stop, STOPPED, 1),
+    (Eject, EJECTED, 1),
+    (Reset, EJECTED, 1),
+    (Run, EJECTED, 1),
+    (Skip(2), EJECTED, 1),
+    (Stop, EJECTED, 1),
   ];
 
   let mut type_state = Typestate::default();
@@ -35,7 +36,7 @@ pub fn test_typestate_0() {
 
   assert_eq!(type_state.get_state_name(), STOPPED);
 
-  for (event, expected_position, expected_state_name) in test_data {
+  for (event, expected_state_name, expected_position) in test_data {
     type_state = type_state.transit(&event);
 
     assert_eq!(type_state.get_position(), expected_position);

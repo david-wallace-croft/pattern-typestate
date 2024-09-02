@@ -2,7 +2,7 @@ use super::state_trait::StateTrait;
 
 const STATE_NAME: &str = "RUNNING";
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+#[derive(Debug, PartialEq)]
 pub struct RunningState;
 
 impl StateTrait for RunningState {

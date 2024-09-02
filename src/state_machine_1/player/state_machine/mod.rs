@@ -30,8 +30,8 @@ impl StateMachine {
     data: &mut Data,
     event: &Event,
   ) {
-    // Will not compile; cannot move
-    // self.typestate = self.typestate.transit(request);
+    // Doing this directly will not compile; cannot move
+    // self.typestate = self.typestate.transit(event);
 
     let typestate_option = self
       .typestate_option
