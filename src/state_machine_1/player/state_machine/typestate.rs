@@ -2,22 +2,22 @@ use super::super::data::Data;
 use super::super::event::Event;
 use super::ejected_state::EjectedState;
 use super::running_state::RunningState;
-use super::state_operator::StateOperator;
+use super::state_trait::StateTrait;
 use super::stopped_state::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub enum Typestate {
-  Ejected(StateOperator<EjectedState>),
-  Running(StateOperator<RunningState>),
-  Stopped(StateOperator<StoppedState>),
+  Ejected(EjectedState),
+  Running(RunningState),
+  Stopped(StoppedState),
 }
 
 impl Typestate {
   pub fn get_state_name(&self) -> &'static str {
     match self {
-      Typestate::Ejected(state_operator) => state_operator.get_state_name(),
-      Typestate::Running(state_operator) => state_operator.get_state_name(),
-      Typestate::Stopped(state_operator) => state_operator.get_state_name(),
+      Typestate::Ejected(state) => state.get_state_name(),
+      Typestate::Running(state) => state.get_state_name(),
+      Typestate::Stopped(state) => state.get_state_name(),
     }
   }
 
@@ -30,37 +30,31 @@ impl Typestate {
     match event {
       Event::Eject => match self {
         Typestate::Ejected(_) | Typestate::Running(_) => self,
-        Typestate::Stopped(state_operator) => {
-          Typestate::Ejected(state_operator.eject())
-        },
+        Typestate::Stopped(state) => Typestate::Ejected(state.eject()),
       },
       Event::Reset => match &self {
         Typestate::Ejected(_) | Typestate::Running(_) => self,
-        Typestate::Stopped(state_operator) => {
-          state_operator.reset(data);
+        Typestate::Stopped(state) => {
+          state.reset(data);
 
           self
         },
       },
       Event::Run => match self {
         Typestate::Ejected(_) | Typestate::Running(_) => self,
-        Typestate::Stopped(state_operator) => {
-          Typestate::Running(state_operator.run())
-        },
+        Typestate::Stopped(state) => Typestate::Running(state.run()),
       },
       Event::Skip(delta) => match &self {
         Typestate::Ejected(_) | Typestate::Stopped(_) => self,
-        Typestate::Running(state_operator) => {
-          state_operator.skip(data, *delta);
+        Typestate::Running(state) => {
+          state.skip(data, *delta);
 
           self
         },
       },
       Event::Stop => match self {
         Typestate::Ejected(_) | Typestate::Stopped(_) => self,
-        Typestate::Running(state_operator) => {
-          Typestate::Stopped(state_operator.stop())
-        },
+        Typestate::Running(state) => Typestate::Stopped(state.stop()),
       },
     }
   }
@@ -68,6 +62,6 @@ impl Typestate {
 
 impl Default for Typestate {
   fn default() -> Self {
-    Typestate::Stopped(StateOperator::<StoppedState>::default())
+    Typestate::Stopped(StoppedState)
   }
 }

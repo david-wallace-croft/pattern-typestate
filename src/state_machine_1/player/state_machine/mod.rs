@@ -5,7 +5,6 @@ use super::event::Event;
 // The StateMachine submodules are private
 mod ejected_state;
 mod running_state;
-mod state_operator;
 mod state_trait;
 mod stopped_state;
 mod typestate;
