@@ -26,11 +26,9 @@
 - Examples of using the typestate pattern to make a state machine
 
 - state_machine_0
-  - TODO
+  - Demonstrates a state machine that operates on data inside itself
 - state_machine_1
-  - TODO
-- state_machine_2
-  - TODO
+  - Demonstrates a state machine that operates on data outside itself
 
 ## Links
 
