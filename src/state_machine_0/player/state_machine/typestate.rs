@@ -1,8 +1,8 @@
 use super::super::event::Event;
 use super::data::Data;
-use super::ejected::EjectedState;
-use super::running::RunningState;
-use super::stopped::StoppedState;
+use super::ejected_state::EjectedState;
+use super::running_state::RunningState;
+use super::stopped_state::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub enum Typestate {

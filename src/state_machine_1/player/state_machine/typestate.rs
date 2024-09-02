@@ -1,9 +1,9 @@
 use super::super::data::Data;
 use super::super::event::Event;
-use super::ejected::EjectedState;
-use super::running::RunningState;
+use super::ejected_state::EjectedState;
+use super::running_state::RunningState;
 use super::state_operator::StateOperator;
-use super::stopped::StoppedState;
+use super::stopped_state::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub enum Typestate {

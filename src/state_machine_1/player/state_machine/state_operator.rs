@@ -1,8 +1,8 @@
 use super::super::data::Data;
-use super::ejected::EjectedState;
-use super::running::RunningState;
+use super::ejected_state::EjectedState;
+use super::running_state::RunningState;
 use super::state_trait::StateTrait;
-use super::stopped::StoppedState;
+use super::stopped_state::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub struct StateOperator<S: StateTrait> {

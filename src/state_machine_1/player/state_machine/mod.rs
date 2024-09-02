@@ -3,11 +3,11 @@ use super::data::Data;
 use super::event::Event;
 
 // The StateMachine submodules are private
-mod ejected;
-mod running;
+mod ejected_state;
+mod running_state;
 mod state_operator;
 mod state_trait;
-mod stopped;
+mod stopped_state;
 mod typestate;
 
 #[cfg(test)]

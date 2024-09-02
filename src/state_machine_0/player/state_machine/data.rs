@@ -1,7 +1,7 @@
-use super::ejected::EjectedState;
-use super::running::RunningState;
+use super::ejected_state::EjectedState;
+use super::running_state::RunningState;
 use super::state_trait::StateTrait;
-use super::stopped::StoppedState;
+use super::stopped_state::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub struct Data<S: StateTrait> {
@@ -22,7 +22,9 @@ impl<S: StateTrait> Data<S> {
   }
 }
 
-impl Data<EjectedState> {}
+impl Data<EjectedState> {
+  // no methods for the ejected state
+}
 
 impl Data<RunningState> {
   pub fn skip(
