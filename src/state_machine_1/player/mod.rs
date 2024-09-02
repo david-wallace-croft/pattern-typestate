@@ -33,19 +33,19 @@ impl Player {
   pub fn press_eject(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Event::Eject);
+      .transit(&mut self.data, &Event::Eject);
   }
 
   pub fn press_reset(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Event::Reset);
+      .transit(&mut self.data, &Event::Reset);
   }
 
   pub fn press_run(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Event::Run);
+      .transit(&mut self.data, &Event::Run);
   }
 
   pub fn press_skip(
@@ -54,12 +54,12 @@ impl Player {
   ) {
     self
       .state_machine
-      .transit(&mut self.data, Event::Skip(delta));
+      .transit(&mut self.data, &Event::Skip(delta));
   }
 
   pub fn press_stop(&mut self) {
     self
       .state_machine
-      .transit(&mut self.data, Event::Stop);
+      .transit(&mut self.data, &Event::Stop);
   }
 }

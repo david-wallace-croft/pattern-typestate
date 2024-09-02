@@ -1,3 +1,3 @@
 pub trait StateTrait {
-  fn get_state_name() -> &'static str;
+  fn get_state_name(&self) -> &'static str;
 }

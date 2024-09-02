@@ -4,18 +4,17 @@ use super::super::state_machine::state_trait::StateTrait;
 use super::super::state_machine::stopped::StoppedState;
 
 #[derive(Debug, PartialEq)]
-pub struct PlayerData<S: StateTrait> {
+pub struct Data<S: StateTrait> {
   position: usize,
-  // Cannot use PhantomData for state because of the get_state_name() method
   state: S,
 }
 
-impl<S: StateTrait> PlayerData<S> {
+impl<S: StateTrait> Data<S> {
   pub fn get_position(&self) -> usize {
     self.position
   }
 
-  // Cannot use PhantomData in PlayerData for state because of this method
+  // Cannot use PhantomData for state in Data because of this method
   pub fn get_state_name(&self) -> &'static str {
     self
       .state
@@ -23,9 +22,9 @@ impl<S: StateTrait> PlayerData<S> {
   }
 }
 
-impl PlayerData<EjectedState> {}
+impl Data<EjectedState> {}
 
-impl PlayerData<RunningState> {
+impl Data<RunningState> {
   pub fn skip(
     &mut self,
     delta: isize,
@@ -35,17 +34,17 @@ impl PlayerData<RunningState> {
       .saturating_add_signed(delta);
   }
 
-  pub fn stop(self) -> PlayerData<StoppedState> {
-    PlayerData {
+  pub fn stop(self) -> Data<StoppedState> {
+    Data {
       position: self.position,
       state: StoppedState,
     }
   }
 }
 
-impl PlayerData<StoppedState> {
-  pub fn eject(self) -> PlayerData<EjectedState> {
-    PlayerData {
+impl Data<StoppedState> {
+  pub fn eject(self) -> Data<EjectedState> {
+    Data {
       position: self.position,
       state: EjectedState,
     }
@@ -62,8 +61,8 @@ impl PlayerData<StoppedState> {
     self.position = 0;
   }
 
-  pub fn run(self) -> PlayerData<RunningState> {
-    PlayerData {
+  pub fn run(self) -> Data<RunningState> {
+    Data {
       position: self.position,
       state: RunningState,
     }

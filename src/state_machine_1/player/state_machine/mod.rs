@@ -28,7 +28,7 @@ impl StateMachine {
   pub fn transit(
     &mut self,
     data: &mut Data,
-    event: Event,
+    event: &Event,
   ) {
     // Will not compile; cannot move
     // self.typestate = self.typestate.transit(request);
@@ -39,11 +39,7 @@ impl StateMachine {
 
     let typestate_old: Typestate = typestate_option.unwrap_or_default();
 
-    let typestate_new = match typestate_old {
-      Typestate::Ejected(state_operator) => state_operator.transit(event),
-      Typestate::Running(state_operator) => state_operator.transit(data, event),
-      Typestate::Stopped(state_operator) => state_operator.transit(data, event),
-    };
+    let typestate_new = typestate_old.transit(data, event);
 
     self
       .typestate_option

@@ -2,8 +2,8 @@ use self::typestate::Typestate;
 use super::event::Event;
 
 // The StateMachine submodules are private
+mod data;
 mod ejected;
-mod player_data;
 mod running;
 mod state_trait;
 mod stopped;

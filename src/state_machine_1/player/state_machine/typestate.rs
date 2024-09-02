@@ -1,9 +1,9 @@
-use super::super::state_machine::ejected::EjectedState;
-use super::super::state_machine::running::RunningState;
-use super::super::state_machine::state_operator::StateOperator;
-use super::super::state_machine::state_trait::StateTrait;
-use super::super::state_machine::stopped::StoppedState;
-use std::fmt::{Display, Formatter};
+use super::super::data::Data;
+use super::super::event::Event;
+use super::ejected::EjectedState;
+use super::running::RunningState;
+use super::state_operator::StateOperator;
+use super::stopped::StoppedState;
 
 #[derive(Debug, PartialEq)]
 pub enum Typestate {
@@ -15,9 +15,41 @@ pub enum Typestate {
 impl Typestate {
   pub fn get_state_name(&self) -> &'static str {
     match self {
-      Typestate::Ejected(_state_operator) => EjectedState::get_state_name(),
-      Typestate::Running(_state_operator) => RunningState::get_state_name(),
-      Typestate::Stopped(_state_operator) => StoppedState::get_state_name(),
+      Typestate::Ejected(state_operator) => state_operator.get_state_name(),
+      Typestate::Running(state_operator) => state_operator.get_state_name(),
+      Typestate::Stopped(state_operator) => state_operator.get_state_name(),
+    }
+  }
+
+  pub fn transit(
+    self,
+    data: &mut Data,
+    event: &Event,
+  ) -> Self {
+    // TODO: outer match on Event
+    match self {
+      Typestate::Ejected(_) => self,
+      Typestate::Running(state_operator) => match event {
+        Event::Eject | Event::Reset | Event::Run => {
+          Typestate::Running(state_operator)
+        },
+        Event::Skip(delta) => {
+          state_operator.skip(data, *delta);
+
+          Typestate::Running(state_operator)
+        },
+        Event::Stop => Typestate::Stopped(state_operator.stop()),
+      },
+      Typestate::Stopped(state_operator) => match event {
+        Event::Eject => Typestate::Ejected(state_operator.eject()),
+        Event::Reset => {
+          state_operator.reset(data);
+
+          Typestate::Stopped(state_operator)
+        },
+        Event::Run => Typestate::Running(state_operator.run()),
+        Event::Skip(_) | Event::Stop => Typestate::Stopped(state_operator),
+      },
     }
   }
 }
@@ -25,18 +57,5 @@ impl Typestate {
 impl Default for Typestate {
   fn default() -> Self {
     Typestate::Stopped(StateOperator::<StoppedState>::default())
-  }
-}
-
-impl Display for Typestate {
-  fn fmt(
-    &self,
-    f: &mut Formatter<'_>,
-  ) -> std::fmt::Result {
-    match self {
-      Typestate::Ejected(state_operator) => state_operator.fmt(f),
-      Typestate::Running(state_operator) => state_operator.fmt(f),
-      Typestate::Stopped(state_operator) => state_operator.fmt(f),
-    }
   }
 }
