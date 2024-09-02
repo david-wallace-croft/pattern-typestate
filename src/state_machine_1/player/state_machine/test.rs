@@ -1,41 +1,45 @@
+use super::super::data::Data;
 use super::super::event::Event::{self, *};
-use super::ejected::EjectedState;
-use super::running::RunningState;
-use super::stopped::StoppedState;
-use super::typestate::Typestate;
+use super::super::state_machine::StateMachine;
 
 #[test]
 pub fn test0() {
-  let input_output_pairs: Vec<(Event, Typestate)> = vec![
-    (Skip(1), Typestate::Stopped(StoppedState::new(0))),
-    (Stop, Typestate::Stopped(StoppedState::new(0))),
-    (Run, Typestate::Running(RunningState::new(0))),
-    (Skip(2), Typestate::Running(RunningState::new(2))),
-    (Skip(-1), Typestate::Running(RunningState::new(1))),
-    (Eject, Typestate::Running(RunningState::new(1))),
-    (Reset, Typestate::Running(RunningState::new(1))),
-    (Run, Typestate::Running(RunningState::new(1))),
-    (Stop, Typestate::Stopped(StoppedState::new(1))),
-    (Reset, Typestate::Stopped(StoppedState::new(0))),
-    (Skip(1), Typestate::Stopped(StoppedState::new(0))),
-    (Stop, Typestate::Stopped(StoppedState::new(0))),
-    (Run, Typestate::Running(RunningState::new(0))),
-    (Skip(1), Typestate::Running(RunningState::new(1))),
-    (Stop, Typestate::Stopped(StoppedState::new(1))),
-    (Eject, Typestate::Ejected(EjectedState::new(1))),
-    (Reset, Typestate::Ejected(EjectedState::new(1))),
-    (Run, Typestate::Ejected(EjectedState::new(1))),
-    (Skip(2), Typestate::Ejected(EjectedState::new(1))),
-    (Stop, Typestate::Ejected(EjectedState::new(1))),
+  let input_output_data: Vec<(Event, &'static str, usize)> = vec![
+    (Skip(1), "STOPPED", 0),
+    (Stop, "STOPPED", 0),
+    (Run, "RUNNING", 0),
+    (Skip(2), "RUNNING", 2),
+    (Skip(-1), "RUNNING", 1),
+    (Eject, "RUNNING", 1),
+    (Reset, "RUNNING", 1),
+    (Run, "RUNNING", 1),
+    (Stop, "STOPPED", 1),
+    (Reset, "STOPPED", 0),
+    (Skip(1), "STOPPED", 0),
+    (Stop, "STOPPED", 0),
+    (Run, "RUNNING", 0),
+    (Skip(1), "RUNNING", 1),
+    (Stop, "STOPPED", 1),
+    (Eject, "EJECTED", 1),
+    (Reset, "EJECTED", 1),
+    (Run, "EJECTED", 1),
+    (Skip(2), "EJECTED", 1),
+    (Stop, "EJECTED", 1),
   ];
 
-  let mut type_state = Typestate::default();
+  let mut data = Data::default();
 
-  assert_eq!(type_state, Typestate::Stopped(StoppedState::new(0)));
+  let mut state_machine = StateMachine::default();
 
-  for (request, expected_type_state) in input_output_pairs {
-    type_state = type_state.transit(&request);
+  assert_eq!(data.position, 0);
 
-    assert_eq!(type_state, expected_type_state);
+  assert_eq!(&state_machine.get_state(), "STOPPED");
+
+  for (event, expected_state, expected_position) in input_output_data {
+    state_machine.transit(&mut data, event);
+
+    assert_eq!(data.position, expected_position);
+
+    assert_eq!(&state_machine.get_state(), expected_state);
   }
 }

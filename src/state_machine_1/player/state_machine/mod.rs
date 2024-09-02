@@ -1,9 +1,11 @@
 use self::typestate::Typestate;
+use super::data::Data;
 use super::event::Event;
 
 // The StateMachine submodules are private
 mod ejected;
 mod running;
+mod state_operator;
 mod state_trait;
 mod stopped;
 mod typestate;
@@ -16,26 +18,21 @@ pub struct StateMachine {
 }
 
 impl StateMachine {
-  pub fn get_position(&self) -> usize {
+  pub fn get_state(&self) -> String {
     match &self.typestate_option {
-      None => unreachable!(),
-      Some(typestate) => typestate.get_position(),
+      None => "NONE".to_string(),
+      Some(typestate) => format!("{typestate}"),
     }
   }
 
-  pub fn get_state_name(&self) -> &'static str {
-    match &self.typestate_option {
-      None => unreachable!(),
-      Some(typestate) => typestate.get_state_name(),
-    }
-  }
-
+  // TODO: Is this the State Strategy pattern?
   pub fn transit(
     &mut self,
-    event: &Event,
+    data: &mut Data,
+    event: Event,
   ) {
     // Will not compile; cannot move
-    // self.typestate = self.typestate.transit(event);
+    // self.typestate = self.typestate.transit(request);
 
     let typestate_option = self
       .typestate_option
@@ -43,7 +40,12 @@ impl StateMachine {
 
     let typestate_old: Typestate = typestate_option.unwrap_or_default();
 
-    let typestate_new = typestate_old.transit(event);
+    let typestate_new = match typestate_old {
+      // TODO: add transit() to StateOperator
+      Typestate::Ejected(state_operator) => state_operator.transit(event),
+      Typestate::Running(state_operator) => state_operator.transit(data, event),
+      Typestate::Stopped(state_operator) => state_operator.transit(data, event),
+    };
 
     self
       .typestate_option

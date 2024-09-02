@@ -8,11 +8,11 @@ mod test;
 pub fn example() {
   let mut player = Player::default();
 
-  player.press_run();
+  player.request_run();
 
-  player.press_skip(1);
+  player.request_skip(1);
 
-  player.press_stop();
+  player.request_stop();
 
-  player.press_eject();
+  player.request_eject();
 }

@@ -1,36 +1,35 @@
-use super::state_trait::StateTrait;
+use super::super::event::Event;
+use super::super::state_machine::state_operator::StateOperator;
+use super::super::state_machine::state_trait::StateTrait;
+use super::super::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
-
-const STATE_NAME: &str = "EJECTED";
+use std::marker::PhantomData;
 
 #[derive(Debug, PartialEq)]
-pub struct EjectedState {
-  position: usize,
-}
+pub struct EjectedState;
 
-impl EjectedState {
-  pub fn new(position: usize) -> Self {
-    Self {
-      position,
+impl StateTrait for EjectedState {}
+
+impl StateOperator<EjectedState> {
+  pub fn new() -> Self {
+    StateOperator {
+      state: PhantomData,
     }
+  }
+
+  pub fn transit(
+    self,
+    _event: Event,
+  ) -> Typestate {
+    Typestate::Ejected(self)
   }
 }
 
-impl Display for EjectedState {
+impl Display for StateOperator<EjectedState> {
   fn fmt(
     &self,
     f: &mut Formatter<'_>,
   ) -> std::fmt::Result {
-    write!(f, "{STATE_NAME}")
-  }
-}
-
-impl StateTrait for EjectedState {
-  fn get_position(&self) -> usize {
-    self.position
-  }
-
-  fn get_state_name(&self) -> &'static str {
-    STATE_NAME
+    write!(f, "EJECTED")
   }
 }

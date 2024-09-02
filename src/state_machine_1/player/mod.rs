@@ -1,62 +1,67 @@
+use self::data::Data;
 use self::event::Event;
 use self::state_machine::StateMachine;
 
 // The Player submodules are private
+mod data;
 mod event;
 mod state_machine;
 
 #[derive(Default)]
 pub struct Player {
+  data: Data,
   state_machine: StateMachine,
 }
 
 impl Player {
-  // accessor methods
+  // access methods
 
   pub fn get_position(&self) -> usize {
     self
-      .state_machine
-      .get_position()
+      .data
+      .position
   }
 
-  pub fn get_state_name(&self) -> &'static str {
+  pub fn get_state(&self) -> String {
     self
       .state_machine
-      .get_state_name()
+      .get_state()
   }
 
   // mutator methods
 
-  pub fn press_eject(&mut self) {
+  // TODO: Should mutator methods return Result?
+
+  pub fn request_eject(&mut self) {
     self
       .state_machine
-      .transit(&Event::Eject);
+      .transit(&mut self.data, Event::Eject);
   }
 
-  pub fn press_reset(&mut self) {
+  pub fn request_reset(&mut self) {
     self
       .state_machine
-      .transit(&Event::Reset);
+      .transit(&mut self.data, Event::Reset);
   }
 
-  pub fn press_run(&mut self) {
+  pub fn request_run(&mut self) {
     self
       .state_machine
-      .transit(&Event::Run);
+      .transit(&mut self.data, Event::Run);
   }
 
-  pub fn press_skip(
+  pub fn request_skip(
     &mut self,
     delta: isize,
   ) {
     self
       .state_machine
-      .transit(&Event::Skip(delta));
+      .transit(&mut self.data, Event::Skip(delta));
   }
 
-  pub fn press_stop(&mut self) {
+  pub fn request_stop(&mut self) {
     self
       .state_machine
-      .transit(&Event::Stop);
+      .transit(&mut self.data, Event::Stop);
   }
 }

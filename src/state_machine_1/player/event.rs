@@ -6,3 +6,5 @@ pub enum Event {
   Skip(isize), // when running
   Stop,        // when running
 }
+
+// TODO: maybe implement Display

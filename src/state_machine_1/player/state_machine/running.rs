@@ -1,50 +1,60 @@
-use super::state_trait::StateTrait;
-use super::stopped::StoppedState;
+use super::super::data::Data;
+use super::super::event::Event;
+use super::super::state_machine::state_operator::StateOperator;
+use super::super::state_machine::state_trait::StateTrait;
+use super::super::state_machine::stopped::StoppedState;
+use super::super::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
-
-const STATE_NAME: &str = "RUNNING";
+use std::marker::PhantomData;
 
 #[derive(Debug, PartialEq)]
-pub struct RunningState {
-  position: usize,
-}
+pub struct RunningState;
 
-impl RunningState {
-  pub fn new(position: usize) -> Self {
-    Self {
-      position,
+impl StateTrait for RunningState {}
+
+impl StateOperator<RunningState> {
+  pub fn new() -> Self {
+    StateOperator {
+      state: PhantomData,
     }
   }
 
-  pub fn skip(
-    &mut self,
+  fn skip(
+    &self,
+    data: &mut Data,
     delta: isize,
-  ) {
-    self.position = self
+  ) -> StateOperator<RunningState> {
+    data.position = data
       .position
       .saturating_add_signed(delta);
+
+    StateOperator::<RunningState>::new()
   }
 
-  pub fn stop(self) -> StoppedState {
-    StoppedState::new(self.position)
+  fn stop(&self) -> StateOperator<StoppedState> {
+    StateOperator::<StoppedState>::default()
+  }
+
+  pub fn transit(
+    self,
+    data: &mut Data,
+    event: Event,
+  ) -> Typestate {
+    match event {
+      Event::Eject | Event::Reset | Event::Run => {
+        Typestate::Running(StateOperator::<RunningState>::new())
+      },
+      Event::Skip(delta) => Typestate::Running(self.skip(data, delta)),
+      Event::Stop => Typestate::Stopped(self.stop()),
+    }
   }
 }
 
-impl Display for RunningState {
+impl Display for StateOperator<RunningState> {
   fn fmt(
     &self,
     f: &mut Formatter<'_>,
   ) -> std::fmt::Result {
-    write!(f, "{STATE_NAME}")
-  }
-}
-
-impl StateTrait for RunningState {
-  fn get_position(&self) -> usize {
-    self.position
-  }
-
-  fn get_state_name(&self) -> &'static str {
-    STATE_NAME
+    write!(f, "RUNNING")
   }
 }
