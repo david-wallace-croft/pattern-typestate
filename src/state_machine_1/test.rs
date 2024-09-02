@@ -4,13 +4,13 @@ use super::player::Player;
 fn test() {
   let mut player = Player::default();
 
-  assert_eq!(player.get_state(), "STOPPED");
+  assert_eq!(player.get_state_name(), "STOPPED");
 
   assert_eq!(player.get_position(), 0);
 
   player.press_run();
 
-  assert_eq!(player.get_state(), "RUNNING");
+  assert_eq!(player.get_state_name(), "RUNNING");
 
   player.press_skip(1);
 
@@ -23,7 +23,7 @@ fn test() {
 
   player.press_stop();
 
-  assert_eq!(player.get_state(), "STOPPED");
+  assert_eq!(player.get_state_name(), "STOPPED");
 
   player.press_reset();
 

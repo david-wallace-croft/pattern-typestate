@@ -8,10 +8,16 @@ use super::super::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
 use std::marker::PhantomData;
 
+const STATE_NAME: &str = "STOPPED";
+
 #[derive(Debug, PartialEq)]
 pub struct StoppedState;
 
-impl StateTrait for StoppedState {}
+impl StateTrait for StoppedState {
+  fn get_state_name() -> &'static str {
+    STATE_NAME
+  }
+}
 
 impl StateOperator<StoppedState> {
   fn eject(&self) -> StateOperator<EjectedState> {
@@ -60,6 +66,6 @@ impl Display for StateOperator<StoppedState> {
     &self,
     f: &mut Formatter<'_>,
   ) -> std::fmt::Result {
-    write!(f, "STOPPED")
+    write!(f, "{STATE_NAME}")
   }
 }

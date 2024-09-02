@@ -5,10 +5,16 @@ use super::super::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
 use std::marker::PhantomData;
 
+const STATE_NAME: &str = "EJECTED";
+
 #[derive(Debug, PartialEq)]
 pub struct EjectedState;
 
-impl StateTrait for EjectedState {}
+impl StateTrait for EjectedState {
+  fn get_state_name() -> &'static str {
+    STATE_NAME
+  }
+}
 
 impl StateOperator<EjectedState> {
   pub fn new() -> Self {
@@ -30,6 +36,6 @@ impl Display for StateOperator<EjectedState> {
     &self,
     f: &mut Formatter<'_>,
   ) -> std::fmt::Result {
-    write!(f, "EJECTED")
+    write!(f, "{STATE_NAME}")
   }
 }

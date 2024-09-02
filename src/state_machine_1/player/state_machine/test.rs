@@ -33,13 +33,13 @@ pub fn test0() {
 
   assert_eq!(data.position, 0);
 
-  assert_eq!(&state_machine.get_state(), "STOPPED");
+  assert_eq!(state_machine.get_state_name(), "STOPPED");
 
   for (event, expected_state, expected_position) in input_output_data {
     state_machine.transit(&mut data, event);
 
     assert_eq!(data.position, expected_position);
 
-    assert_eq!(&state_machine.get_state(), expected_state);
+    assert_eq!(state_machine.get_state_name(), expected_state);
   }
 }

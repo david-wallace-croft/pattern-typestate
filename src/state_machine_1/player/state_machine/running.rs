@@ -7,10 +7,16 @@ use super::super::state_machine::typestate::Typestate;
 use std::fmt::{Display, Formatter};
 use std::marker::PhantomData;
 
+const STATE_NAME: &str = "RUNNING";
+
 #[derive(Debug, PartialEq)]
 pub struct RunningState;
 
-impl StateTrait for RunningState {}
+impl StateTrait for RunningState {
+  fn get_state_name() -> &'static str {
+    STATE_NAME
+  }
+}
 
 impl StateOperator<RunningState> {
   pub fn new() -> Self {
@@ -55,6 +61,6 @@ impl Display for StateOperator<RunningState> {
     &self,
     f: &mut Formatter<'_>,
   ) -> std::fmt::Result {
-    write!(f, "RUNNING")
+    write!(f, "{STATE_NAME}")
   }
 }

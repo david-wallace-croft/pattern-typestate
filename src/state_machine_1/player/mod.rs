@@ -22,10 +22,10 @@ impl Player {
       .position
   }
 
-  pub fn get_state(&self) -> String {
+  pub fn get_state_name(&self) -> &'static str {
     self
       .state_machine
-      .get_state()
+      .get_state_name()
   }
 
   // mutator methods
