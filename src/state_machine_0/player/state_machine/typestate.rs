@@ -29,30 +29,38 @@ impl Typestate {
   }
 
   pub fn transit(
-    self,
+    mut self,
     event: &Event,
   ) -> Self {
-    // Outer match on self and inner match on event
-    match self {
-      Typestate::Ejected(_) => self,
-      Typestate::Running(mut data) => match event {
-        Event::Eject | Event::Reset | Event::Run => Typestate::Running(data),
-        Event::Skip(delta) => {
-          data.skip(*delta);
-
-          Typestate::Running(data)
-        },
-        Event::Stop => Typestate::Stopped(data.stop()),
+    // The outer match is on the event and the inner match on self
+    match event {
+      Event::Eject => match self {
+        Typestate::Ejected(_) | Typestate::Running(_) => self,
+        Typestate::Stopped(data) => Typestate::Ejected(data.eject()),
       },
-      Typestate::Stopped(mut data) => match event {
-        Event::Eject => Typestate::Ejected(data.eject()),
-        Event::Reset => {
+      Event::Reset => match &mut self {
+        Typestate::Ejected(_) | Typestate::Running(_) => self,
+        Typestate::Stopped(data) => {
           data.reset();
 
-          Typestate::Stopped(data)
+          self
         },
-        Event::Run => Typestate::Running(data.run()),
-        Event::Skip(_) | Event::Stop => Typestate::Stopped(data),
+      },
+      Event::Run => match self {
+        Typestate::Ejected(_) | Typestate::Running(_) => self,
+        Typestate::Stopped(data) => Typestate::Running(data.run()),
+      },
+      Event::Skip(delta) => match &mut self {
+        Typestate::Ejected(_) | Typestate::Stopped(_) => self,
+        Typestate::Running(data) => {
+          data.skip(*delta);
+
+          self
+        },
+      },
+      Event::Stop => match self {
+        Typestate::Ejected(_) | Typestate::Stopped(_) => self,
+        Typestate::Running(data) => Typestate::Stopped(data.stop()),
       },
     }
   }
