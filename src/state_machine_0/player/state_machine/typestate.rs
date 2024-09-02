@@ -32,6 +32,7 @@ impl Typestate {
     self,
     event: &Event,
   ) -> Self {
+    // Outer match on self and inner match on event
     match self {
       Typestate::Ejected(_) => self,
       Typestate::Running(mut data) => match event {

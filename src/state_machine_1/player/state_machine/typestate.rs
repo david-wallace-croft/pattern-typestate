@@ -26,29 +26,41 @@ impl Typestate {
     data: &mut Data,
     event: &Event,
   ) -> Self {
-    // TODO: outer match on Event
-    match self {
-      Typestate::Ejected(_) => self,
-      Typestate::Running(state_operator) => match event {
-        Event::Eject | Event::Reset | Event::Run => {
-          Typestate::Running(state_operator)
+    // Outer match on event and inner match on self
+    match event {
+      Event::Eject => match self {
+        Typestate::Ejected(_) | Typestate::Running(_) => self,
+        Typestate::Stopped(state_operator) => {
+          Typestate::Ejected(state_operator.eject())
         },
-        Event::Skip(delta) => {
-          state_operator.skip(data, *delta);
-
-          Typestate::Running(state_operator)
-        },
-        Event::Stop => Typestate::Stopped(state_operator.stop()),
       },
-      Typestate::Stopped(state_operator) => match event {
-        Event::Eject => Typestate::Ejected(state_operator.eject()),
-        Event::Reset => {
+      Event::Reset => match &self {
+        Typestate::Ejected(_) | Typestate::Running(_) => self,
+        Typestate::Stopped(state_operator) => {
           state_operator.reset(data);
 
-          Typestate::Stopped(state_operator)
+          self
         },
-        Event::Run => Typestate::Running(state_operator.run()),
-        Event::Skip(_) | Event::Stop => Typestate::Stopped(state_operator),
+      },
+      Event::Run => match self {
+        Typestate::Ejected(_) | Typestate::Running(_) => self,
+        Typestate::Stopped(state_operator) => {
+          Typestate::Running(state_operator.run())
+        },
+      },
+      Event::Skip(delta) => match &self {
+        Typestate::Ejected(_) | Typestate::Stopped(_) => self,
+        Typestate::Running(state_operator) => {
+          state_operator.skip(data, *delta);
+
+          self
+        },
+      },
+      Event::Stop => match self {
+        Typestate::Ejected(_) | Typestate::Stopped(_) => self,
+        Typestate::Running(state_operator) => {
+          Typestate::Stopped(state_operator.stop())
+        },
       },
     }
   }
