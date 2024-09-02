@@ -30,27 +30,25 @@ impl Player {
 
   // mutator methods
 
-  // TODO: Should mutator methods return Result?
-
-  pub fn request_eject(&mut self) {
+  pub fn press_eject(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Eject);
   }
 
-  pub fn request_reset(&mut self) {
+  pub fn press_reset(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Reset);
   }
 
-  pub fn request_run(&mut self) {
+  pub fn press_run(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Run);
   }
 
-  pub fn request_skip(
+  pub fn press_skip(
     &mut self,
     delta: isize,
   ) {
@@ -59,7 +57,7 @@ impl Player {
       .transit(&mut self.data, Event::Skip(delta));
   }
 
-  pub fn request_stop(&mut self) {
+  pub fn press_stop(&mut self) {
     self
       .state_machine
       .transit(&mut self.data, Event::Stop);
