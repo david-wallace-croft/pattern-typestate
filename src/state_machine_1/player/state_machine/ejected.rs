@@ -17,17 +17,19 @@ impl StateTrait for EjectedState {
 }
 
 impl StateOperator<EjectedState> {
-  pub fn new() -> Self {
-    StateOperator {
-      state: PhantomData,
-    }
-  }
-
   pub fn transit(
     self,
     _event: Event,
   ) -> Typestate {
     Typestate::Ejected(self)
+  }
+}
+
+impl Default for StateOperator<EjectedState> {
+  fn default() -> Self {
+    Self {
+      state: PhantomData,
+    }
   }
 }
 

@@ -5,7 +5,7 @@ use super::super::state_machine::running::RunningState;
 use super::super::state_machine::state_operator::StateOperator;
 use super::super::state_machine::state_trait::StateTrait;
 use super::super::state_machine::typestate::Typestate;
-use std::fmt::{Display, Formatter};
+use std::fmt::{Display, Formatter, Result};
 use std::marker::PhantomData;
 
 const STATE_NAME: &str = "STOPPED";
@@ -20,21 +20,19 @@ impl StateTrait for StoppedState {
 }
 
 impl StateOperator<StoppedState> {
-  fn eject(&self) -> StateOperator<EjectedState> {
-    StateOperator::<EjectedState>::new()
+  fn eject(self) -> StateOperator<EjectedState> {
+    StateOperator::<EjectedState>::default()
   }
 
   fn reset(
     &self,
     data: &mut Data,
-  ) -> StateOperator<StoppedState> {
+  ) {
     data.position = 0;
-
-    StateOperator::<StoppedState>::default()
   }
 
-  fn run(&self) -> StateOperator<RunningState> {
-    StateOperator::<RunningState>::new()
+  fn run(self) -> StateOperator<RunningState> {
+    StateOperator::<RunningState>::default()
   }
 
   pub fn transit(
@@ -44,11 +42,13 @@ impl StateOperator<StoppedState> {
   ) -> Typestate {
     match event {
       Event::Eject => Typestate::Ejected(self.eject()),
-      Event::Reset => Typestate::Stopped(self.reset(data)),
-      Event::Run => Typestate::Running(self.run()),
-      Event::Skip(_) | Event::Stop => {
-        Typestate::Stopped(StateOperator::<StoppedState>::default())
+      Event::Reset => {
+        self.reset(data);
+
+        Typestate::Stopped(self)
       },
+      Event::Run => Typestate::Running(self.run()),
+      Event::Skip(_) | Event::Stop => Typestate::Stopped(self),
     }
   }
 }
@@ -65,7 +65,7 @@ impl Display for StateOperator<StoppedState> {
   fn fmt(
     &self,
     f: &mut Formatter<'_>,
-  ) -> std::fmt::Result {
+  ) -> Result {
     write!(f, "{STATE_NAME}")
   }
 }
