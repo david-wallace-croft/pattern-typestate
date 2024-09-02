@@ -1,13 +1,13 @@
 use super::super::data::Data;
-use super::state_trait::StateTrait;
-use super::stopped_state::StoppedState;
+use super::stopped_typestate::StoppedTypestate;
+use super::typestate_trait::TypestateTrait;
 
 const STATE_NAME: &str = "RUNNING";
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct RunningState;
+pub struct RunningTypestate;
 
-impl RunningState {
+impl RunningTypestate {
   pub fn skip(
     &self,
     data: &mut Data,
@@ -18,12 +18,12 @@ impl RunningState {
       .saturating_add_signed(delta);
   }
 
-  pub fn stop(self) -> StoppedState {
-    StoppedState
+  pub fn stop(self) -> StoppedTypestate {
+    StoppedTypestate
   }
 }
 
-impl StateTrait for RunningState {
+impl TypestateTrait for RunningTypestate {
   fn get_state_name(&self) -> &'static str {
     STATE_NAME
   }

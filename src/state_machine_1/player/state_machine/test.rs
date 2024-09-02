@@ -40,7 +40,7 @@ pub fn test_typestate_0() {
   assert_eq!(state_machine.get_state_name(), STOPPED);
 
   for (event, expected_state_name, expected_position) in test_data {
-    state_machine.transit(&mut data, &event);
+    state_machine = state_machine.transit(&mut data, &event);
 
     assert_eq!(data.position, expected_position);
 

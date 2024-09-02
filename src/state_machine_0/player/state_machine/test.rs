@@ -1,5 +1,5 @@
 use super::super::event::Event::{self, *};
-use super::typestate::Typestate;
+use super::StateMachine;
 
 const EJECTED: &str = "EJECTED";
 const RUNNING: &str = "RUNNING";
@@ -30,17 +30,17 @@ pub fn test_typestate_0() {
     (Stop, EJECTED, 1),
   ];
 
-  let mut type_state = Typestate::default();
+  let mut state_machine = StateMachine::default();
 
-  assert_eq!(type_state.get_position(), 0);
+  assert_eq!(state_machine.get_position(), 0);
 
-  assert_eq!(type_state.get_state_name(), STOPPED);
+  assert_eq!(state_machine.get_state_name(), STOPPED);
 
   for (event, expected_state_name, expected_position) in test_data {
-    type_state = type_state.transit(&event);
+    state_machine = state_machine.transit(&event);
 
-    assert_eq!(type_state.get_position(), expected_position);
+    assert_eq!(state_machine.get_position(), expected_position);
 
-    assert_eq!(type_state.get_state_name(), expected_state_name);
+    assert_eq!(state_machine.get_state_name(), expected_state_name);
   }
 }

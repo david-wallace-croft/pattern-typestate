@@ -1,15 +1,15 @@
-use super::state_trait::StateTrait;
+use super::typestate_trait::TypestateTrait;
 
 const STATE_NAME: &str = "EJECTED";
 
 #[derive(Clone, Copy, Debug, PartialEq)]
-pub struct EjectedState;
+pub struct EjectedTypestate;
 
-impl EjectedState {
+impl EjectedTypestate {
   // No state transition methods for the ejected state
 }
 
-impl StateTrait for EjectedState {
+impl TypestateTrait for EjectedTypestate {
   fn get_state_name(&self) -> &'static str {
     STATE_NAME
   }

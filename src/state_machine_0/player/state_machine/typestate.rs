@@ -1,74 +1,73 @@
-use super::super::event::Event;
-use super::data::Data;
 use super::ejected_state::EjectedState;
 use super::running_state::RunningState;
+use super::state_trait::StateTrait;
 use super::stopped_state::StoppedState;
 
+// Does not derive Copy to demonstrate how that can be handled by StateMachine
 #[derive(Debug, PartialEq)]
-pub enum Typestate {
-  Ejected(Data<EjectedState>),
-  Running(Data<RunningState>),
-  Stopped(Data<StoppedState>),
+pub struct Typestate<S: StateTrait> {
+  position: usize,
+  state: S,
 }
 
-impl Typestate {
+impl<S: StateTrait> Typestate<S> {
   pub fn get_position(&self) -> usize {
-    match self {
-      Typestate::Ejected(data) => data.get_position(),
-      Typestate::Running(data) => data.get_position(),
-      Typestate::Stopped(data) => data.get_position(),
-    }
+    self.position
   }
 
+  // Cannot use PhantomData for state in Data because of this method
   pub fn get_state_name(&self) -> &'static str {
-    match self {
-      Typestate::Ejected(data) => data.get_state_name(),
-      Typestate::Running(data) => data.get_state_name(),
-      Typestate::Stopped(data) => data.get_state_name(),
-    }
+    self
+      .state
+      .get_state_name()
+  }
+}
+
+impl Typestate<EjectedState> {
+  // no methods for the ejected state
+}
+
+impl Typestate<RunningState> {
+  pub fn skip(
+    &mut self,
+    delta: isize,
+  ) {
+    self.position = self
+      .position
+      .saturating_add_signed(delta);
   }
 
-  pub fn transit(
-    mut self,
-    event: &Event,
-  ) -> Self {
-    // The outer match is on the event and the inner match on self
-    match event {
-      Event::Eject => match self {
-        Typestate::Ejected(_) | Typestate::Running(_) => self,
-        Typestate::Stopped(data) => Typestate::Ejected(data.eject()),
-      },
-      Event::Reset => match &mut self {
-        Typestate::Ejected(_) | Typestate::Running(_) => self,
-        Typestate::Stopped(data) => {
-          data.reset();
-
-          self
-        },
-      },
-      Event::Run => match self {
-        Typestate::Ejected(_) | Typestate::Running(_) => self,
-        Typestate::Stopped(data) => Typestate::Running(data.run()),
-      },
-      Event::Skip(delta) => match &mut self {
-        Typestate::Ejected(_) | Typestate::Stopped(_) => self,
-        Typestate::Running(data) => {
-          data.skip(*delta);
-
-          self
-        },
-      },
-      Event::Stop => match self {
-        Typestate::Ejected(_) | Typestate::Stopped(_) => self,
-        Typestate::Running(data) => Typestate::Stopped(data.stop()),
-      },
+  pub fn stop(self) -> Typestate<StoppedState> {
+    Typestate {
+      position: self.position,
+      state: StoppedState,
     }
   }
 }
 
-impl Default for Typestate {
-  fn default() -> Self {
-    // The default state starts stopped at position zero
-    Typestate::Stopped(Data::<StoppedState>::new(0))
+impl Typestate<StoppedState> {
+  pub fn eject(self) -> Typestate<EjectedState> {
+    Typestate {
+      position: self.position,
+      state: EjectedState,
+    }
+  }
+
+  pub fn new(position: usize) -> Self {
+    Self {
+      position,
+      state: StoppedState,
+    }
+  }
+
+  pub fn reset(&mut self) {
+    self.position = 0;
+  }
+
+  pub fn run(self) -> Typestate<RunningState> {
+    Typestate {
+      position: self.position,
+      state: RunningState,
+    }
   }
 }

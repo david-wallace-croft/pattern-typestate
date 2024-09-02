@@ -1,9 +1,10 @@
+use self::ejected_state::EjectedState;
+use self::running_state::RunningState;
+use self::stopped_state::StoppedState;
 use self::typestate::Typestate;
 use super::event::Event;
-use std::mem;
 
 // The StateMachine submodules are private
-mod data;
 mod ejected_state;
 mod running_state;
 mod state_trait;
@@ -13,35 +14,77 @@ mod typestate;
 #[cfg(test)]
 mod test;
 
-#[derive(Default)]
-pub struct StateMachine {
-  typestate: Typestate,
+#[derive(Debug, PartialEq)]
+pub enum StateMachine {
+  Ejected(Typestate<EjectedState>),
+  Running(Typestate<RunningState>),
+  Stopped(Typestate<StoppedState>),
 }
 
 impl StateMachine {
   pub fn get_position(&self) -> usize {
-    self
-      .typestate
-      .get_position()
+    match self {
+      StateMachine::Ejected(typestate) => typestate.get_position(),
+      StateMachine::Running(typestate) => typestate.get_position(),
+      StateMachine::Stopped(typestate) => typestate.get_position(),
+    }
   }
 
   pub fn get_state_name(&self) -> &'static str {
-    self
-      .typestate
-      .get_state_name()
+    match self {
+      StateMachine::Ejected(typestate) => typestate.get_state_name(),
+      StateMachine::Running(typestate) => typestate.get_state_name(),
+      StateMachine::Stopped(typestate) => typestate.get_state_name(),
+    }
   }
 
   pub fn transit(
-    &mut self,
+    mut self,
     event: &Event,
-  ) {
-    // Doing this directly will not compile; cannot move and cannot copy because
-    // Typestate uses Data which does not implement Copy.
-    //
-    // self.typestate = self.typestate.transit(event);
+  ) -> Self {
+    // The outer match is on the event and the inner match on self
+    match event {
+      Event::Eject => match self {
+        StateMachine::Ejected(_) | StateMachine::Running(_) => self,
+        StateMachine::Stopped(typestate) => {
+          StateMachine::Ejected(typestate.eject())
+        },
+      },
+      Event::Reset => match &mut self {
+        StateMachine::Ejected(_) | StateMachine::Running(_) => self,
+        StateMachine::Stopped(typestate) => {
+          typestate.reset();
 
-    let typestate: Typestate = mem::take(&mut self.typestate);
+          self
+        },
+      },
+      Event::Run => match self {
+        StateMachine::Ejected(_) | StateMachine::Running(_) => self,
+        StateMachine::Stopped(typestate) => {
+          StateMachine::Running(typestate.run())
+        },
+      },
+      Event::Skip(delta) => match &mut self {
+        StateMachine::Ejected(_) | StateMachine::Stopped(_) => self,
+        StateMachine::Running(typestate) => {
+          typestate.skip(*delta);
 
-    self.typestate = typestate.transit(event);
+          self
+        },
+      },
+      Event::Stop => match self {
+        StateMachine::Ejected(_) | StateMachine::Stopped(_) => self,
+        StateMachine::Running(typestate) => {
+          StateMachine::Stopped(typestate.stop())
+        },
+      },
+    }
+  }
+}
+
+impl Default for StateMachine {
+  fn default() -> Self {
+    // The default state starts stopped at position zero
+    StateMachine::Stopped(Typestate::<StoppedState>::new(0))
   }
 }

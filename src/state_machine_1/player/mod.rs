@@ -31,35 +31,36 @@ impl Player {
   // mutator methods
 
   pub fn press_eject(&mut self) {
-    self
-      .state_machine
-      .transit(&mut self.data, &Event::Eject);
+    self.transit(&Event::Eject);
   }
 
   pub fn press_reset(&mut self) {
-    self
-      .state_machine
-      .transit(&mut self.data, &Event::Reset);
+    self.transit(&Event::Reset);
   }
 
   pub fn press_run(&mut self) {
-    self
-      .state_machine
-      .transit(&mut self.data, &Event::Run);
+    self.transit(&Event::Run);
   }
 
   pub fn press_skip(
     &mut self,
     delta: isize,
   ) {
-    self
-      .state_machine
-      .transit(&mut self.data, &Event::Skip(delta));
+    self.transit(&Event::Skip(delta));
   }
 
   pub fn press_stop(&mut self) {
-    self
+    self.transit(&Event::Stop);
+  }
+
+  // private methods
+
+  fn transit(
+    &mut self,
+    event: &Event,
+  ) {
+    self.state_machine = self
       .state_machine
-      .transit(&mut self.data, &Event::Stop);
+      .transit(&mut self.data, event);
   }
 }

@@ -1,5 +1,6 @@
 use self::event::Event;
 use self::state_machine::StateMachine;
+use std::mem;
 
 // The Player submodules are private
 mod event;
@@ -28,35 +29,41 @@ impl Player {
   // mutator methods
 
   pub fn press_eject(&mut self) {
-    self
-      .state_machine
-      .transit(&Event::Eject);
+    self.transit(&Event::Eject);
   }
 
   pub fn press_reset(&mut self) {
-    self
-      .state_machine
-      .transit(&Event::Reset);
+    self.transit(&Event::Reset);
   }
 
   pub fn press_run(&mut self) {
-    self
-      .state_machine
-      .transit(&Event::Run);
+    self.transit(&Event::Run);
   }
 
   pub fn press_skip(
     &mut self,
     delta: isize,
   ) {
-    self
-      .state_machine
-      .transit(&Event::Skip(delta));
+    self.transit(&Event::Skip(delta));
   }
 
   pub fn press_stop(&mut self) {
-    self
-      .state_machine
-      .transit(&Event::Stop);
+    self.transit(&Event::Stop);
+  }
+
+  // private methods
+
+  fn transit(
+    &mut self,
+    event: &Event,
+  ) {
+    // Doing this directly will not compile; cannot move and cannot copy because
+    // StateMachine uses Typestate which does not implement Copy.
+    //
+    // self.state_machine = self.state_machine.transit(event);
+
+    let state_machine: StateMachine = mem::take(&mut self.state_machine);
+
+    self.state_machine = state_machine.transit(event);
   }
 }
