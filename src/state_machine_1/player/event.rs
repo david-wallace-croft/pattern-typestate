@@ -1,5 +1,5 @@
-#[derive(Debug)]
-pub enum Request {
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub enum Event {
   Eject,       // when stopped
   Reset,       // when stopped
   Run,         // when stopped

@@ -1,68 +1,18 @@
-use self::ejected::EjectedState;
-use self::running::RunningState;
-use self::state_operator::StateOperator;
-use self::stopped::StoppedState;
+use self::player::Player;
 
-pub mod ejected;
-pub mod request;
-pub mod running;
-pub mod state_operator;
-pub mod state_trait;
-pub mod stopped;
-pub mod typestate;
+mod player;
 
 #[cfg(test)]
 mod test;
 
 pub fn example() {
-  let stopped = StateOperator::<StoppedState>::new(0);
+  let mut player = Player::default();
 
-  assert_eq!(format!("{stopped}"), "STOPPED");
+  player.press_run();
 
-  let position: usize = stopped.get_position();
+  player.press_skip(1);
 
-  assert_eq!(position, 0);
+  player.press_stop();
 
-  // method takes ownership of self
-  let mut running: StateOperator<RunningState> = stopped.run();
-
-  assert_eq!(format!("{running}"), "RUNNING");
-
-  // Will not compile; value used after being moved
-  // let mut running: StateOperator<RunningState> = stopped.run();
-
-  // Will not compile; value used after being moved
-  // let position: usize = stopped.get_position();
-
-  // Will not compile; no method found
-  // let _ = running.run();
-
-  running.skip(1);
-
-  let position: usize = running.get_position();
-
-  assert_eq!(position, 1);
-
-  let mut stopped: StateOperator<StoppedState> = running.stop();
-
-  let position: usize = stopped.get_position();
-
-  assert_eq!(position, 1);
-
-  stopped.reset();
-
-  let position: usize = stopped.get_position();
-
-  assert_eq!(position, 0);
-
-  let running: StateOperator<RunningState> = stopped.run();
-
-  // Will not compile; method not found
-  // let ejected = running.eject();
-
-  let stopped: StateOperator<StoppedState> = running.stop();
-
-  let ejected: StateOperator<EjectedState> = stopped.eject();
-
-  assert_eq!(format!("{ejected}"), "EJECTED");
+  player.press_eject();
 }
