@@ -26,9 +26,9 @@
 - Examples of using the typestate pattern to make a state machine
 
 - state_machine_0
-  - Demonstrates a state machine that operates on data inside itself
+  - Demonstrates a typestate state machine that operates on data inside itself
 - state_machine_1
-  - Demonstrates a state machine that operates on data outside itself
+  - Demonstrates a typestate state machine that operates on data outside itself
 
 ## Links
 
