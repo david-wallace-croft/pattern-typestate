@@ -4,7 +4,7 @@ use super::stopped_state::StoppedState;
 
 const STATE_NAME: &str = "RUNNING";
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct RunningState;
 
 impl RunningState {

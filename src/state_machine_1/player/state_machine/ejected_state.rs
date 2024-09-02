@@ -2,7 +2,7 @@ use super::state_trait::StateTrait;
 
 const STATE_NAME: &str = "EJECTED";
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct EjectedState;
 
 impl EjectedState {

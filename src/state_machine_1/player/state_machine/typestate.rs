@@ -5,7 +5,7 @@ use super::running_state::RunningState;
 use super::state_trait::StateTrait;
 use super::stopped_state::StoppedState;
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub enum Typestate {
   Ejected(EjectedState),
   Running(RunningState),

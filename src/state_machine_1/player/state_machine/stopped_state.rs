@@ -5,7 +5,7 @@ use super::state_trait::StateTrait;
 
 const STATE_NAME: &str = "STOPPED";
 
-#[derive(Debug, PartialEq)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 pub struct StoppedState;
 
 impl StoppedState {
