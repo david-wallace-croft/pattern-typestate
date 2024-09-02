@@ -1,7 +1,5 @@
-use std::fmt::Display;
+use std::fmt::Debug;
 
-pub trait StateTrait: Display {
-  fn get_position(&self) -> usize;
-
+pub trait StateTrait: Clone + Copy + Debug + PartialEq + Eq {
   fn get_state_name(&self) -> &'static str;
 }

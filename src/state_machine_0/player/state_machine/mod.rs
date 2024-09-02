@@ -3,6 +3,7 @@ use super::event::Event;
 
 // The StateMachine submodules are private
 mod ejected;
+mod player_data;
 mod running;
 mod state_trait;
 mod stopped;
