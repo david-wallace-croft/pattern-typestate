@@ -4,6 +4,8 @@
 //! - In this example, the StateMachine operates on Data from outside itself.
 //! - The Data is passed into the StateMachine with each Event.
 //! - Since the Typestate structs do not need to hold Data, they are simple.
+//! - Since there is no shared code, each state has its own Typestate struct.
+//! - A main Typestate struct with a state discriminant generic is not needed.
 //!
 //! # Metadata
 //! - Author: [`David Wallace Croft`]
