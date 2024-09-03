@@ -4,8 +4,10 @@ use self::state_trait::StateTrait;
 use self::stopped_state::StoppedState;
 use self::typestate::Typestate;
 use super::event::Event;
+use crate::state_machine_0::player::state_machine::data::Data;
 
 // The StateMachine submodules are private
+mod data;
 mod ejected_state;
 mod running_state;
 mod state_trait;
@@ -90,7 +92,7 @@ impl StateMachine {
 
 impl Default for StateMachine {
   fn default() -> Self {
-    // The default state starts stopped at position zero
-    StateMachine::Stopped(Typestate::<StoppedState>::new(0))
+    // The default state starts in state stopped at position zero
+    StateMachine::Stopped(Typestate::<StoppedState>::new(Data::default()))
   }
 }
