@@ -2,12 +2,13 @@ use super::ejected_state::EjectedState;
 use super::running_state::RunningState;
 use super::state_trait::StateTrait;
 use super::stopped_state::StoppedState;
+use std::marker::PhantomData;
 
 // Does not derive Copy to demonstrate how that can be handled by StateMachine
 #[derive(Debug, PartialEq)]
 pub struct Typestate<S: StateTrait> {
   position: usize,
-  state: S,
+  state: PhantomData<S>,
 }
 
 impl<S: StateTrait> Typestate<S> {
@@ -15,16 +16,16 @@ impl<S: StateTrait> Typestate<S> {
     self.position
   }
 
-  // Cannot use PhantomData for state in Data because of this method
-  pub fn get_state_name(&self) -> &'static str {
-    self
-      .state
-      .get_state_name()
+  pub fn new(position: usize) -> Self {
+    Self {
+      position,
+      state: PhantomData,
+    }
   }
 }
 
 impl Typestate<EjectedState> {
-  // no methods for the ejected state
+  // no state transition methods for the ejected state
 }
 
 impl Typestate<RunningState> {
@@ -38,26 +39,13 @@ impl Typestate<RunningState> {
   }
 
   pub fn stop(self) -> Typestate<StoppedState> {
-    Typestate {
-      position: self.position,
-      state: StoppedState,
-    }
+    Typestate::<StoppedState>::new(self.position)
   }
 }
 
 impl Typestate<StoppedState> {
   pub fn eject(self) -> Typestate<EjectedState> {
-    Typestate {
-      position: self.position,
-      state: EjectedState,
-    }
-  }
-
-  pub fn new(position: usize) -> Self {
-    Self {
-      position,
-      state: StoppedState,
-    }
+    Typestate::<EjectedState>::new(self.position)
   }
 
   pub fn reset(&mut self) {
@@ -65,9 +53,6 @@ impl Typestate<StoppedState> {
   }
 
   pub fn run(self) -> Typestate<RunningState> {
-    Typestate {
-      position: self.position,
-      state: RunningState,
-    }
+    Typestate::<RunningState>::new(self.position)
   }
 }

@@ -6,7 +6,7 @@ const STATE_NAME: &str = "STOPPED";
 pub struct StoppedState;
 
 impl StateTrait for StoppedState {
-  fn get_state_name(&self) -> &'static str {
+  fn get_state_name() -> &'static str {
     STATE_NAME
   }
 }

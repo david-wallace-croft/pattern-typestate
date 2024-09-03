@@ -6,7 +6,7 @@ const STATE_NAME: &str = "RUNNING";
 pub struct RunningState;
 
 impl StateTrait for RunningState {
-  fn get_state_name(&self) -> &'static str {
+  fn get_state_name() -> &'static str {
     STATE_NAME
   }
 }

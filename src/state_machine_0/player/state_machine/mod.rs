@@ -1,5 +1,6 @@
 use self::ejected_state::EjectedState;
 use self::running_state::RunningState;
+use self::state_trait::StateTrait;
 use self::stopped_state::StoppedState;
 use self::typestate::Typestate;
 use super::event::Event;
@@ -32,9 +33,9 @@ impl StateMachine {
 
   pub fn get_state_name(&self) -> &'static str {
     match self {
-      StateMachine::Ejected(typestate) => typestate.get_state_name(),
-      StateMachine::Running(typestate) => typestate.get_state_name(),
-      StateMachine::Stopped(typestate) => typestate.get_state_name(),
+      StateMachine::Ejected(_) => EjectedState::get_state_name(),
+      StateMachine::Running(_) => RunningState::get_state_name(),
+      StateMachine::Stopped(_) => StoppedState::get_state_name(),
     }
   }
 

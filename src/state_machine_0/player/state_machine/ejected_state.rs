@@ -6,7 +6,7 @@ const STATE_NAME: &str = "EJECTED";
 pub struct EjectedState;
 
 impl StateTrait for EjectedState {
-  fn get_state_name(&self) -> &'static str {
+  fn get_state_name() -> &'static str {
     STATE_NAME
   }
 }
