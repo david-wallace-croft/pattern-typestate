@@ -8,6 +8,7 @@ edition = "2021"
 fn_call_width = 60
 fn_params_layout = "Vertical"
 force_explicit_abi = true
+# force_multiline_blocks = false
 # group_imports = "StdExternalCrate"
 hard_tabs = false
 # imports_layout = "HorizontalVertical"
