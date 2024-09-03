@@ -26,7 +26,7 @@ impl StoppedTypestate {
 }
 
 impl TypestateTrait for StoppedTypestate {
-  fn get_state_name(&self) -> &'static str {
+  fn get_state_name() -> &'static str {
     STATE_NAME
   }
 }

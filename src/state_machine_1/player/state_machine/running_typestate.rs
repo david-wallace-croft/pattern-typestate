@@ -24,7 +24,7 @@ impl RunningTypestate {
 }
 
 impl TypestateTrait for RunningTypestate {
-  fn get_state_name(&self) -> &'static str {
+  fn get_state_name() -> &'static str {
     STATE_NAME
   }
 }

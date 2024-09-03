@@ -24,9 +24,9 @@ pub enum StateMachine {
 impl StateMachine {
   pub fn get_state_name(&self) -> &'static str {
     match self {
-      StateMachine::Ejected(typestate) => typestate.get_state_name(),
-      StateMachine::Running(typestate) => typestate.get_state_name(),
-      StateMachine::Stopped(typestate) => typestate.get_state_name(),
+      StateMachine::Ejected(_typestate) => EjectedTypestate::get_state_name(),
+      StateMachine::Running(_typestate) => RunningTypestate::get_state_name(),
+      StateMachine::Stopped(_typestate) => StoppedTypestate::get_state_name(),
     }
   }
 
@@ -35,7 +35,7 @@ impl StateMachine {
     data: &mut Data,
     event: &Event,
   ) -> Self {
-    // The outer match is on the event and the inner match on self
+    // The outer match is on the event and the inner match is on self
     match event {
       Event::Eject => match self {
         StateMachine::Ejected(_) | StateMachine::Running(_) => self,

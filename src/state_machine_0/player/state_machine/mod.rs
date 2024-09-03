@@ -33,9 +33,9 @@ impl StateMachine {
 
   pub fn get_state_name(&self) -> &'static str {
     match self {
-      StateMachine::Ejected(_) => EjectedState::get_state_name(),
-      StateMachine::Running(_) => RunningState::get_state_name(),
-      StateMachine::Stopped(_) => StoppedState::get_state_name(),
+      StateMachine::Ejected(_typestate) => EjectedState::get_state_name(),
+      StateMachine::Running(_typestate) => RunningState::get_state_name(),
+      StateMachine::Stopped(_typestate) => StoppedState::get_state_name(),
     }
   }
 
@@ -43,7 +43,7 @@ impl StateMachine {
     mut self,
     event: &Event,
   ) -> Self {
-    // The outer match is on the event and the inner match on self
+    // The outer match is on the event and the inner match is on self
     match event {
       Event::Eject => match self {
         StateMachine::Ejected(_) | StateMachine::Running(_) => self,

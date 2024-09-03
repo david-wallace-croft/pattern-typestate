@@ -10,7 +10,7 @@ impl EjectedTypestate {
 }
 
 impl TypestateTrait for EjectedTypestate {
-  fn get_state_name(&self) -> &'static str {
+  fn get_state_name() -> &'static str {
     STATE_NAME
   }
 }
