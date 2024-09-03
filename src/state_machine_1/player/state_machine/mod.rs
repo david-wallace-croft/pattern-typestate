@@ -1,3 +1,20 @@
+//==============================================================================
+//! An example of using the Typestate pattern to implement a state machine.
+//!
+//! - In this example, the StateMachine operates on Data from outside itself.
+//! - The Data is passed into the StateMachine with each Event.
+//! - Since the Typestate structs do not need to hold Data, they are simple.
+//!
+//! # Metadata
+//! - Author: [`David Wallace Croft`]
+//! - Copyright: &copy; 2024 [`CroftSoft Inc`]
+//! - Created: 2024-09-02
+//! - Updated: 2024-09-03
+//!
+//! [`CroftSoft Inc`]: https://www.croftsoft.com/
+//! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
+//==============================================================================
+
 use self::ejected_typestate::EjectedTypestate;
 use self::running_typestate::RunningTypestate;
 use self::stopped_typestate::StoppedTypestate;
@@ -22,6 +39,8 @@ pub enum StateMachine {
 }
 
 impl StateMachine {
+  // No get_position() method since the Data is stored outside the StateMachine.
+
   pub fn get_state_name(&self) -> &'static str {
     match self {
       StateMachine::Ejected(_) => EjectedTypestate::get_state_name(),

@@ -1,3 +1,22 @@
+//==============================================================================
+//! An example of using the Typestate pattern to implement a state machine.
+//!
+//! - In this example, the StateMachine operates on Data stored inside itself.
+//! - The Typestate struct holds Data plus a generic for the state discriminant.
+//! - The state generic is held in the Typestate struct using PhantomData.
+//! - A Typestate implementation defines functions & methods used by all states.
+//! - State-specific Typestate implementations provide state-specific methods.
+//!
+//! # Metadata
+//! - Author: [`David Wallace Croft`]
+//! - Copyright: &copy; 2024 [`CroftSoft Inc`]
+//! - Created: 2024-08-13
+//! - Updated: 2024-09-03
+//!
+//! [`CroftSoft Inc`]: https://www.croftsoft.com/
+//! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
+//==============================================================================
+
 use self::ejected_state::EjectedState;
 use self::running_state::RunningState;
 use self::state_trait::StateTrait;
