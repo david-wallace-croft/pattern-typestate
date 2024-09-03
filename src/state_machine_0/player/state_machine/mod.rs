@@ -33,9 +33,9 @@ impl StateMachine {
 
   pub fn get_state_name(&self) -> &'static str {
     match self {
-      StateMachine::Ejected(_typestate) => EjectedState::get_state_name(),
-      StateMachine::Running(_typestate) => RunningState::get_state_name(),
-      StateMachine::Stopped(_typestate) => StoppedState::get_state_name(),
+      StateMachine::Ejected(_) => EjectedState::get_state_name(),
+      StateMachine::Running(_) => RunningState::get_state_name(),
+      StateMachine::Stopped(_) => StoppedState::get_state_name(),
     }
   }
 
@@ -46,13 +46,15 @@ impl StateMachine {
     // The outer match is on the event and the inner match is on self
     match event {
       Event::Eject => match self {
-        StateMachine::Ejected(_) | StateMachine::Running(_) => self,
+        StateMachine::Ejected(_) => self,
+        StateMachine::Running(_) => self,
         StateMachine::Stopped(typestate) => {
           StateMachine::Ejected(typestate.eject())
         },
       },
       Event::Reset => match &mut self {
-        StateMachine::Ejected(_) | StateMachine::Running(_) => self,
+        StateMachine::Ejected(_) => self,
+        StateMachine::Running(_) => self,
         StateMachine::Stopped(typestate) => {
           typestate.reset();
 
@@ -60,13 +62,15 @@ impl StateMachine {
         },
       },
       Event::Run => match self {
-        StateMachine::Ejected(_) | StateMachine::Running(_) => self,
+        StateMachine::Ejected(_) => self,
+        StateMachine::Running(_) => self,
         StateMachine::Stopped(typestate) => {
           StateMachine::Running(typestate.run())
         },
       },
       Event::Skip(delta) => match &mut self {
-        StateMachine::Ejected(_) | StateMachine::Stopped(_) => self,
+        StateMachine::Ejected(_) => self,
+        StateMachine::Stopped(_) => self,
         StateMachine::Running(typestate) => {
           typestate.skip(*delta);
 
@@ -74,7 +78,8 @@ impl StateMachine {
         },
       },
       Event::Stop => match self {
-        StateMachine::Ejected(_) | StateMachine::Stopped(_) => self,
+        StateMachine::Ejected(_) => self,
+        StateMachine::Stopped(_) => self,
         StateMachine::Running(typestate) => {
           StateMachine::Stopped(typestate.stop())
         },
