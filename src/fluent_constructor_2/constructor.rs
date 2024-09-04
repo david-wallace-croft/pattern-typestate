@@ -20,7 +20,7 @@
 //! - Author: [`David Wallace Croft`]
 //! - Copyright: &copy; 2024 [`CroftSoft Inc`]
 //! - Created: 2024-08-23
-//! - Updated: 2024-08-24
+//! - Updated: 2024-09-04
 //!
 //! [`CroftSoft Inc`]: https://www.croftsoft.com/
 //! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
@@ -35,18 +35,18 @@ const DEFAULT_WEIGHT: f64 = 33.;
 
 //==============================================================================
 
-impl ConstructorCreator<WidgetConstructor> for Widget {
+impl ConstructorCreator<WidgetConstructorHeight> for Widget {
   // The public ConstructorCreator trait provides indirect access to the fields
-  fn constructor() -> WidgetConstructor {
-    WidgetConstructor
+  fn constructor() -> WidgetConstructorHeight {
+    WidgetConstructorHeight
   }
 }
 
 //==============================================================================
 
-pub struct WidgetConstructor;
+pub struct WidgetConstructorHeight;
 
-impl WidgetConstructor {
+impl WidgetConstructorHeight {
   /// Use the default values for the remaining fields
   pub fn construct(&self) -> Widget {
     self
