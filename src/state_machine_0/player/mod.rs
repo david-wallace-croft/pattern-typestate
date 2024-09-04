@@ -1,3 +1,18 @@
+//==============================================================================
+//! A Player sends Events to its internal StateMachine.
+//!
+//! In this example, the Data for the Player is inside the StateMachine.
+//!
+//! # Metadata
+//! - Author: [`David Wallace Croft`]
+//! - Copyright: &copy; 2024 [`CroftSoft Inc`]
+//! - Created: 2024-09-02
+//! - Updated: 2024-09-04
+//!
+//! [`CroftSoft Inc`]: https://www.croftsoft.com/
+//! [`David Wallace Croft`]: https://www.croftsoft.com/people/david/
+//==============================================================================
+
 use self::event::Event;
 use self::state_machine::StateMachine;
 use std::mem;
