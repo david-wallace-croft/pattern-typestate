@@ -2,13 +2,7 @@
 
 - Example Rust source code demonstrating the pattern "Typestate"
 
-<div
-  style="background-color: white; padding: 0.5rem">
-<image
-  alt="Pattern Typestate Examples"
-  src="./media/pattern-typestate.drawio.png">
-</image>
-</div>
+![Pattern Typestate Examples](./media/pattern-typestate.drawio.png)
 
 ## Usage
 
