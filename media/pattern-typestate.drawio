@@ -251,7 +251,7 @@
         </mxCell>
         <mxCell id="Jva7O8vbE3L5nxs0JY6R-33" value="ARMOR" style="resizable=0;html=1;align=center;verticalAlign=top;labelBackgroundColor=none;direction=west;rounded=1;" parent="Jva7O8vbE3L5nxs0JY6R-32" connectable="0" vertex="1">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="-100" y="-40" as="offset" />
+            <mxPoint x="-100" y="-30" as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="Jva7O8vbE3L5nxs0JY6R-41" value="&lt;div&gt;WIZARD&lt;/div&gt;&lt;div&gt;WEAPON&lt;/div&gt;" style="html=1;align=center;verticalAlign=top;rounded=1;absoluteArcSize=1;arcSize=10;dashed=0;whiteSpace=wrap;labelBackgroundColor=none;" parent="1" vertex="1">
