@@ -2,7 +2,7 @@
 
 - Example Rust source code demonstrating the pattern "Typestate"
 
-![Pattern Typestate Examples](./media/pattern-typestate.png)
+![Pattern Typestate Examples](./media/pattern-typestate.drawio.png)
 
 ## Usage
 
