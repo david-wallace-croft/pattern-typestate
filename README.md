@@ -6,7 +6,7 @@
 
 ## Usage
 
-- cd project-name/
+- cd pattern-typestate/
 - cargo run
 
 ## Fluent Constructor Examples
