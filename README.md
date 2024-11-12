@@ -1,5 +1,11 @@
 # Pattern Typestate
 
+[![MIT licensed][mit-badge]][mit-url]
+
+[mit-badge]: https://img.shields.io/badge/license-MIT-blue.svg
+
+[mit-url]: https://github.com/david-wallace-croft/pattern-typestate/blob/main/LICENSE.txt
+
 - Example Rust source code demonstrating the pattern "Typestate"
 
 ![Pattern Typestate Examples](./media/pattern-typestate.drawio.png)
