@@ -1,13 +1,14 @@
 [package]
 authors = ["David Wallace Croft <david@CroftSoft.com"]
 description = "Example code demonstrating the pattern Typestate"
-edition = "2021"
+edition = "2024"
 homepage = "https://www.CroftSoft.com/"
 license = "MIT"
 name = "pattern-typestate"
 publish = false
 readme = "README.md"
 repository = "https://github.com/david-wallace-croft/pattern-typestate"
+rust-version = "1.85.0"
 version = "0.1.0"
 
 [dependencies]
